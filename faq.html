@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Neevstra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Override nav padding for FAQ page */
+        nav {
+            padding: 0.7rem 5%;
+        }
+        
+        /* Adjust logo size for compact nav */
+        .logo-img {
+            height: 45px;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:hover {
+            color: #555;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 10px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .category-button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .category-button:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .category-button.active {
+            background-color: #333;
+            color: white;
+        }
+        
+        .contact-cta {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .contact-cta h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-cta p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <h1 onclick="window.location.href='index.html'">Neevstra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="best-sellers.html">Best Sellers</a>
+            <a href="index.html#about">About Us</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        
+        <div class="faq-categories">
+            <button class="category-button active" data-category="all">All</button>
+            <button class="category-button" data-category="orders">Orders & Shipping</button>
+            <button class="category-button" data-category="products">Products</button>
+            <button class="category-button" data-category="returns">Returns & Exchanges</button>
+            <button class="category-button" data-category="sustainability">Sustainability</button>
+        </div>
+        
+        <div class="faq-list">
+            <!-- Orders & Shipping -->
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    How long does shipping take? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer two shipping options across India:</p>
+                    <ul>
+                        <li><strong>Standard Shipping:</strong> 3-5 business days (₹99)</li>
+                        <li><strong>Express Shipping:</strong> 1-2 business days (₹199)</li>
+                    </ul>
+                    <p>Orders above ₹2,999 qualify for free standard shipping. Shipping times may vary during peak seasons or for remote locations.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    Do you ship internationally? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, we only ship within India. We're working on expanding our shipping options to international destinations in the future. Sign up for our newsletter to be notified when international shipping becomes available.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    How can I track my order? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Once your order ships, you'll receive a tracking number via email. You can use this number to track your package on our website or directly through the courier's tracking portal. If you haven't received tracking information within 48 hours of your order confirmation, please contact our customer service team.</p>
+                </div>
+            </div>
+            
+            <!-- Products -->
+            <div class="faq-item" data-category="products">
+                <div class="faq-question">
+                    Are your products authentic vintage items? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, all our products are authentic vintage or pre-loved items. Each piece is carefully selected, cleaned, and when necessary, repaired to ensure it meets our quality standards. We provide detailed information about the era, condition, and any notable characteristics of each item in the product description.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="products">
+                <div class="faq-question">
+                    How do you determine sizing for vintage clothing? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Vintage sizing often differs from modern sizing standards. For each clothing item, we provide detailed measurements in the product description rather than relying solely on size labels. We recommend comparing these measurements to a similar item you already own for the best fit. If you're unsure about sizing, please contact us before purchasing.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="products">
+                <div class="faq-question">
+                    Do you offer gift wrapping? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer eco-friendly gift wrapping for an additional ₹99. Our gift wrapping uses recycled paper and natural jute twine. You can add this option during checkout and include a personalized message for the recipient.</p>
+                </div>
+            </div>
+            
+            <!-- Returns & Exchanges -->
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question">
+                    What is your return policy? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept returns within 7 days of delivery for items in their original condition with tags attached. Due to the unique nature of our products, we handle returns on a case-by-case basis. Please note that customized items and sale items marked as final sale are not eligible for return.</p>
+                    <p>To initiate a return, please contact our customer service team with your order number and reason for return.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question">
+                    Can I exchange an item for a different size? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Since our inventory consists of unique vintage items, direct exchanges for different sizes are not always possible. If you need a different size, we recommend returning the item (following our return policy) and placing a new order for the desired item. Our customer service team can help you find similar items in your preferred size.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question">
+                    How long does the refund process take? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Once we receive your returned item and verify its condition, we'll process your refund within 3-5 business days. The refund will be issued to the original payment method. Depending on your bank or payment provider, it may take an additional 5-10 business days for the refund to appear in your account.</p>
+                </div>
+            </div>
+            
+            <!-- Sustainability -->
+            <div class="faq-item" data-category="sustainability">
+                <div class="faq-question">
+                    How does buying vintage contribute to sustainability? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Buying vintage and pre-loved items is one of the most sustainable shopping choices you can make. By giving existing items a second life, you're:</p>
+                    <ul>
+                        <li>Reducing demand for new production and associated resource consumption</li>
+                        <li>Preventing usable items from ending up in landfills</li>
+                        <li>Decreasing your carbon footprint compared to buying new</li>
+                        <li>Supporting a circular economy model</li>
+                    </ul>
+                    <p>Each vintage item you purchase represents a step toward more sustainable consumption habits.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-category="sustainability">
+                <div class="faq-question">
+                    What sustainable practices does Neevstra follow? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Sustainability is at the core of our business model. Beyond selling pre-loved items, we implement sustainable practices throughout our operations:</p>
+                    <ul>
+                        <li>Using eco-friendly cleaning methods for our inventory</li>
+                        <li>Packaging orders in recycled and biodegradable materials</li>
+                        <li>Partnering with carbon-neutral shipping providers when possible</li>
+                        <li>Operating our physical store and warehouse with renewable energy</li>
+                        <li>Donating unsold items to local charities rather than discarding them</li>
+                    </ul>
+                    <p>We're constantly looking for ways to reduce our environmental impact and improve our sustainability practices.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-cta">
+            <h3>Didn't Find Your Answer?</h3>
+            <p>Our customer service team is here to help with any questions you may have.</p>
+            <a href="index.html#contact" class="btn">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Neevstra</h2>
+                <p>Sustainable Fashion. Timeless Style.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <a href="index.html#products">All Products</a>
+                    <a href="new-arrivals.html">New Arrivals</a>
+                    <a href="best-sellers.html">Best Sellers</a>
+                    <a href="#">Sale</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Sustainability</a>
+                    <a href="#">Our Process</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Shipping & Returns</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Neevstra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                // Toggle active class on the question
+                question.classList.toggle('active');
+                
+                // Toggle show class on the answer
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('show');
+            });
+        });
+        
+        // Category filtering
+        const categoryButtons = document.querySelectorAll('.category-button');
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get selected category
+                const category = button.getAttribute('data-category');
+                
+                // Show/hide FAQ items based on category
+                faqItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

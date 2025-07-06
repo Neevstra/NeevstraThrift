@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Neevstra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .product-detail-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-detail-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .product-detail-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .product-meta {
+            margin-bottom: 30px;
+        }
+        
+        .product-meta p {
+            margin: 8px 0;
+            color: #666;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-selector label {
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .add-to-cart {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #555;
+        }
+        
+        .product-tabs {
+            margin-top: 50px;
+            width: 100%;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
+        .tab-button.active {
+            opacity: 1;
+            border-bottom: 2px solid #333;
+        }
+        
+        .tab-content {
+            padding: 20px 0;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .similar-products {
+            margin-top: 60px;
+            width: 100%;
+        }
+        
+        .similar-products h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .similar-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <h1 onclick="window.location.href='index.html'">Neevstra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="best-sellers.html">Best Sellers</a>
+            <a href="index.html#about">About Us</a>
+            <a href="index.html#contact">Contact</a>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Cart Section -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-container" id="cart-container">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="empty-cart" id="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+            <a href="index.html#products" class="btn-small" id="start-shopping">Start Shopping</a>
+        </div>
+        <div class="cart-total" id="cart-total" style="display: none;">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Subtotal:</span>
+                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Shipping:</span>
+                <span class="cart-total-value">₹99.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
+            </div>
+            <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Product Detail Section -->
+    <div class="product-detail-container">
+        <div class="product-detail-image">
+            <img id="product-image" src="" alt="Product Image">
+        </div>
+        <div class="product-detail-info">
+            <h1 id="product-title" class="product-title"></h1>
+            <p id="product-description" class="product-description"></p>
+            <div id="product-price" class="product-price"></div>
+            
+            <div class="product-meta">
+                <p><strong>Availability:</strong> In Stock</p>
+                <p><strong>Condition:</strong> Excellent</p>
+                <p><strong>Material:</strong> <span id="product-material"></span></p>
+                <p><strong>Era:</strong> <span id="product-era"></span></p>
+            </div>
+            
+            <div class="quantity-selector">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1">
+            </div>
+            
+            <button class="add-to-cart" id="add-to-cart-btn">Add to Cart</button>
+        </div>
+        
+        <div class="product-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'details')">Details</button>
+                <button class="tab-button" onclick="openTab(event, 'sizing')">Sizing</button>
+                <button class="tab-button" onclick="openTab(event, 'care')">Care Instructions</button>
+                <button class="tab-button" onclick="openTab(event, 'shipping')">Shipping</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="details" class="tab-panel active">
+                    <p>Each item at Neevstra is unique and carefully selected for its quality and character. Our products have been pre-loved, which means they may show signs of gentle wear that add to their vintage charm.</p>
+                    <p>We thoroughly inspect, clean, and when necessary, repair each item to ensure it meets our high standards before it reaches you.</p>
+                </div>
+                
+                <div id="sizing" class="tab-panel">
+                    <p>Please refer to the measurements provided in the product description for the most accurate fit information.</p>
+                    <p>Vintage sizing often differs from modern sizing standards. If you're unsure about the fit, please contact us before purchasing.</p>
+                </div>
+                
+                <div id="care" class="tab-panel">
+                    <p>To preserve the quality and extend the life of your vintage item:</p>
+                    <ul>
+                        <li>Hand wash or dry clean as recommended for the specific material</li>
+                        <li>Store in a cool, dry place away from direct sunlight</li>
+                        <li>For clothing items, use padded hangers to maintain shape</li>
+                        <li>For accessories, store in dust bags when not in use</li>
+                    </ul>
+                </div>
+                
+                <div id="shipping" class="tab-panel">
+                    <p>We ship throughout India using trusted courier services.</p>
+                    <p><strong>Standard Shipping:</strong> 3-5 business days (₹99)</p>
+                    <p><strong>Express Shipping:</strong> 1-2 business days (₹199)</p>
+                    <p>Free shipping on orders above ₹2,999</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="similar-products">
+            <h2>You May Also Like</h2>
+            <div class="similar-products-grid" id="similar-products">
+                <!-- Similar products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Neevstra</h2>
+                <p>Sustainable Fashion. Timeless Style.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <a href="index.html#products">All Products</a>
+                    <a href="new-arrivals.html">New Arrivals</a>
+                    <a href="best-sellers.html">Best Sellers</a>
+                    <a href="#">Sale</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Sustainability</a>
+                    <a href="#">Our Process</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Shipping & Returns</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Neevstra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Vintage Denim Jacket",
+                description: "Classic 90s style with modern comfort. This vintage denim jacket features authentic distressing, a comfortable fit, and timeless style that pairs well with any outfit. Perfect for layering in any season.",
+                price: "₹3,499.00",
+                image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                material: "100% Cotton Denim",
+                era: "1990s"
+            },
+            {
+                id: 2,
+                name: "Retro Sunglasses",
+                description: "Timeless design with UV protection. These vintage-inspired sunglasses combine classic styling with modern UV protection technology. The durable frame and premium lenses ensure both style and functionality.",
+                price: "₹1,999.00",
+                image: "https://images.unsplash.com/photo-1560243563-062bfc001d68?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                material: "Acetate Frame, Glass Lenses",
+                era: "1970s Inspired"
+            },
+            {
+                id: 3,
+                name: "Leather Messenger Bag",
+                description: "Handcrafted vintage leather with modern functionality. This messenger bag features premium aged leather, multiple compartments including a padded laptop sleeve, and adjustable straps for comfort.",
+                price: "₹4,999.00",
+                image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                material: "Genuine Leather, Brass Hardware",
+                era: "Vintage Inspired"
+            },
+            {
+                id: 4,
+                name: "Floral Vintage Dress",
+                description: "70s inspired pattern with modern cut. This beautiful floral dress features a timeless pattern with an updated silhouette. The lightweight fabric is perfect for warm weather, while the versatile design can be dressed up or down.",
+                price: "₹2,799.00",
+                image: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                material: "Viscose Blend",
+                era: "1970s Inspired"
+            }
+        ];
+
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        
+        // Find the product
+        const product = products.find(p => p.id === productId) || products[0];
+        
+        // Populate product details
+        document.getElementById('product-image').src = product.image;
+        document.getElementById('product-image').alt = product.name;
+        document.getElementById('product-title').textContent = product.name;
+        document.getElementById('product-description').textContent = product.description;
+        document.getElementById('product-price').textContent = product.price;
+        document.getElementById('product-material').textContent = product.material;
+        document.getElementById('product-era').textContent = product.era;
+        
+        // Load similar products (excluding current product)
+        const similarProductsContainer = document.getElementById('similar-products');
+        const similarProducts = products.filter(p => p.id !== productId).slice(0, 3);
+        
+        similarProducts.forEach(prod => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <a href="product-detail.html?id=${prod.id}" class="product-link">
+                    <div class="product-image">
+                        <img src="${prod.image}" alt="${prod.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${prod.name}</h3>
+                        <p>${prod.description.substring(0, 50)}...</p>
+                        <span class="price">${prod.price}</span>
+                    </div>
+                </a>
+            `;
+            similarProductsContainer.appendChild(productCard);
+        });
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabPanels = document.getElementsByClassName('tab-panel');
+            for (let i = 0; i < tabPanels.length; i++) {
+                tabPanels[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show the selected tab content and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Add to cart functionality
+        document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            // Get cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === product.id.toString());
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: product.id.toString(),
+                    name: product.name,
+                    price: parseFloat(product.price.replace('₹', '').replace(',', '')),
+                    image: product.image,
+                    quantity: quantity
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Show success message
+            this.innerHTML = 'Added to Cart!';
+            this.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                this.innerHTML = 'Add to Cart';
+                this.style.backgroundColor = '';
+            }, 1500);
+        });
+        
+        // Initialize cart count
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Cart functionality
+            const cartIcon = document.getElementById('cart-icon');
+            const cartContainer = document.getElementById('cart-container');
+            const cartOverlay = document.getElementById('cart-overlay');
+            const closeCart = document.getElementById('close-cart');
+            
+            // Open cart
+            cartIcon.addEventListener('click', () => {
+                updateCart();
+                cartContainer.classList.add('active');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close cart
+            closeCart.addEventListener('click', () => {
+                cartContainer.classList.remove('active');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            cartOverlay.addEventListener('click', () => {
+                cartContainer.classList.remove('active');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Start shopping button
+            const startShopping = document.getElementById('start-shopping');
+            if (startShopping) {
+                startShopping.addEventListener('click', () => {
+                    cartContainer.classList.remove('active');
+                    cartOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+        
+        // Update cart UI
+        function updateCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartTotal = document.getElementById('cart-total');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotalAmount = document.getElementById('cart-total-amount');
+            
+            // Clear cart items
+            cartItems.innerHTML = '';
+            
+            // Check if cart is empty
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartTotal.style.display = 'none';
+                return;
+            }
+            
+            // Hide empty cart message, show total
+            emptyCart.style.display = 'none';
+            cartTotal.style.display = 'block';
+            
+            // Calculate subtotal
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
+            
+            // Calculate total (subtotal + shipping)
+            const total = subtotal + 99;
+            cartTotalAmount.textContent = `₹${total.toFixed(2)}`;
+            
+            // Add items to cart
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            <div class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Add event listeners for quantity buttons and remove buttons
+            document.querySelectorAll('.quantity-btn.decrease').forEach(button => {
+                button.addEventListener('click', () => {
+                    decreaseQuantity(button.dataset.id);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.increase').forEach(button => {
+                button.addEventListener('click', () => {
+                    increaseQuantity(button.dataset.id);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    removeItem(button.dataset.id);
+                });
+            });
+        }
+        
+        // Decrease quantity
+        function decreaseQuantity(id) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = cart.find(item => item.id === id);
+            
+            if (item.quantity > 1) {
+                item.quantity--;
+            } else {
+                removeItem(id);
+                return;
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Increase quantity
+        function increaseQuantity(id) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = cart.find(item => item.id === id);
+            item.quantity++;
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Remove item
+        function removeItem(id) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.id !== id);
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+    </script>
+</body>
+</html>

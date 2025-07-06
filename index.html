@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neevstra - Minimalist Thrift Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="NEEVSTRA.png" alt="Neevstra Logo" class="logo-img">
+            <h1 onclick="window.location.href='index.html'">Neevstra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="catalog.html">Products</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="best-sellers.html">Best Sellers</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Cart Section -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-container" id="cart-container">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="empty-cart" id="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+            <a href="#products" class="btn-small" id="start-shopping">Start Shopping</a>
+        </div>
+        <div class="cart-total" id="cart-total" style="display: none;">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Subtotal:</span>
+                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Shipping:</span>
+                <span class="cart-total-value">₹99.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
+            </div>
+            <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Neevstra</h1>
+            <p class="slide-in">Sustainable Fashion. Timeless Style.</p>
+            <a href="#products" class="btn pop-in">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <h2 class="section-title">Our Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Denim Jacket">
+                </div>
+                <div class="product-info">
+                    <h3>Vintage Denim Jacket</h3>
+                    <p>Classic 90s style with modern comfort</p>
+                    <span class="price">₹3,499.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=1" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Denim Jacket" data-price="3499" data-image="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1560243563-062bfc001d68?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Retro Sunglasses">
+                </div>
+                <div class="product-info">
+                    <h3>Retro Sunglasses</h3>
+                    <p>Timeless design with UV protection</p>
+                    <span class="price">₹1,999.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=2" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="2" data-name="Retro Sunglasses" data-price="1999" data-image="https://images.unsplash.com/photo-1560243563-062bfc001d68?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Leather Messenger Bag">
+                </div>
+                <div class="product-info">
+                    <h3>Leather Messenger Bag</h3>
+                    <p>Handcrafted vintage leather with modern functionality</p>
+                    <span class="price">₹4,999.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=3" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="3" data-name="Leather Messenger Bag" data-price="4999" data-image="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Dress">
+                </div>
+                <div class="product-info">
+                    <h3>Floral Vintage Dress</h3>
+                    <p>70s inspired pattern with modern cut</p>
+                    <span class="price">₹2,799.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=4" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="4" data-name="Floral Vintage Dress" data-price="2799" data-image="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <a href="catalog.html" class="btn">View All Products</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Neevstra Store">
+            </div>
+            <div class="about-text">
+                <h3>Our Story</h3>
+                <p>Neevstra was born from a passion for sustainable fashion and a desire to give pre-loved items a second life. Founded in 2025, our curated thrift store focuses on quality, uniqueness, and environmental responsibility.</p>
+                
+                <h3>Our Mission</h3>
+                <p>We believe in reducing waste and promoting conscious consumption. Each item in our collection is carefully selected for its quality, style, and character - giving you access to sustainable fashion without compromising on aesthetics.</p>
+                
+                <h3>Our Process</h3>
+                <p>Every item at Neevstra goes through a meticulous selection, cleaning, and quality check process. We ensure that each piece meets our standards of excellence before it reaches our shelves and eventually, your wardrobe.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>42 Sustainable Avenue, Hyderabad, Telangana 500032</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+91 9876543210</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>hello@neevstra.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Mon-Sat: 10am - 7pm<br>Sunday: 12pm - 5pm</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/neevstra/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Neevstra</h2>
+                <p>Sustainable Fashion. Timeless Style.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Shop</h3>
+                        <div class="footer-section-content">
+                            <a href="catalog.html">All Products</a>
+                            <a href="new-arrivals.html">New Arrivals</a>
+                            <a href="best-sellers.html">Best Sellers</a>
+                            <a href="#">Sale</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Information</h3>
+                        <div class="footer-section-content">
+                            <a href="#">About Us</a>
+                            <a href="#">Sustainability</a>
+                            <a href="#">Our Process</a>
+                            <a href="#">Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Customer Service</h3>
+                        <div class="footer-section-content">
+                            <a href="#">Contact Us</a>
+                            <a href="#">Shipping & Returns</a>
+                            <a href="faq.html">FAQ</a>
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Neevstra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

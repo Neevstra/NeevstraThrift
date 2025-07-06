@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Arrivals - Neevstra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <h1 onclick="window.location.href='index.html'">Neevstra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="new-arrivals.html" class="active">New Arrivals</a>
+            <a href="best-sellers.html">Best Sellers</a>
+            <a href="index.html#about">About Us</a>
+            <a href="index.html#contact">Contact</a>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Cart Section -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-container" id="cart-container">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="empty-cart" id="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+            <a href="index.html#products" class="btn-small" id="start-shopping">Start Shopping</a>
+        </div>
+        <div class="cart-total" id="cart-total" style="display: none;">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Subtotal:</span>
+                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Shipping:</span>
+                <span class="cart-total-value">₹99.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
+            </div>
+            <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- New Arrivals Section -->
+    <section class="products" style="padding-top: 120px;">
+        <h2 class="section-title">New Arrivals</h2>
+        <p class="section-description" style="text-align: center; margin-bottom: 40px;">Discover our latest additions to the collection. Fresh finds with vintage charm.</p>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Wool Coat">
+                </div>
+                <div class="product-info">
+                    <h3>Vintage Wool Coat</h3>
+                    <p>Premium wool blend with classic tailoring</p>
+                    <span class="price">₹5,999.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=5" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="5" data-name="Vintage Wool Coat" data-price="5999" data-image="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Handcrafted Leather Wallet">
+                </div>
+                <div class="product-info">
+                    <h3>Handcrafted Leather Wallet</h3>
+                    <p>Genuine leather with artisanal stitching</p>
+                    <span class="price">₹1,499.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=6" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="6" data-name="Handcrafted Leather Wallet" data-price="1499" data-image="https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Silk Scarf">
+                </div>
+                <div class="product-info">
+                    <h3>Vintage Silk Scarf</h3>
+                    <p>Pure silk with hand-rolled edges</p>
+                    <span class="price">₹1,299.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=7" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="7" data-name="Vintage Silk Scarf" data-price="1299" data-image="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Leather Boots">
+                </div>
+                <div class="product-info">
+                    <h3>Vintage Leather Boots</h3>
+                    <p>Handcrafted with premium leather</p>
+                    <span class="price">₹4,299.00</span>
+                    <div class="product-buttons">
+                        <a href="product-detail.html?id=8" class="btn-small">View Details</a>
+                        <button class="btn-small add-to-cart-btn" data-id="8" data-name="Vintage Leather Boots" data-price="4299" data-image="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Neevstra</h2>
+                <p>Sustainable Fashion. Timeless Style.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Shop</h3>
+                        <div class="footer-section-content">
+                            <a href="index.html#products">All Products</a>
+                            <a href="new-arrivals.html">New Arrivals</a>
+                            <a href="best-sellers.html">Best Sellers</a>
+                            <a href="#">Sale</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Information</h3>
+                        <div class="footer-section-content">
+                            <a href="index.html#about">About Us</a>
+                            <a href="#">Sustainability</a>
+                            <a href="#">Our Process</a>
+                            <a href="#">Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Customer Service</h3>
+                        <div class="footer-section-content">
+                            <a href="index.html#contact">Contact Us</a>
+                            <a href="#">Shipping & Returns</a>
+                            <a href="faq.html">FAQ</a>
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Neevstra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
