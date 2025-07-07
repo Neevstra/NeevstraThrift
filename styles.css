@@ -534,9 +534,10 @@ footer {
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid #555;
-    color: #aaa;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    color: #000000;
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* Animations */
