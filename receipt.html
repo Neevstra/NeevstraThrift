@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt - Neevstra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .receipt-container {
+            max-width: 800px;
+            margin: 120px auto 50px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .receipt-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .receipt-logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .receipt-logo h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+        
+        .receipt-order-info {
+            text-align: right;
+        }
+        
+        .receipt-order-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .receipt-order-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .receipt-customer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .receipt-section {
+            flex: 1;
+        }
+        
+        .receipt-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .receipt-section p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .receipt-items {
+            margin-bottom: 30px;
+        }
+        
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .receipt-table th {
+            text-align: left;
+            padding: 12px 15px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            font-weight: 500;
+        }
+        
+        .receipt-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .receipt-table .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .receipt-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+        
+        .receipt-totals {
+            width: 300px;
+        }
+        
+        .receipt-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .receipt-total-row.final {
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+        
+        .receipt-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .receipt-footer p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .receipt-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .receipt-actions button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            border: none;
+        }
+        
+        .print-btn:hover {
+            background-color: #c8bea2;
+        }
+        
+        .back-btn {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .back-btn:hover {
+            background-color: #eee;
+        }
+        
+        @media print {
+            .receipt-actions, .back-button {
+                display: none;
+            }
+            
+            .receipt-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 15px;
+            }
+            
+            body {
+                background-color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button" onclick="window.location.href='my-orders.html'">
+        <i class="fas fa-arrow-left"></i> Back to My Orders
+    </div>
+    
+    <div class="receipt-container" id="receipt">
+        <div class="receipt-header">
+            <div class="receipt-logo">
+                <img src="NEEVSTRA.png" alt="Neevstra Logo">
+                <h2>Neevstra</h2>
+            </div>
+            <div class="receipt-order-info">
+                <h3>Order Confirmation</h3>
+                <p id="order-id">Order #: <span></span></p>
+                <p id="order-date">Date: <span></span></p>
+            </div>
+        </div>
+        
+        <div class="receipt-customer">
+            <div class="receipt-section">
+                <h4>Billing Information</h4>
+                <p id="customer-name"></p>
+                <p id="customer-email"></p>
+                <p id="customer-phone"></p>
+            </div>
+            <div class="receipt-section">
+                <h4>Shipping Address</h4>
+                <p id="shipping-address"></p>
+                <p id="shipping-city"></p>
+                <p id="shipping-zip"></p>
+            </div>
+            <div class="receipt-section">
+                <h4>Payment Method</h4>
+                <p id="payment-method"></p>
+                <p id="payment-status">Status: <span class="status-success">Paid</span></p>
+            </div>
+        </div>
+        
+        <div class="receipt-items">
+            <h4>Order Items</h4>
+            <table class="receipt-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="receipt-items-body">
+                    <!-- Items will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="receipt-summary">
+            <div class="receipt-totals">
+                <div class="receipt-total-row">
+                    <span>Subtotal:</span>
+                    <span id="receipt-subtotal"></span>
+                </div>
+                <div class="receipt-total-row">
+                    <span>Shipping:</span>
+                    <span id="receipt-shipping">₹99.00</span>
+                </div>
+                <div class="receipt-total-row">
+                    <span>Tax:</span>
+                    <span id="receipt-tax"></span>
+                </div>
+                <div class="receipt-total-row final">
+                    <span>Total:</span>
+                    <span id="receipt-total"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="receipt-footer">
+            <p>Thank you for shopping with Neevstra!</p>
+            <p>For any questions regarding your order, please contact us at neevstra1o1@gmail.com</p>
+            <p>Hyderabad, Telangana 500010 | +91 9392042152</p>
+            
+            <div class="receipt-actions">
+                <button class="print-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Receipt
+                </button>
+                <button class="back-btn" onclick="window.location.href='my-orders.html'">
+                    Back to My Orders
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get order details from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderDetails = JSON.parse(localStorage.getItem('lastOrder'));
+            
+            if (!orderDetails) {
+                window.location.href = 'my-orders.html';
+                return;
+            }
+            
+            // Fill in order information
+            document.getElementById('order-id').querySelector('span').textContent = orderDetails.orderId;
+            document.getElementById('order-date').querySelector('span').textContent = orderDetails.date;
+            
+            // Fill in customer information
+            document.getElementById('customer-name').textContent = orderDetails.customer.name;
+            document.getElementById('customer-email').textContent = orderDetails.customer.email;
+            document.getElementById('customer-phone').textContent = orderDetails.customer.phone;
+            
+            // Fill in shipping information
+            document.getElementById('shipping-address').textContent = orderDetails.shipping.address;
+            document.getElementById('shipping-city').textContent = orderDetails.shipping.city;
+            document.getElementById('shipping-zip').textContent = orderDetails.shipping.zip;
+            
+            // Fill in payment information
+            document.getElementById('payment-method').textContent = orderDetails.payment.method;
+            
+            // Fill in order items
+            const itemsBody = document.getElementById('receipt-items-body');
+            orderDetails.items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${item.image}" alt="${item.name}" class="item-image"></td>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>₹${item.price.toFixed(2)}</td>
+                    <td>₹${(item.price * item.quantity).toFixed(2)}</td>
+                `;
+                itemsBody.appendChild(row);
+            });
+            
+            // Fill in totals
+            const subtotal = orderDetails.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.05; // 5% tax
+            const shipping = 99;
+            const total = subtotal + tax + shipping;
+            
+            document.getElementById('receipt-subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('receipt-tax').textContent = `₹${tax.toFixed(2)}`;
+            document.getElementById('receipt-total').textContent = `₹${total.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>

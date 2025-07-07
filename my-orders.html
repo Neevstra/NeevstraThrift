@@ -63,7 +63,7 @@
                 <span class="cart-total-label">Total:</span>
                 <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
             </div>
-            <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
+            <button id="buy-now-btn" class="checkout-btn">Buy Now</button>
         </div>
     </div>
 
@@ -75,71 +75,13 @@
         
         <h1 class="page-title">My Orders</h1>
         
-        <div class="orders-container">
-            <div class="order-card">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3>Order #NEV2025001</h3>
-                        <p class="order-date">Placed on: June 15, 2025</p>
-                    </div>
-                    <div class="order-status">
-                        <span class="status-delivered">Delivered</span>
-                    </div>
-                </div>
-                <div class="order-items">
-                    <div class="order-item">
-                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Denim Jacket">
-                        <div class="order-item-details">
-                            <h4>Vintage Denim Jacket</h4>
-                            <p class="order-item-price">₹3,499</p>
-                            <p class="order-item-quantity">Quantity: 1</p>
-                        </div>
-                    </div>
-                    <div class="order-item">
-                        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Floral Vintage Dress">
-                        <div class="order-item-details">
-                            <h4>Floral Vintage Dress</h4>
-                            <p class="order-item-price">₹2,799</p>
-                            <p class="order-item-quantity">Quantity: 1</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-total">
-                    <p>Total: <span>₹6,298</span> (including shipping)</p>
-                </div>
-                <div class="order-actions">
-                    <button class="btn-small">Track Order</button>
-                    <button class="btn-small">View Details</button>
-                </div>
-            </div>
-
-            <div class="order-card">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3>Order #NEV2025002</h3>
-                        <p class="order-date">Placed on: May 28, 2025</p>
-                    </div>
-                    <div class="order-status">
-                        <span class="status-shipped">Shipped</span>
-                    </div>
-                </div>
-                <div class="order-items">
-                    <div class="order-item">
-                        <img src="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Leather Boots">
-                        <div class="order-item-details">
-                            <h4>Vintage Leather Boots</h4>
-                            <p class="order-item-price">₹4,299</p>
-                            <p class="order-item-quantity">Quantity: 1</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-total">
-                    <p>Total: <span>₹4,398</span> (including shipping)</p>
-                </div>
-                <div class="order-actions">
-                    <button class="btn-small">Track Order</button>
-                    <button class="btn-small">View Details</button>
-                </div>
+        <div class="orders-container" id="orders-container">
+            <!-- Orders will be added here after successful purchase -->
+            <div class="empty-orders" id="empty-orders">
+                <i class="fas fa-shopping-bag"></i>
+                <h3>No orders yet</h3>
+                <p>Your order history will appear here after you make a purchase.</p>
+                <a href="index.html#products" class="btn-small">Start Shopping</a>
             </div>
         </div>
     </div>
@@ -198,5 +140,81 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Load orders from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const ordersContainer = document.getElementById('orders-container');
+            const emptyOrders = document.getElementById('empty-orders');
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            
+            // Check if there are any orders
+            if (orders.length === 0) {
+                emptyOrders.style.display = 'block';
+                return;
+            }
+            
+            // Hide empty orders message
+            emptyOrders.style.display = 'none';
+            
+            // Display orders
+            orders.forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+                
+                // Calculate total
+                const subtotal = order.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const tax = subtotal * 0.05; // 5% tax
+                const shipping = 99;
+                const total = subtotal + tax + shipping;
+                
+                // Create order card HTML
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3>Order #${order.orderId}</h3>
+                            <p class="order-date">Placed on: ${order.date}</p>
+                        </div>
+                        <div class="order-status">
+                            <span class="status-${order.status.toLowerCase()}">${order.status}</span>
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="order-item-details">
+                                    <h4>${item.name}</h4>
+                                    <p class="order-item-price">₹${item.price.toFixed(2)}</p>
+                                    <p class="order-item-quantity">Quantity: ${item.quantity}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">
+                        <p>Total: <span>₹${total.toFixed(2)}</span> (including shipping)</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn-small view-receipt-btn" data-order-id="${order.orderId}">View Receipt</button>
+                    </div>
+                `;
+                
+                ordersContainer.appendChild(orderCard);
+            });
+            
+            // Add event listeners to view receipt buttons
+            const viewReceiptButtons = document.querySelectorAll('.view-receipt-btn');
+            viewReceiptButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = this.getAttribute('data-order-id');
+                    const order = orders.find(o => o.orderId === orderId);
+                    
+                    if (order) {
+                        localStorage.setItem('lastOrder', JSON.stringify(order));
+                        window.location.href = 'receipt.html';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -64,6 +64,194 @@ if (goToCartBtn) {
     });
 }
 
+// Buy Now button
+const buyNowBtn = document.getElementById('buy-now-btn');
+if (buyNowBtn) {
+    buyNowBtn.addEventListener('click', () => {
+        // Check if cart is empty
+        if (cart.length === 0) {
+            alert('Your cart is empty. Please add items to your cart before checking out.');
+            return;
+        }
+        
+        // Show payment form modal
+        showPaymentModal();
+    });
+}
+
+// Function to show payment modal
+function showPaymentModal() {
+    // Create modal container
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    
+    modalContent.innerHTML = `
+        <div class="modal-header">
+            <h2>Complete Your Purchase</h2>
+            <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="payment-form">
+                <div class="form-section">
+                    <h3>Customer Information</h3>
+                    <div class="form-group">
+                        <label for="customer-name">Full Name</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">Email</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone</label>
+                        <input type="tel" id="customer-phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Shipping Information</h3>
+                    <div class="form-group">
+                        <label for="shipping-address">Address</label>
+                        <input type="text" id="shipping-address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-city">City, State</label>
+                        <input type="text" id="shipping-city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-zip">Postal Code</label>
+                        <input type="text" id="shipping-zip" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Payment Method</h3>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="payment-method" value="Credit Card" checked>
+                            Credit Card
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="payment-method" value="UPI">
+                            UPI
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="payment-method" value="Cash on Delivery">
+                            Cash on Delivery
+                        </label>
+                    </div>
+                    
+                    <p class="payment-note">Note: This is a demo. No actual payment will be processed.</p>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Complete Purchase</button>
+                </div>
+            </form>
+        </div>
+    `;
+    
+    modalOverlay.appendChild(modalContent);
+    document.body.appendChild(modalOverlay);
+    
+    // Close modal when clicking on X or outside the modal
+    const closeModal = modalContent.querySelector('.modal-close');
+    closeModal.addEventListener('click', () => {
+        document.body.removeChild(modalOverlay);
+    });
+    
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            document.body.removeChild(modalOverlay);
+        }
+    });
+    
+    // Handle form submission
+    const paymentForm = document.getElementById('payment-form');
+    paymentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Process the order
+        processOrder();
+        
+        // Remove modal
+        document.body.removeChild(modalOverlay);
+    });
+}
+
+// Function to process the order
+function processOrder() {
+    // Generate a unique order ID
+    const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    
+    // Get customer information
+    const customerName = document.getElementById('customer-name').value;
+    const customerEmail = document.getElementById('customer-email').value;
+    const customerPhone = document.getElementById('customer-phone').value;
+    
+    // Get shipping information
+    const shippingAddress = document.getElementById('shipping-address').value;
+    const shippingCity = document.getElementById('shipping-city').value;
+    const shippingZip = document.getElementById('shipping-zip').value;
+    
+    // Get payment method
+    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+    
+    // Create order object
+    const order = {
+        orderId: orderId,
+        date: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }),
+        customer: {
+            name: customerName,
+            email: customerEmail,
+            phone: customerPhone
+        },
+        shipping: {
+            address: shippingAddress,
+            city: shippingCity,
+            zip: shippingZip
+        },
+        payment: {
+            method: paymentMethod,
+            status: 'Paid'
+        },
+        items: [...cart],
+        status: 'Processing'
+    };
+    
+    // Save order to localStorage
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    // Save last order for receipt
+    localStorage.setItem('lastOrder', JSON.stringify(order));
+    
+    // Clear the cart
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+    
+    // Close the cart
+    cartContainer.classList.remove('active');
+    cartOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Redirect to receipt page
+    window.location.href = 'receipt.html';
+}
+
 // Add to cart
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart-btn')) {
