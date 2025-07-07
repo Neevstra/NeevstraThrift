@@ -944,31 +944,19 @@ nav.scrolled {
     color: var(--text-color);
 }
 
-.order-status span {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+.order-date-container {
+    display: flex;
+    align-items: center;
+}
+
+.order-time {
+    color: var(--light-text);
     font-size: 0.9rem;
+}
+
+.status-success {
+    color: #2e7d32;
     font-weight: 500;
-}
-
-.status-delivered {
-    background-color: #e6f7e6;
-    color: #2e7d32;
-}
-
-.status-shipped {
-    background-color: #e3f2fd;
-    color: #1565c0;
-}
-
-.status-processing {
-    background-color: #fff8e1;
-    color: #f57f17;
-}
-
-.status-paid {
-    background-color: #e8f5e9;
-    color: #2e7d32;
 }
 
 .order-items {
