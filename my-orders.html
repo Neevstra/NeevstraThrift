@@ -139,9 +139,6 @@
         <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
     </div>
 
-    <!-- Razorpay SDK -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    
     <script src="script.js"></script>
     <script>
         // Load orders from localStorage
@@ -177,8 +174,8 @@
                             <h3>Order #${order.orderId}</h3>
                             <p class="order-date">Placed on: ${order.date}</p>
                         </div>
-                        <div class="order-date-container">
-                            <p class="order-time">${new Date(order.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                        <div class="order-status">
+                            <span class="status-${order.status.toLowerCase()}">${order.status}</span>
                         </div>
                     </div>
                     <div class="order-items">

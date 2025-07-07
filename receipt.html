@@ -229,7 +229,6 @@
             <div class="receipt-section">
                 <h4>Payment Method</h4>
                 <p id="payment-method"></p>
-                <p id="payment-transaction" style="display: none;">Transaction ID: <span></span></p>
                 <p id="payment-status">Status: <span class="status-success">Paid</span></p>
             </div>
         </div>
@@ -315,13 +314,6 @@
             
             // Fill in payment information
             document.getElementById('payment-method').textContent = orderDetails.payment.method;
-            
-            // Show transaction ID if available
-            if (orderDetails.payment.transactionId) {
-                const transactionElement = document.getElementById('payment-transaction');
-                transactionElement.style.display = 'block';
-                transactionElement.querySelector('span').textContent = orderDetails.payment.transactionId;
-            }
             
             // Fill in order items
             const itemsBody = document.getElementById('receipt-items-body');

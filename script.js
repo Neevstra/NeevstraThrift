@@ -127,28 +127,28 @@ function showPaymentModal() {
                     </div>
                 </div>
                 
-                <div class="form-section payment-option">
+                <div class="form-section">
                     <h3>Payment Method</h3>
-                    <div class="form-group payment-option">
+                    <div class="form-group">
                         <label>
-                            <input type="radio" name="payment-method" value="Razorpay" checked>
-                            <i class="fas fa-credit-card payment-icon"></i>
-                            <img src="https://razorpay.com/assets/razorpay-logo.svg" alt="Razorpay" class="payment-logo payment-option">
-                            <i class="fas fa-mobile-alt payment-icon"></i>
-                            Pay with Razorpay (Credit/Debit Card, UPI, Netbanking, Wallets)
+                            <input type="radio" name="payment-method" value="Credit Card" checked>
+                            Credit Card
                         </label>
                     </div>
-                    <div class="form-group payment-option">
-                        <la payment-optionbel>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="payment-method" value="UPI">
+                            UPI
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
                             <input type="radio" name="payment-method" value="Cash on Delivery">
-                            <i class="fas fa-money-bill-wave payment-icon"></i>
-                            <i class="fas fa-money-bill-wave payment-icon"></i>
                             Cash on Delivery
                         </label>
                     </div>
                     
-                    <div class="demo-payment-note">Secure payments powered by Razorpay</p>
-                    </div>
+                    <p class="payment-note">Note: This is a demo. No actual payment will be processed.</p>
                 </div>
                 
                 <div class="form-actions">
@@ -188,12 +188,6 @@ function showPaymentModal() {
 
 // Function to process the order
 function processOrder() {
-    // Close the modal if it's open
-    const modalOverlay = document.querySelector('.modal-overlay');
-    if (modalOverlay) {
-        document.body.removeChild(modalOverlay);
-    }
-    
     // Generate a unique order ID
     const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
     
@@ -209,12 +203,6 @@ function processOrder() {
     
     // Get payment method
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
-    
-    // Calculate order total
-    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.05; // 5% tax
-    const shipping = 99;
-    const total = subtotal + tax + shipping;
     
     // Create order object
     const order = {
@@ -236,91 +224,12 @@ function processOrder() {
         },
         payment: {
             method: paymentMethod,
-            status: 'Pending'
+            status: 'Paid'
         },
         items: [...cart],
-        status: 'Processing',
-        amount: total
+        status: 'Processing'
     };
     
-    // Store order temporarily
-    localStorage.setItem('pendingOrder', JSON.stringify(order));
-    
-    // Process based on payment method
-    if (paymentMethod === 'Razorpay') {
-        initiateRazorpayPayment(order);
-    } else {
-        // For Cash on Delivery, complete the order directly
-        completeOrder(order);
-    }
-}
-
-// Function to initiate Razorpay payment
-function initiateRazorpayPayment(order) {
-    // Close the modal if it's open
-    const modalOverlay = document.querySelector('.modal-overlay');
-    if (modalOverlay) {
-        document.body.removeChild(modalOverlay);
-    }
-    
-    // Convert amount to paise (Razorpay requires amount in smallest currency unit)
-    const amountInPaise = Math.round(order.amount * 100);
-    
-    // Razorpay options
-    const options = {
-        key: "rzp_test_YOUR_KEY_ID", // Replace with your actual Razorpay key when ready
-        amount: amountInPaise,
-        currency: "INR",
-        name: "Neevstra",
-        description: "Purchase from Neevstra",
-        image: "NEEVSTRA.png",
-        order_id: "", // This would come from your backend in a real implementation
-        handler: function(response) {
-            // This function runs when payment is successful
-            // response contains: razorpay_payment_id, razorpay_order_id, razorpay_signature
-            
-            // Update order with payment details
-            order.payment.transactionId = response.razorpay_payment_id;
-            order.payment.status = 'Paid';
-            
-            // Complete the order
-            completeOrder(order);
-        },
-        prefill: {
-            name: order.customer.name,
-            email: order.customer.email,
-            contact: order.customer.phone
-        },
-        notes: {
-            order_id: order.orderId,
-            shipping_address: order.shipping.address
-        },
-        theme: {
-            color: "#D4C2A8" // Match your primary color
-        },
-        modal: {
-            ondismiss: function() {
-                // Handle payment cancellation
-                alert("Payment cancelled. Your order has not been placed.");
-                
-                // Remove pending order
-                localStorage.removeItem('pendingOrder');
-            }
-        }
-    };
-    
-    // Initialize Razorpay
-    try {
-        const rzp = new Razorpay(options);
-        rzp.open();
-    } catch (error) {
-        console.error("Razorpay initialization failed:", error);
-        alert("Payment gateway error. Please try again later.");
-    }
-}
-
-// Function to complete the order after payment
-function completeOrder(order) {
     // Save order to localStorage
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
     orders.push(order);
@@ -334,15 +243,10 @@ function completeOrder(order) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
     
-    // Remove pending order
-    localStorage.removeItem('pendingOrder');
-    
-    // Close the cart if it's open
-    if (cartContainer.classList.contains('active')) {
-        cartContainer.classList.remove('active');
-        cartOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    // Close the cart
+    cartContainer.classList.remove('active');
+    cartOverlay.classList.remove('active');
+    document.body.style.overflow = '';
     
     // Redirect to receipt page
     window.location.href = 'receipt.html';
@@ -401,27 +305,6 @@ function addToCart(id, name, price, image) {
         setTimeout(() => {
             goToCartNotification.classList.remove('show');
         }, 5000);
-    }
-}
-
-// Check for pending orders
-function checkPendingOrders() {
-    const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder'));
-    
-    if (pendingOrder) {
-        // Ask user if they want to complete their pending order
-        if (confirm('You have an incomplete order. Would you like to continue with your payment?')) {
-            // If it was a Razorpay order, reinitiate payment
-            if (pendingOrder.payment.method === 'Razorpay') {
-                initiateRazorpayPayment(pendingOrder);
-            } else {
-                // For other payment methods, just complete the order
-                completeOrder(pendingOrder);
-            }
-        } else {
-            // User doesn't want to complete the order, remove it
-            localStorage.removeItem('pendingOrder');
-        }
     }
 }
 
@@ -573,9 +456,6 @@ const observer = new IntersectionObserver((entries, observer) => {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize cart
     updateCart();
-    
-    // Check for pending orders
-    checkPendingOrders();
     
     // Product cards animation
     document.querySelectorAll('.product-card').forEach((card, index) => {
