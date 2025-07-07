@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Neevstra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="NEEVSTRA.png" alt="Neevstra Logo" class="logo-img">
+            <h1 onclick="window.location.href='index.html'">Neevstra</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Products</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="best-sellers.html">Best Sellers</a>
+            <a href="my-orders.html" class="active">My Orders</a>
+            <a href="about-us.html">About Us</a>
+            <a href="contact-us.html">Contact</a>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Cart Section -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-container" id="cart-container">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="empty-cart" id="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+            <a href="#products" class="btn-small" id="start-shopping">Start Shopping</a>
+        </div>
+        <div class="cart-total" id="cart-total" style="display: none;">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Subtotal:</span>
+                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Shipping:</span>
+                <span class="cart-total-value">₹99.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
+            </div>
+            <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- My Orders Section -->
+    <div class="page-container">
+        <div class="back-button" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Back
+        </div>
+        
+        <h1 class="page-title">My Orders</h1>
+        
+        <div class="orders-container">
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="order-info">
+                        <h3>Order #NEV2025001</h3>
+                        <p class="order-date">Placed on: June 15, 2025</p>
+                    </div>
+                    <div class="order-status">
+                        <span class="status-delivered">Delivered</span>
+                    </div>
+                </div>
+                <div class="order-items">
+                    <div class="order-item">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Denim Jacket">
+                        <div class="order-item-details">
+                            <h4>Vintage Denim Jacket</h4>
+                            <p class="order-item-price">₹3,499</p>
+                            <p class="order-item-quantity">Quantity: 1</p>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Floral Vintage Dress">
+                        <div class="order-item-details">
+                            <h4>Floral Vintage Dress</h4>
+                            <p class="order-item-price">₹2,799</p>
+                            <p class="order-item-quantity">Quantity: 1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <p>Total: <span>₹6,298</span> (including shipping)</p>
+                </div>
+                <div class="order-actions">
+                    <button class="btn-small">Track Order</button>
+                    <button class="btn-small">View Details</button>
+                </div>
+            </div>
+
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="order-info">
+                        <h3>Order #NEV2025002</h3>
+                        <p class="order-date">Placed on: May 28, 2025</p>
+                    </div>
+                    <div class="order-status">
+                        <span class="status-shipped">Shipped</span>
+                    </div>
+                </div>
+                <div class="order-items">
+                    <div class="order-item">
+                        <img src="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Leather Boots">
+                        <div class="order-item-details">
+                            <h4>Vintage Leather Boots</h4>
+                            <p class="order-item-price">₹4,299</p>
+                            <p class="order-item-quantity">Quantity: 1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <p>Total: <span>₹4,398</span> (including shipping)</p>
+                </div>
+                <div class="order-actions">
+                    <button class="btn-small">Track Order</button>
+                    <button class="btn-small">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="NEEVSTRA.png" alt="Neevstra Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Shop</h3>
+                        <div class="footer-section-content">
+                            <a href="catalog.html">All Products</a>
+                            <a href="new-arrivals.html">New Arrivals</a>
+                            <a href="best-sellers.html">Best Sellers</a>
+                            <a href="#">Sale</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Information</h3>
+                        <div class="footer-section-content">
+                            <a href="about-us.html">About Us</a>
+                            <a href="sustainability.html">Sustainability</a>
+                            <a href="#">Our Process</a>
+                            <a href="#">Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-section">
+                        <h3>Customer Service</h3>
+                        <div class="footer-section-content">
+                            <a href="contact-us.html">Contact Us</a>
+                            <a href="shipping-returns.html">Shipping & Returns</a>
+                            <a href="faq.html">FAQ</a>
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Neevstra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Container -->
+    <div id="go-to-cart-notification" class="go-to-cart-notification">
+        <p>Item added to cart!</p>
+        <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
