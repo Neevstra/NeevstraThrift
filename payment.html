@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Add Razorpay script when ready to integrate -->
+    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
     <style>
         .checkout-container {
             max-width: 1200px;
@@ -125,6 +128,36 @@
         
         .payment-method p {
             font-weight: 500;
+        }
+        
+        .payment-info {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .payment-icons i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .payment-note {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+        
+        .razorpay-container {
+            margin-top: 20px;
         }
         
         .order-summary {
@@ -359,44 +392,17 @@
                 </div>
                 
                 <div class="form-section">
-                    <h2>Payment Method</h2>
-                    <div class="payment-methods">
-                        <div class="payment-method active" data-method="card">
+                    <h2>Payment Information</h2>
+                    <div class="payment-info">
+                        <p>You will be redirected to our secure payment gateway to complete your purchase.</p>
+                        <div class="payment-icons">
                             <i class="fas fa-credit-card"></i>
-                            <p>Credit Card</p>
-                        </div>
-                        <div class="payment-method" data-method="paypal">
-                            <i class="fab fa-paypal"></i>
-                            <p>PayPal</p>
-                        </div>
-                        <div class="payment-method" data-method="upi">
                             <i class="fas fa-mobile-alt"></i>
-                            <p>UPI</p>
+                            <i class="fas fa-wallet"></i>
                         </div>
-                        <div class="payment-method" data-method="cod">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <p>Cash on Delivery</p>
-                        </div>
-                    </div>
-                    
-                    <div id="card-payment-form">
-                        <div class="form-group">
-                            <label for="card-name">Name on Card</label>
-                            <input type="text" id="card-name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="card-number">Card Number</label>
-                            <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="expiry">Expiry Date</label>
-                                <input type="text" id="expiry" placeholder="MM/YY" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" placeholder="XXX" required>
-                            </div>
+                        <p class="payment-note">We accept credit/debit cards, UPI, and other payment methods through our secure payment gateway.</p>
+                        <div class="razorpay-container" id="razorpay-container">
+                            <!-- Razorpay integration will be added here -->
                         </div>
                     </div>
                 </div>
@@ -516,27 +522,6 @@
                 window.location.href = 'index.html#products';
             }
             
-            // Payment method selection
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            const cardPaymentForm = document.getElementById('card-payment-form');
-            
-            paymentMethods.forEach(method => {
-                method.addEventListener('click', function() {
-                    // Remove active class from all methods
-                    paymentMethods.forEach(m => m.classList.remove('active'));
-                    
-                    // Add active class to clicked method
-                    this.classList.add('active');
-                    
-                    // Show/hide card payment form based on selected method
-                    if (this.dataset.method === 'card') {
-                        cardPaymentForm.style.display = 'block';
-                    } else {
-                        cardPaymentForm.style.display = 'none';
-                    }
-                });
-            });
-            
             // Place order button
             const placeOrderBtn = document.getElementById('place-order-btn');
             
@@ -553,33 +538,121 @@
                     return;
                 }
                 
-                // Get selected payment method
-                const selectedMethod = document.querySelector('.payment-method.active').dataset.method;
+                // Calculate order amount
+                const subtotal = parseFloat(document.getElementById('order-subtotal').textContent.replace('₹', ''));
+                const tax = parseFloat(document.getElementById('order-tax').textContent.replace('₹', ''));
+                const total = parseFloat(document.getElementById('order-total').textContent.replace('₹', ''));
                 
-                // If card payment, validate card details
-                if (selectedMethod === 'card') {
-                    const cardName = document.getElementById('card-name').value;
-                    const cardNumber = document.getElementById('card-number').value;
-                    const expiry = document.getElementById('expiry').value;
-                    const cvv = document.getElementById('cvv').value;
+                // Prepare customer data for Razorpay
+                const customerData = {
+                    name: firstName + ' ' + lastName,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    zip: document.getElementById('zip').value,
+                    country: document.getElementById('country').value
+                };
+                
+                // This is where you would integrate Razorpay
+                // For now, we'll simulate the payment process
+                initiateRazorpayPayment(total, customerData);
+                
+                // This function will be replaced with actual Razorpay integration
+                function initiateRazorpayPayment(amount, customerData) {
+                    // For demo purposes, we'll simulate a successful payment
+                    console.log('Initiating Razorpay payment for amount:', amount);
+                    console.log('Customer data:', customerData);
                     
-                    if (!cardName || !cardNumber || !expiry || !cvv) {
-                        alert('Please fill in all card details.');
-                        return;
-                    }
+                    // In a real implementation, you would:
+                    // 1. Create an order on your server
+                    // 2. Initialize Razorpay with your key
+                    // 3. Open the Razorpay payment form
+                    
+                    /* 
+                    // Example Razorpay integration (commented out until you have your API key)
+                    var options = {
+                        key: "YOUR_RAZORPAY_KEY",
+                        amount: amount * 100, // Razorpay expects amount in paise
+                        name: "Neevstra",
+                        description: "Purchase from Neevstra Thrift Store",
+                        image: "NEEVSTRA.png",
+                        handler: function (response) {
+                            // Payment successful
+                            onPaymentSuccess(response);
+                        },
+                        prefill: {
+                            name: customerData.name,
+                            email: customerData.email,
+                            contact: customerData.phone
+                        },
+                        theme: {
+                            color: "#d3caab"
+                        }
+                    };
+                    
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                    */
+                    
+                    // For now, we'll simulate a successful payment after a short delay
+                    alert('Redirecting to payment gateway...');
+                    setTimeout(function() {
+                        onPaymentSuccess({
+                            razorpay_payment_id: 'pay_' + Math.random().toString(36).substr(2, 9)
+                        });
+                    }, 1000);
                 }
                 
-                // In a real application, you would send the order data to a server
-                // and redirect to a payment gateway
-                
-                // Show success message
-                alert('Thank you for your order! Your payment has been processed successfully.');
-                
-                // Clear cart
-                localStorage.removeItem('cart');
-                
-                // Redirect to home page
-                window.location.href = 'index.html';
+                // Function to handle successful payment
+                function onPaymentSuccess(response) {
+                    // Generate a unique order ID
+                    const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+                    
+                    // Create order object
+                    const order = {
+                        orderId: orderId,
+                        paymentId: response.razorpay_payment_id || 'demo_payment',
+                        date: new Date().toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }),
+                        customer: {
+                            name: firstName + ' ' + lastName,
+                            email: email,
+                            phone: phone
+                        },
+                        shipping: {
+                            address: address,
+                            city: document.getElementById('city').value,
+                            state: document.getElementById('state').value,
+                            zip: document.getElementById('zip').value,
+                            country: document.getElementById('country').value
+                        },
+                        payment: {
+                            method: 'Razorpay',
+                            status: 'Paid'
+                        },
+                        items: cart,
+                        status: 'Processing'
+                    };
+                    
+                    // Save order to localStorage
+                    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                    orders.push(order);
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    
+                    // Save last order for receipt
+                    localStorage.setItem('lastOrder', JSON.stringify(order));
+                    
+                    // Clear cart
+                    localStorage.setItem('cart', JSON.stringify([]));
+                    
+                    // Redirect to receipt page
+                    window.location.href = 'receipt.html';
+                }
             });
         });
     </script>
