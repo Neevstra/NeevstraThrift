@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Add Razorpay script when ready to integrate -->
-    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
         .checkout-container {
             max-width: 1200px;
@@ -258,6 +258,42 @@
             background-color: #d39c8c;
         }
         
+        .place-order-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .payment-error {
+            background-color: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .payment-loading {
+            background-color: #e8f4fd;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: none;
+            text-align: center;
+        }
+        
+        .payment-loading i {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 992px) {
             .checkout-content {
                 grid-template-columns: 1fr;
@@ -284,9 +320,9 @@
         </div>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="index.html#products">Products</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="best-sellers.html">Best Sellers</a>
+            <a href="products.html?section=catalog">Products</a>
+            <a href="products.html?section=new-arrivals">New Arrivals</a>
+            <a href="products.html?section=best-sellers">Best Sellers</a>
             <a href="index.html#about">About Us</a>
             <a href="index.html#contact">Contact</a>
             <div class="cart-icon" id="cart-icon">
@@ -317,14 +353,6 @@
             <a href="index.html#products" class="btn-small" id="start-shopping">Start Shopping</a>
         </div>
         <div class="cart-total" id="cart-total" style="display: none;">
-            <div class="cart-total-row">
-                <span class="cart-total-label">Subtotal:</span>
-                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
-            </div>
-            <div class="cart-total-row">
-                <span class="cart-total-label">Shipping:</span>
-                <span class="cart-total-value">₹99.00</span>
-            </div>
             <div class="cart-total-row">
                 <span class="cart-total-label">Total:</span>
                 <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
@@ -404,6 +432,17 @@
                         <div class="razorpay-container" id="razorpay-container">
                             <!-- Razorpay integration will be added here -->
                         </div>
+                        
+                        <!-- Payment status messages -->
+                        <div class="payment-loading" id="payment-loading">
+                            <i class="fas fa-spinner"></i>
+                            Processing your payment...
+                        </div>
+                        
+                        <div class="payment-error" id="payment-error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="error-message"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -414,18 +453,6 @@
                     <!-- Order items will be dynamically added here -->
                 </div>
                 <div class="order-total">
-                    <div class="order-row">
-                        <span>Subtotal</span>
-                        <span id="order-subtotal">₹0.00</span>
-                    </div>
-                    <div class="order-row">
-                        <span>Shipping</span>
-                        <span>₹99.00</span>
-                    </div>
-                    <div class="order-row">
-                        <span>Tax</span>
-                        <span id="order-tax">₹0.00</span>
-                    </div>
                     <div class="order-row total">
                         <span>Total</span>
                         <span id="order-total">₹0.00</span>
@@ -478,9 +505,10 @@
             // Load cart items from localStorage
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const orderItems = document.getElementById('order-items');
-            const orderSubtotal = document.getElementById('order-subtotal');
-            const orderTax = document.getElementById('order-tax');
             const orderTotal = document.getElementById('order-total');
+            
+            // Backup cart items for payment processing
+            localStorage.setItem('checkoutCart', JSON.stringify(cart));
             
             // Display order items
             if (cart.length > 0) {
@@ -489,7 +517,8 @@
                 let subtotal = 0;
                 
                 cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
+                    const itemPrice = parseFloat(item.price) || 0;
+                    const itemTotal = itemPrice * item.quantity;
                     subtotal += itemTotal;
                     
                     const orderItem = document.createElement('div');
@@ -500,33 +529,28 @@
                         </div>
                         <div class="order-item-details">
                             <div class="order-item-title">${item.name}</div>
-                            <div class="order-item-price">₹${item.price.toFixed(2)}</div>
+                            <div class="order-item-price">₹${itemPrice.toFixed(2)}</div>
                             <div class="order-item-quantity">Quantity: ${item.quantity}</div>
                         </div>
                     `;
                     orderItems.appendChild(orderItem);
                 });
                 
-                // Calculate tax (5% of subtotal)
-                const tax = subtotal * 0.05;
-                
-                // Calculate total
-                const total = subtotal + 99 + tax;
+                // Calculate total (no tax or shipping charges)
+                const total = subtotal;
                 
                 // Update order summary
-                orderSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
-                orderTax.textContent = `₹${tax.toFixed(2)}`;
                 orderTotal.textContent = `₹${total.toFixed(2)}`;
             } else {
                 // Redirect to products if cart is empty
                 window.location.href = 'index.html#products';
             }
             
-            // Place order button
+            // Place order button - Simple Razorpay Integration
             const placeOrderBtn = document.getElementById('place-order-btn');
             
             placeOrderBtn.addEventListener('click', function() {
-                // Simple validation
+                // Validate form fields
                 const firstName = document.getElementById('first-name').value;
                 const lastName = document.getElementById('last-name').value;
                 const email = document.getElementById('email').value;
@@ -538,12 +562,15 @@
                     return;
                 }
                 
-                // Calculate order amount
-                const subtotal = parseFloat(document.getElementById('order-subtotal').textContent.replace('₹', ''));
-                const tax = parseFloat(document.getElementById('order-tax').textContent.replace('₹', ''));
-                const total = parseFloat(document.getElementById('order-total').textContent.replace('₹', ''));
+                // Get total amount
+                const totalAmount = parseFloat(document.getElementById('order-total').textContent.replace('₹', ''));
                 
-                // Prepare customer data for Razorpay
+                if (totalAmount <= 0) {
+                    alert('Cart total is ₹0. Please add items to cart before checkout.');
+                    return;
+                }
+                
+                // Customer data
                 const customerData = {
                     name: firstName + ' ' + lastName,
                     email: email,
@@ -555,105 +582,116 @@
                     country: document.getElementById('country').value
                 };
                 
-                // This is where you would integrate Razorpay
-                // For now, we'll simulate the payment process
-                initiateRazorpayPayment(total, customerData);
+                // Generate order ID
+                const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
                 
-                // This function will be replaced with actual Razorpay integration
-                function initiateRazorpayPayment(amount, customerData) {
-                    // For demo purposes, we'll simulate a successful payment
-                    console.log('Initiating Razorpay payment for amount:', amount);
-                    console.log('Customer data:', customerData);
-                    
-                    // In a real implementation, you would:
-                    // 1. Create an order on your server
-                    // 2. Initialize Razorpay with your key
-                    // 3. Open the Razorpay payment form
-                    
-                    /* 
-                    // Example Razorpay integration (commented out until you have your API key)
-                    var options = {
-                        key: "YOUR_RAZORPAY_KEY",
-                        amount: amount * 100, // Razorpay expects amount in paise
-                        name: "Neevstra",
-                        description: "Purchase from Neevstra Thrift Store",
-                        image: "NEEVSTRA.png",
-                        handler: function (response) {
-                            // Payment successful
-                            onPaymentSuccess(response);
-                        },
-                        prefill: {
-                            name: customerData.name,
-                            email: customerData.email,
-                            contact: customerData.phone
-                        },
-                        theme: {
-                            color: "#d3caab"
+                // Razorpay options
+                var options = {
+                    "key": "rzp_test_AMVCLeABcskTnF", // Your Razorpay test key
+                    "amount": Math.round(totalAmount * 100), // Amount in paise
+                    "currency": "INR",
+                    "name": "Neevstra",
+                    "description": "Purchase from Neevstra Thrift Store",
+                    "image": "https://your-domain.com/logo.png", // Optional: Add your logo
+                    "handler": function (response) {
+                        // Payment successful - generate receipt
+                        onPaymentSuccess(response, customerData, orderId, totalAmount);
+                    },
+                    "prefill": {
+                        "name": customerData.name,
+                        "email": customerData.email,
+                        "contact": customerData.phone
+                    },
+                    "notes": {
+                        "address": customerData.address,
+                        "order_id": orderId
+                    },
+                    "theme": {
+                        "color": "#d3caab"
+                    },
+                    "modal": {
+                        "ondismiss": function() {
+                            // Payment cancelled - stay on page
+                            console.log('Payment cancelled by user');
                         }
-                    };
-                    
-                    var rzp = new Razorpay(options);
-                    rzp.open();
-                    */
-                    
-                    // For now, we'll simulate a successful payment after a short delay
-                    alert('Redirecting to payment gateway...');
-                    setTimeout(function() {
-                        onPaymentSuccess({
-                            razorpay_payment_id: 'pay_' + Math.random().toString(36).substr(2, 9)
-                        });
-                    }, 1000);
+                    }
+                };
+                
+                var rzp = new Razorpay(options);
+                
+                // Handle payment failure
+                rzp.on('payment.failed', function (response) {
+                    onPaymentFailure(response.error);
+                });
+                
+                // Open Razorpay checkout
+                rzp.open();
+            });
+            
+            // Function to handle successful payment
+            function onPaymentSuccess(response, customerData, orderId, totalAmount) {
+                // Get cart items before clearing
+                let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // If cart is empty, try to get items from backup
+                if (cartItems.length === 0) {
+                    cartItems = JSON.parse(localStorage.getItem('checkoutCart')) || [];
                 }
                 
-                // Function to handle successful payment
-                function onPaymentSuccess(response) {
-                    // Generate a unique order ID
-                    const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-                    
-                    // Create order object
-                    const order = {
-                        orderId: orderId,
-                        paymentId: response.razorpay_payment_id || 'demo_payment',
-                        date: new Date().toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        }),
-                        customer: {
-                            name: firstName + ' ' + lastName,
-                            email: email,
-                            phone: phone
-                        },
-                        shipping: {
-                            address: address,
-                            city: document.getElementById('city').value,
-                            state: document.getElementById('state').value,
-                            zip: document.getElementById('zip').value,
-                            country: document.getElementById('country').value
-                        },
-                        payment: {
-                            method: 'Razorpay',
-                            status: 'Paid'
-                        },
-                        items: cart,
-                        status: 'Processing'
-                    };
-                    
-                    // Save order to localStorage
-                    let orders = JSON.parse(localStorage.getItem('orders')) || [];
-                    orders.push(order);
-                    localStorage.setItem('orders', JSON.stringify(orders));
-                    
-                    // Save last order for receipt
-                    localStorage.setItem('lastOrder', JSON.stringify(order));
-                    
-                    // Clear cart
-                    localStorage.setItem('cart', JSON.stringify([]));
-                    
-                    // Redirect to receipt page
-                    window.location.href = 'receipt.html';
-                }
-            });
+                // Create order object
+                const order = {
+                    orderId: orderId,
+                    paymentId: response.razorpay_payment_id,
+                    date: new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }),
+                    customer: customerData,
+                    payment: {
+                        method: 'Razorpay',
+                        status: 'Paid',
+                        amount: totalAmount,
+                        transactionId: response.razorpay_payment_id
+                    },
+                    items: cartItems,
+                    status: 'Processing'
+                };
+                
+                // Save order to localStorage
+                let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // Save last order for receipt
+                localStorage.setItem('lastOrder', JSON.stringify(order));
+                
+                // Clear cart and backup after saving order
+                localStorage.setItem('cart', JSON.stringify([]));
+                localStorage.removeItem('checkoutCart');
+                
+                // Redirect to receipt page
+                window.location.href = 'receipt.html';
+            }
+            
+            // Function to handle payment failure
+            function onPaymentFailure(error) {
+                console.error('Payment failed:', error);
+                
+                // Show error message
+                const errorDiv = document.getElementById('payment-error');
+                const errorMessageSpan = document.getElementById('error-message');
+                
+                errorMessageSpan.textContent = `Payment failed: ${error.description}. Please try again.`;
+                errorDiv.style.display = 'block';
+                
+                // Scroll to error message
+                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Don't clear cart - user can retry
+                // Don't create order - payment failed
+                // Don't redirect - stay on checkout page
+            }
         });
     </script>
 </body>

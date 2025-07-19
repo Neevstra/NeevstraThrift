@@ -17,9 +17,9 @@
         </div>
         <div class="nav-links">
             <a href="#home" class="active">Home</a>
-            <a href="catalog.html">Products</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="best-sellers.html">Best Sellers</a>
+            <a href="products.html?section=catalog">Products</a>
+            <a href="products.html?section=new-arrivals">New Arrivals</a>
+            <a href="products.html?section=best-sellers">Best Sellers</a>
             <a href="my-orders.html">My Orders</a>
             <a href="#about">About Us</a>
             <a href="#contact">Contact</a>
@@ -48,17 +48,9 @@
         <div class="empty-cart" id="empty-cart">
             <i class="fas fa-shopping-cart"></i>
             <p>Your cart is empty</p>
-            <a href="#products" class="btn-small" id="start-shopping">Start Shopping</a>
+            <a href="products.html?section=catalog" class="btn-small" id="start-shopping">Start Shopping</a>
         </div>
         <div class="cart-total" id="cart-total" style="display: none;">
-            <div class="cart-total-row">
-                <span class="cart-total-label">Subtotal:</span>
-                <span class="cart-total-value" id="cart-subtotal">₹0.00</span>
-            </div>
-            <div class="cart-total-row">
-                <span class="cart-total-label">Shipping:</span>
-                <span class="cart-total-value">₹99.00</span>
-            </div>
             <div class="cart-total-row">
                 <span class="cart-total-label">Total:</span>
                 <span class="cart-total-value" id="cart-total-amount">₹0.00</span>
@@ -82,15 +74,15 @@
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vintage Denim Jacket">
+                    <img src="https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752731144/lwmft8wheslz3ugqyrhm.jpg" alt="Vintage Camera">
                 </div>
                 <div class="product-info">
-                    <h3>Vintage Denim Jacket</h3>
-                    <p>Classic 90s style with modern comfort</p>
-                    <span class="price">₹3,499.00</span>
+                    <h3>Vintage Camera</h3>
+                    <p>Classic 90s style with modern comfort. Perfect vintage camera for photography enthusiasts.</p>
+                    <span class="price">₹2,099.00</span>
                     <div class="product-buttons">
                         <a href="product-detail.html?id=1" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Denim Jacket" data-price="3499" data-image="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80">Add to Cart</button>
+                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Camera" data-price="2099" data-image="https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752731144/lwmft8wheslz3ugqyrhm.jpg">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -138,7 +130,7 @@
             </div>
         </div>
         <div class="view-more">
-            <a href="catalog.html" class="btn">View All Products</a>
+            <a href="products.html?section=catalog" class="btn">View All Products</a>
         </div>
     </section>
 
@@ -224,9 +216,9 @@
                     <div class="footer-section">
                         <h3>Shop</h3>
                         <div class="footer-section-content">
-                            <a href="catalog.html">All Products</a>
-                            <a href="new-arrivals.html">New Arrivals</a>
-                            <a href="best-sellers.html">Best Sellers</a>
+                            <a href="products.html?section=catalog">All Products</a>
+                            <a href="products.html?section=new-arrivals">New Arrivals</a>
+                            <a href="products.html?section=best-sellers">Best Sellers</a>
                             <a href="#">Sale</a>
                         </div>
                     </div>
@@ -267,6 +259,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="auto-update.js"></script>
 </body>
 </html>

@@ -2,10 +2,12 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-});
+if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+}
 
 // Cart Functionality
 const cartIcon = document.getElementById('cart-icon');
@@ -26,24 +28,30 @@ const goToCartBtn = document.getElementById('go-to-cart-btn');
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Open cart
-cartIcon.addEventListener('click', () => {
-    cartContainer.classList.add('active');
-    cartOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-});
+if (cartIcon && cartContainer && cartOverlay) {
+    cartIcon.addEventListener('click', () => {
+        cartContainer.classList.add('active');
+        cartOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
 
 // Close cart
-closeCart.addEventListener('click', () => {
-    cartContainer.classList.remove('active');
-    cartOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-});
+if (closeCart && cartContainer && cartOverlay) {
+    closeCart.addEventListener('click', () => {
+        cartContainer.classList.remove('active');
+        cartOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
 
-cartOverlay.addEventListener('click', () => {
-    cartContainer.classList.remove('active');
-    cartOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-});
+if (cartOverlay && cartContainer) {
+    cartOverlay.addEventListener('click', () => {
+        cartContainer.classList.remove('active');
+        cartOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
 
 // Start shopping button
 if (startShopping) {
@@ -140,6 +148,11 @@ function addToCart(id, name, price, image) {
 
 // Update cart UI
 function updateCart() {
+    // Only update if essential cart elements exist
+    if (!cartItems || !emptyCart || !cartTotal || !cartCount) {
+        return;
+    }
+    
     // Clear cart items
     cartItems.innerHTML = '';
     
@@ -160,12 +173,20 @@ function updateCart() {
     cartCount.textContent = totalItems;
     
     // Calculate subtotal
-    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    cartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
+    const subtotal = cart.reduce((total, item) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemTotal = itemPrice * item.quantity;
+        return total + itemTotal;
+    }, 0);
+    if (cartSubtotal) {
+        cartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
+    }
     
-    // Calculate total (subtotal + shipping)
-    const total = subtotal + 99;
-    cartTotalAmount.textContent = `₹${total.toFixed(2)}`;
+    // Calculate total (no shipping or tax)
+    const total = subtotal;
+    if (cartTotalAmount) {
+        cartTotalAmount.textContent = `₹${total.toFixed(2)}`;
+    }
     
     // Add items to cart
     cart.forEach(item => {

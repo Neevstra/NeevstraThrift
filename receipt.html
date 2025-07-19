@@ -308,35 +308,58 @@
             document.getElementById('customer-phone').textContent = orderDetails.customer.phone;
             
             // Fill in shipping information
-            document.getElementById('shipping-address').textContent = orderDetails.shipping.address;
-            document.getElementById('shipping-city').textContent = orderDetails.shipping.city;
-            document.getElementById('shipping-zip').textContent = orderDetails.shipping.zip;
+            document.getElementById('shipping-address').textContent = orderDetails.customer.address;
+            document.getElementById('shipping-city').textContent = `${orderDetails.customer.city}, ${orderDetails.customer.state}`;
+            document.getElementById('shipping-zip').textContent = `${orderDetails.customer.zip}, ${orderDetails.customer.country}`;
             
             // Fill in payment information
             document.getElementById('payment-method').textContent = orderDetails.payment.method;
             
             // Fill in order items
             const itemsBody = document.getElementById('receipt-items-body');
-            orderDetails.items.forEach(item => {
+            
+            if (orderDetails.items && orderDetails.items.length > 0) {
+                orderDetails.items.forEach(item => {
+                    const itemPrice = parseFloat(item.price) || 0;
+                    const itemQuantity = parseInt(item.quantity) || 1;
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${item.image || 'placeholder.jpg'}" alt="${item.name || 'Product'}" class="item-image"></td>
+                        <td>${item.name || 'Unknown Product'}</td>
+                        <td>${itemQuantity}</td>
+                        <td>₹${itemPrice.toFixed(2)}</td>
+                        <td>₹${(itemPrice * itemQuantity).toFixed(2)}</td>
+                    `;
+                    itemsBody.appendChild(row);
+                });
+            } else {
+                // If no items found, show a message
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><img src="${item.image}" alt="${item.name}" class="item-image"></td>
-                    <td>${item.name}</td>
-                    <td>${item.quantity}</td>
-                    <td>₹${item.price.toFixed(2)}</td>
-                    <td>₹${(item.price * item.quantity).toFixed(2)}</td>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
+                        No items found in this order. Please contact support if this is an error.
+                    </td>
                 `;
                 itemsBody.appendChild(row);
-            });
+            }
             
             // Fill in totals
-            const subtotal = orderDetails.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            let subtotal = 0;
+            if (orderDetails.items && orderDetails.items.length > 0) {
+                subtotal = orderDetails.items.reduce((total, item) => {
+                    const itemPrice = parseFloat(item.price) || 0;
+                    const itemQuantity = parseInt(item.quantity) || 1;
+                    return total + (itemPrice * itemQuantity);
+                }, 0);
+            }
+            
             const tax = subtotal * 0.05; // 5% tax
-            const shipping = 99;
+            const shipping = subtotal > 0 ? 99 : 0; // No shipping if no items
             const total = subtotal + tax + shipping;
             
             document.getElementById('receipt-subtotal').textContent = `₹${subtotal.toFixed(2)}`;
             document.getElementById('receipt-tax').textContent = `₹${tax.toFixed(2)}`;
+            document.getElementById('receipt-shipping').textContent = `₹${shipping.toFixed(2)}`;
             document.getElementById('receipt-total').textContent = `₹${total.toFixed(2)}`;
         });
     </script>
