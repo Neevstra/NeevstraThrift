@@ -193,6 +193,21 @@
                 background-color: white;
             }
         }
+        
+        .status-success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .status-error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .status-warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -230,6 +245,11 @@
                 <h4>Payment Method</h4>
                 <p id="payment-method"></p>
                 <p id="payment-status">Status: <span class="status-success">Paid</span></p>
+            </div>
+            <div class="receipt-section">
+                <h4>Email Confirmation</h4>
+                <p id="email-status">Status: <span id="email-status-text">Checking...</span></p>
+                <p id="email-sent-time" style="display: none;">Sent: <span></span></p>
             </div>
         </div>
         
@@ -314,6 +334,29 @@
             
             // Fill in payment information
             document.getElementById('payment-method').textContent = orderDetails.payment.method;
+            
+            // Fill in email status
+            const emailStatusText = document.getElementById('email-status-text');
+            const emailSentTime = document.getElementById('email-sent-time');
+            
+            if (orderDetails.emailSent === true) {
+                emailStatusText.textContent = 'Sent Successfully';
+                emailStatusText.className = 'status-success';
+                if (orderDetails.emailSentAt) {
+                    const sentDate = new Date(orderDetails.emailSentAt);
+                    emailSentTime.querySelector('span').textContent = sentDate.toLocaleString();
+                    emailSentTime.style.display = 'block';
+                }
+            } else if (orderDetails.emailSent === false) {
+                emailStatusText.textContent = 'Failed to Send';
+                emailStatusText.className = 'status-error';
+                if (orderDetails.emailError) {
+                    emailStatusText.title = `Error: ${orderDetails.emailError}`;
+                }
+            } else {
+                emailStatusText.textContent = 'Not Available';
+                emailStatusText.className = 'status-warning';
+            }
             
             // Fill in order items
             const itemsBody = document.getElementById('receipt-items-body');

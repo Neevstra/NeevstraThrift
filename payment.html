@@ -10,6 +10,9 @@
     
     <!-- Razorpay Checkout Script -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         .checkout-container {
             max-width: 1200px;
@@ -501,6 +504,68 @@
     
     <script src="script.js"></script>
     <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init({
+                publicKey: "yqz2oNi5Z6h2x1FoN", // Your EmailJS public key
+            });
+        })();
+        
+        // EmailJS configuration
+        const EMAIL_CONFIG = {
+            serviceId: 'service_tnoohc5', // Your EmailJS service ID
+            customerTemplateId: 'cust_mail', // Customer email template ID
+            adminTemplateId: 'admin_mail', // Admin email template ID
+            adminEmail: 'neevstra1o1@gmail.com' // Your admin email
+        };
+        
+        // Function to send confirmation emails
+        async function sendConfirmationEmails(orderData) {
+            try {
+                console.log('Sending confirmation emails...');
+                
+                // Prepare email data
+                const emailData = {
+                    customer_name: orderData.customer.name,
+                    customer_email: orderData.customer.email,
+                    order_id: orderData.orderId,
+                    payment_id: orderData.payment.transactionId,
+                    order_date: orderData.date,
+                    total_amount: `₹${orderData.payment.amount.toFixed(2)}`,
+                    customer_phone: orderData.customer.phone,
+                    shipping_address: `${orderData.customer.address}, ${orderData.customer.city}, ${orderData.customer.state} - ${orderData.customer.zip}, ${orderData.customer.country}`,
+                    items_list: orderData.items.map(item => 
+                        `${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}`
+                    ).join('\n'),
+                    admin_email: EMAIL_CONFIG.adminEmail
+                };
+                
+                // Send email to customer
+                const customerEmailResult = await emailjs.send(
+                    EMAIL_CONFIG.serviceId,
+                    EMAIL_CONFIG.customerTemplateId,
+                    emailData
+                );
+                
+                console.log('Customer email sent successfully:', customerEmailResult);
+                
+                // Send email to admin/store owner
+                const adminEmailResult = await emailjs.send(
+                    EMAIL_CONFIG.serviceId,
+                    EMAIL_CONFIG.adminTemplateId,
+                    emailData
+                );
+                
+                console.log('Admin email sent successfully:', adminEmailResult);
+                
+                return { success: true, customerEmailResult, adminEmailResult };
+                
+            } catch (error) {
+                console.error('Error sending emails:', error);
+                return { success: false, error };
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Load cart items from localStorage
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -629,7 +694,14 @@
             });
             
             // Function to handle successful payment
-            function onPaymentSuccess(response, customerData, orderId, totalAmount) {
+            async function onPaymentSuccess(response, customerData, orderId, totalAmount) {
+                // Show loading message
+                const loadingDiv = document.getElementById('payment-loading');
+                if (loadingDiv) {
+                    loadingDiv.style.display = 'block';
+                    loadingDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing payment and sending confirmation emails...';
+                }
+                
                 // Get cart items before clearing
                 let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
                 
@@ -665,6 +737,44 @@
                 
                 // Save last order for receipt
                 localStorage.setItem('lastOrder', JSON.stringify(order));
+                
+                // Send confirmation emails
+                try {
+                    const emailResult = await sendConfirmationEmails(order);
+                    
+                    if (emailResult.success) {
+                        console.log('Confirmation emails sent successfully');
+                        // Add email status to order
+                        order.emailSent = true;
+                        order.emailSentAt = new Date().toISOString();
+                    } else {
+                        console.error('Failed to send confirmation emails:', emailResult.error);
+                        // Add email failure status to order
+                        order.emailSent = false;
+                        order.emailError = emailResult.error.message || 'Unknown error';
+                    }
+                    
+                    // Update order with email status
+                    orders[orders.length - 1] = order;
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    localStorage.setItem('lastOrder', JSON.stringify(order));
+                    
+                } catch (error) {
+                    console.error('Error in email sending process:', error);
+                    // Continue with order processing even if email fails
+                    order.emailSent = false;
+                    order.emailError = error.message || 'Email sending failed';
+                    
+                    // Update order with email status
+                    orders[orders.length - 1] = order;
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    localStorage.setItem('lastOrder', JSON.stringify(order));
+                }
+                
+                // Hide loading message
+                if (loadingDiv) {
+                    loadingDiv.style.display = 'none';
+                }
                 
                 // Clear cart and backup after saving order
                 localStorage.setItem('cart', JSON.stringify([]));
