@@ -6,7 +6,7 @@ This guide explains how to manage your thrift store inventory since each item is
 ## 📍 How to Mark Items as Sold Out
 
 ### Step 1: Open the Product File
-Navigate to `product-detail.html` and find the `products` array (around line 464).
+Navigate to `products-data.js` (this is the centralized data file that controls all pages).
 
 ### Step 2: Find Your Product
 Each product has a unique ID and looks like this:
@@ -33,9 +33,10 @@ To mark an item as **AVAILABLE**:
 - Change `inStock: false` to `inStock: true`
 
 ### Step 4: Save and Deploy
-1. Save the file
-2. Commit changes to GitHub
-3. GitHub Pages will automatically update your live site
+1. Save the `products-data.js` file
+2. Commit changes to GitHub: `git add products-data.js && git commit -m "Update stock status"`
+3. Push to GitHub: `git push origin main`
+4. GitHub Pages will automatically update your live site
 
 ## 🔄 What Happens When You Mark Items as Sold Out
 

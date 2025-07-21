@@ -116,7 +116,7 @@ const PRODUCTS_DATA = [
         image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
         material: "Stainless Steel, Leather Strap",
         era: "1960s",
-        inStock: true,
+        inStock: false,
         category: "accessories",
         tags: ["watch", "vintage", "mechanical", "timepiece", "accessories"]
     }
