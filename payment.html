@@ -223,6 +223,12 @@
             font-size: 0.9rem;
         }
         
+        .order-item-quantity.unique-item {
+            color: #d4af37;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
         .order-total {
             margin-top: 20px;
         }
@@ -535,7 +541,7 @@
                     customer_phone: orderData.customer.phone,
                     shipping_address: `${orderData.customer.address}, ${orderData.customer.city}, ${orderData.customer.state} - ${orderData.customer.zip}, ${orderData.customer.country}`,
                     items_list: orderData.items.map(item => 
-                        `${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}`
+                        `${item.name} (Unique Item) - ₹${item.price.toFixed(2)}`
                     ).join('\n'),
                     admin_email: EMAIL_CONFIG.adminEmail
                 };
@@ -598,7 +604,7 @@
                         <div class="order-item-details">
                             <div class="order-item-title">${item.name}</div>
                             <div class="order-item-price">₹${itemPrice.toFixed(2)}</div>
-                            <div class="order-item-quantity">Quantity: ${item.quantity}</div>
+                            <div class="order-item-quantity unique-item">⭐ Unique Item</div>
                         </div>
                     `;
                     orderItems.appendChild(orderItem);

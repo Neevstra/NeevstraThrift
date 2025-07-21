@@ -27,11 +27,93 @@ const goToCartBtn = document.getElementById('go-to-cart-btn');
 // Cart array to store items
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Function to update product cards with stock status
+function updateProductStockStatus() {
+    // Get all add to cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    
+    addToCartButtons.forEach(button => {
+        const productId = button.dataset.id;
+        const product = getProductById(productId);
+        
+        if (product) {
+            const productCard = button.closest('.product-card') || button.closest('.product');
+            
+            if (!product.inStock) {
+                // Mark product as sold out
+                if (productCard) {
+                    productCard.classList.add('sold-out');
+                    
+                    // Add sold out badge if it doesn't exist
+                    let stockBadge = productCard.querySelector('.stock-badge');
+                    if (!stockBadge) {
+                        stockBadge = document.createElement('div');
+                        stockBadge.className = 'stock-badge sold-out';
+                        stockBadge.textContent = 'Sold Out';
+                        
+                        // Find the product image container
+                        const imageContainer = productCard.querySelector('.product-image') || productCard.querySelector('img').parentElement;
+                        if (imageContainer) {
+                            imageContainer.style.position = 'relative';
+                            imageContainer.appendChild(stockBadge);
+                        }
+                    }
+                }
+                
+                // Update button
+                button.classList.add('sold-out');
+                button.textContent = 'Sold Out';
+                button.disabled = true;
+            } else {
+                // Mark product as available
+                if (productCard) {
+                    productCard.classList.remove('sold-out');
+                    
+                    // Add available badge if it doesn't exist
+                    let stockBadge = productCard.querySelector('.stock-badge');
+                    if (!stockBadge) {
+                        stockBadge = document.createElement('div');
+                        stockBadge.className = 'stock-badge in-stock';
+                        stockBadge.textContent = 'Available';
+                        
+                        // Find the product image container
+                        const imageContainer = productCard.querySelector('.product-image') || productCard.querySelector('img').parentElement;
+                        if (imageContainer) {
+                            imageContainer.style.position = 'relative';
+                            imageContainer.appendChild(stockBadge);
+                        }
+                    }
+                }
+                
+                // Update button
+                button.classList.remove('sold-out');
+                button.textContent = 'Add to Cart';
+                button.disabled = false;
+            }
+        }
+    });
+}
+
 // Function to refresh cart from localStorage (for cross-page synchronization)
 function refreshCart() {
     cart = JSON.parse(localStorage.getItem('cart')) || [];
     updateCart();
 }
+
+// Initialize page functionality
+function initializePage() {
+    // Update product stock status
+    updateProductStockStatus();
+    
+    // Setup cart event listeners
+    setupCartEventListeners();
+    
+    // Refresh cart
+    refreshCart();
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializePage);
 
 // Function to set up cart event listeners
 function setupCartEventListeners() {
@@ -140,7 +222,7 @@ if (buyNowBtn) {
 // Note: Modal payment functionality has been removed.
 // All checkout processes now use the payment.html page for a consistent experience.
 
-// Add to cart
+// Add to cart with stock checking
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart-btn')) {
         const button = e.target;
@@ -148,6 +230,21 @@ document.addEventListener('click', (e) => {
         const name = button.dataset.name;
         const price = parseFloat(button.dataset.price);
         const image = button.dataset.image;
+        
+        // Check if product is in stock
+        if (!isProductInStock(id)) {
+            alert('Sorry, this item is currently sold out.');
+            return;
+        }
+        
+        // Check if item is already in cart (unique items can only be added once)
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+            alert('This unique item is already in your cart!');
+            return;
+        }
         
         addToCart(id, name, price, image);
         
@@ -162,25 +259,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Add to cart function
+// Add to cart function for unique items
 function addToCart(id, name, price, image) {
     // Refresh cart from localStorage first
     cart = JSON.parse(localStorage.getItem('cart')) || [];
     
-    // Check if item already in cart
-    const existingItem = cart.find(item => item.id === id);
-    
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            id,
-            name,
-            price,
-            image,
-            quantity: 1
-        });
-    }
+    // For unique items, we don't increase quantity, just add once
+    cart.push({
+        id,
+        name,
+        price,
+        image,
+        quantity: 1 // Always 1 for unique items
+    });
     
     // Save to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -273,9 +364,7 @@ function updateCart() {
                 <h4 class="cart-item-title">${item.name}</h4>
                 <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
                 <div class="cart-item-quantity">
-                    <button class="quantity-btn decrease" data-id="${item.id}">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                    <span class="unique-item-label">Unique Item - Qty: 1</span>
                     <div class="remove-item" data-id="${item.id}">
                         <i class="fas fa-trash"></i>
                     </div>
@@ -285,18 +374,7 @@ function updateCart() {
         currentCartItems.appendChild(cartItem);
     });
     
-    // Add event listeners for quantity buttons and remove buttons
-    document.querySelectorAll('.quantity-btn.decrease').forEach(button => {
-        button.addEventListener('click', () => {
-            decreaseQuantity(button.dataset.id);
-        });
-    });
-    
-    document.querySelectorAll('.quantity-btn.increase').forEach(button => {
-        button.addEventListener('click', () => {
-            increaseQuantity(button.dataset.id);
-        });
-    });
+    // Add event listeners for remove buttons only (no quantity controls for unique items)
     
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', () => {
@@ -305,33 +383,7 @@ function updateCart() {
     });
 }
 
-// Decrease quantity
-function decreaseQuantity(id) {
-    // Refresh cart from localStorage first
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(item => item.id === id);
-    
-    if (item.quantity > 1) {
-        item.quantity--;
-    } else {
-        removeItem(id);
-        return;
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCart();
-}
-
-// Increase quantity
-function increaseQuantity(id) {
-    // Refresh cart from localStorage first
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(item => item.id === id);
-    item.quantity++;
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCart();
-}
+// Note: Quantity functions removed - each thrift item is unique (qty always 1)
 
 // Remove item
 function removeItem(id) {

@@ -133,20 +133,140 @@
             display: block;
         }
         
+        /* Stock Status Styles */
+        .stock-status {
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .stock-status.available {
+            color: #28a745;
+            background-color: #d4edda;
+        }
+        
+        .stock-status.sold-out {
+            color: #dc3545;
+            background-color: #f8d7da;
+        }
+        
+        .unique-item-note {
+            color: #d4af37;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .unique-item-note i {
+            margin-right: 5px;
+        }
+        
+        .add-to-cart:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        /* Related Products Styles */
         .similar-products {
             margin-top: 60px;
             width: 100%;
         }
         
         .similar-products h2 {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            font-size: 2rem;
+            color: #333;
         }
         
         .similar-products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-card .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        
+        .product-card .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-card .stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .product-card .stock-badge.available {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .product-card .stock-badge.sold-out {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .product-card .product-info {
+            padding: 20px;
+        }
+        
+        .product-card .product-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .product-card .product-info p {
+            margin: 0 0 15px 0;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .product-card .product-info .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
         
         /* Back Navigation Styles */
@@ -245,15 +365,11 @@
             <div id="product-price" class="product-price"></div>
             
             <div class="product-meta">
-                <p><strong>Availability:</strong> In Stock</p>
+                <p><strong>Availability:</strong> <span id="stock-status" class="stock-status"></span></p>
                 <p><strong>Condition:</strong> Excellent</p>
                 <p><strong>Material:</strong> <span id="product-material"></span></p>
                 <p><strong>Era:</strong> <span id="product-era"></span></p>
-            </div>
-            
-            <div class="quantity-selector">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
+                <p class="unique-item-note"><i class="fas fa-star"></i> This is a unique, one-of-a-kind vintage piece</p>
             </div>
             
             <button class="add-to-cart" id="add-to-cart-btn">Add to Cart</button>
@@ -342,7 +458,9 @@
     </footer>
 
     <script>
-        // Product data
+        // Product data - Each item is unique (1 piece only)
+        // ADMIN NOTE: To mark an item as sold out, change "inStock: true" to "inStock: false"
+        // This will automatically disable the add to cart button and show "Sold Out" status
         const products = [
             {
                 id: 1,
@@ -351,7 +469,10 @@
                 price: "₹2,099.00",
                 image: "https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752731144/lwmft8wheslz3ugqyrhm.jpg",
                 material: "Metal & Plastic Body with Glass Lens",
-                era: "1990s"
+                era: "1990s",
+                inStock: true, // Simple boolean for availability
+                category: "electronics",
+                tags: ["vintage", "camera", "photography", "collectible"]
             },
             {
                 id: 2,
@@ -360,7 +481,10 @@
                 price: "₹1,999.00",
                 image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
                 material: "Acetate Frame, Glass Lenses",
-                era: "1970s Inspired"
+                era: "1970s Inspired",
+                inStock: true,
+                category: "accessories",
+                tags: ["vintage", "sunglasses", "retro", "fashion", "accessories"]
             },
             {
                 id: 3,
@@ -369,7 +493,10 @@
                 price: "₹4,999.00",
                 image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Genuine Leather, Brass Hardware",
-                era: "Vintage Inspired"
+                era: "Vintage Inspired",
+                inStock: true,
+                category: "bags",
+                tags: ["leather", "bag", "messenger", "vintage", "handcrafted"]
             },
             {
                 id: 4,
@@ -378,7 +505,10 @@
                 price: "₹2,799.00",
                 image: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Viscose Blend",
-                era: "1970s Inspired"
+                era: "1970s Inspired",
+                inStock: true,
+                category: "clothing",
+                tags: ["dress", "floral", "vintage", "70s", "fashion"]
             },
             {
                 id: 5,
@@ -387,7 +517,10 @@
                 price: "₹5,999.00",
                 image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Premium Wool Blend",
-                era: "1960s Inspired"
+                era: "1960s Inspired",
+                inStock: false, // Example of sold out item
+                category: "clothing",
+                tags: ["coat", "wool", "vintage", "formal", "winter"]
             },
             {
                 id: 6,
@@ -396,7 +529,10 @@
                 price: "₹1,499.00",
                 image: "https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Genuine Leather",
-                era: "Timeless Classic"
+                era: "Timeless Classic",
+                inStock: true,
+                category: "accessories",
+                tags: ["wallet", "leather", "handcrafted", "accessories", "vintage"]
             },
             {
                 id: 7,
@@ -405,7 +541,10 @@
                 price: "₹1,299.00",
                 image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "100% Pure Silk",
-                era: "1950s Inspired"
+                era: "1950s Inspired",
+                inStock: true,
+                category: "accessories",
+                tags: ["scarf", "silk", "vintage", "luxury", "accessories"]
             },
             {
                 id: 8,
@@ -414,7 +553,10 @@
                 price: "₹4,299.00",
                 image: "https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Premium Leather",
-                era: "1940s Inspired"
+                era: "1940s Inspired",
+                inStock: false, // Another example of sold out item
+                category: "footwear",
+                tags: ["boots", "leather", "vintage", "footwear", "handcrafted"]
             },
             {
                 id: 9,
@@ -423,12 +565,112 @@
                 price: "₹6,999.00",
                 image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
                 material: "Stainless Steel, Leather Strap",
-                era: "1960s"
+                era: "1960s",
+                inStock: true,
+                category: "accessories",
+                tags: ["watch", "vintage", "mechanical", "timepiece", "accessories"]
             }
         ];
 
         // Global product variable
         let currentProduct = null;
+        
+        // Function to update stock display for unique items
+        function updateStockDisplay(product) {
+            const stockStatus = document.getElementById('stock-status');
+            
+            if (product.inStock) {
+                stockStatus.textContent = 'Available';
+                stockStatus.className = 'stock-status available';
+            } else {
+                stockStatus.textContent = 'Sold Out';
+                stockStatus.className = 'stock-status sold-out';
+            }
+        }
+        
+        // Function to get stock badge class for product cards
+        function getStockBadgeClass(inStock) {
+            return inStock ? 'available' : 'sold-out';
+        }
+        
+        // Function to get stock badge text for product cards
+        function getStockBadgeText(inStock) {
+            return inStock ? 'Available' : 'Sold Out';
+        }
+        
+        // Improved related products algorithm
+        function loadRelatedProducts(currentProduct, currentProductId) {
+            const similarProductsContainer = document.getElementById('similar-products');
+            
+            // Algorithm to find related products:
+            // 1. Same category products
+            // 2. Products with similar tags
+            // 3. Products in similar price range
+            // 4. Random products if not enough matches
+            
+            let relatedProducts = [];
+            const otherProducts = products.filter(p => p.id !== currentProductId);
+            
+            // 1. Same category products
+            const sameCategoryProducts = otherProducts.filter(p => 
+                p.category === currentProduct.category
+            );
+            relatedProducts.push(...sameCategoryProducts);
+            
+            // 2. Products with similar tags (if we need more)
+            if (relatedProducts.length < 4) {
+                const similarTagProducts = otherProducts.filter(p => 
+                    p.category !== currentProduct.category && 
+                    p.tags.some(tag => currentProduct.tags.includes(tag))
+                );
+                relatedProducts.push(...similarTagProducts);
+            }
+            
+            // 3. Products in similar price range (if we still need more)
+            if (relatedProducts.length < 4) {
+                const currentPrice = parseFloat(currentProduct.price.replace('₹', '').replace(',', ''));
+                const priceRange = currentPrice * 0.5; // 50% price range
+                
+                const similarPriceProducts = otherProducts.filter(p => {
+                    const price = parseFloat(p.price.replace('₹', '').replace(',', ''));
+                    return Math.abs(price - currentPrice) <= priceRange && 
+                           !relatedProducts.includes(p);
+                });
+                relatedProducts.push(...similarPriceProducts);
+            }
+            
+            // 4. Fill with random products if needed
+            if (relatedProducts.length < 4) {
+                const remainingProducts = otherProducts.filter(p => !relatedProducts.includes(p));
+                relatedProducts.push(...remainingProducts);
+            }
+            
+            // Remove duplicates and limit to 4 products
+            relatedProducts = [...new Set(relatedProducts)].slice(0, 4);
+            
+            // Render related products
+            relatedProducts.forEach(prod => {
+                const stockBadgeClass = getStockBadgeClass(prod.inStock);
+                const stockBadgeText = getStockBadgeText(prod.inStock);
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <a href="product-detail.html?id=${prod.id}" class="product-link">
+                        <div class="product-image">
+                            <img src="${prod.image}" alt="${prod.name}">
+                            <div class="stock-badge ${stockBadgeClass}">${stockBadgeText}</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>${prod.name}</h3>
+                            <p>${prod.description.substring(0, 60)}...</p>
+                            <span class="price">${prod.price}</span>
+                        </div>
+                    </a>
+                `;
+                similarProductsContainer.appendChild(productCard);
+            });
+        }
         
         // Wait for DOM to be ready before loading product details
         document.addEventListener('DOMContentLoaded', function() {
@@ -449,33 +691,27 @@
             document.getElementById('product-material').textContent = product.material;
             document.getElementById('product-era').textContent = product.era;
             
+            // Update stock information
+            updateStockDisplay(product);
+            
+            // Enable/disable add to cart button based on stock
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            if (product.inStock) {
+                addToCartBtn.disabled = false;
+                addToCartBtn.textContent = 'Add to Cart';
+            } else {
+                addToCartBtn.disabled = true;
+                addToCartBtn.textContent = 'Sold Out';
+            }
+            
             // Set the product name in the navigation title
             const navTitle = document.getElementById('product-nav-title');
             if (navTitle) {
                 navTitle.textContent = product.name;
             }
             
-            // Load similar products (excluding current product)
-            const similarProductsContainer = document.getElementById('similar-products');
-            const similarProducts = products.filter(p => p.id !== productId).slice(0, 3);
-            
-            similarProducts.forEach(prod => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <a href="product-detail.html?id=${prod.id}" class="product-link">
-                        <div class="product-image">
-                            <img src="${prod.image}" alt="${prod.name}">
-                        </div>
-                        <div class="product-info">
-                            <h3>${prod.name}</h3>
-                            <p>${prod.description.substring(0, 50)}...</p>
-                            <span class="price">${prod.price}</span>
-                        </div>
-                    </a>
-                `;
-                similarProductsContainer.appendChild(productCard);
-            });
+            // Load related products with improved algorithm
+            loadRelatedProducts(product, productId);
         });
         
         // Function to handle the back button
@@ -508,14 +744,12 @@
             evt.currentTarget.classList.add('active');
         }
         
-        // Add to cart functionality
+        // Add to cart functionality for unique items
         document.addEventListener('DOMContentLoaded', function() {
             const addToCartBtn = document.getElementById('add-to-cart-btn');
             if (addToCartBtn) {
                 addToCartBtn.addEventListener('click', function() {
-                    if (!currentProduct) return;
-                    
-                    const quantity = parseInt(document.getElementById('quantity').value);
+                    if (!currentProduct || !currentProduct.inStock) return;
                     
                     // Use the centralized addToCart function approach
                     const id = currentProduct.id.toString();
@@ -526,18 +760,19 @@
                     // Get cart from localStorage
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     
-                    // Check if product already in cart
+                    // Check if product already in cart (unique items can only be added once)
                     const existingItem = cart.find(item => item.id === id);
                     
                     if (existingItem) {
-                        existingItem.quantity += quantity;
+                        alert('This unique item is already in your cart!');
+                        return;
                     } else {
                         cart.push({
                             id: id,
                             name: name,
                             price: price,
                             image: image,
-                            quantity: quantity
+                            quantity: 1 // Always 1 for unique items
                         });
                     }
                     
