@@ -153,11 +153,11 @@
                 const orderCard = document.createElement('div');
                 orderCard.className = 'order-card';
                 
-                // Calculate total
+                // Calculate total (no tax or shipping charges)
                 const subtotal = order.items.reduce((total, item) => total + (item.price * item.quantity), 0);
-                const tax = subtotal * 0.05; // 5% tax
-                const shipping = 99;
-                const total = subtotal + tax + shipping;
+                const tax = 0;
+                const shipping = 0;
+                const total = subtotal;
                 
                 // Create order card HTML
                 orderCard.innerHTML = `

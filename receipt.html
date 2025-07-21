@@ -396,14 +396,19 @@
                 }, 0);
             }
             
-            const tax = subtotal * 0.05; // 5% tax
-            const shipping = subtotal > 0 ? 99 : 0; // No shipping if no items
-            const total = subtotal + tax + shipping;
+            // No tax or shipping charges
+            const tax = 0;
+            const shipping = 0;
+            const total = subtotal;
             
             document.getElementById('receipt-subtotal').textContent = `₹${subtotal.toFixed(2)}`;
             document.getElementById('receipt-tax').textContent = `₹${tax.toFixed(2)}`;
             document.getElementById('receipt-shipping').textContent = `₹${shipping.toFixed(2)}`;
             document.getElementById('receipt-total').textContent = `₹${total.toFixed(2)}`;
+            
+            // Hide shipping and tax rows since they are 0
+            document.getElementById('receipt-tax').parentElement.style.display = 'none';
+            document.getElementById('receipt-shipping').parentElement.style.display = 'none';
         });
     </script>
 </body>
