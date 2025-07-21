@@ -248,6 +248,15 @@ function updateCart() {
     
     // Calculate total (no shipping or tax)
     const total = subtotal;
+    
+    // Debug: Log the calculation
+    console.log('Cart calculation:', {
+        subtotal: subtotal,
+        total: total,
+        shipping: 0,
+        tax: 0
+    });
+    
     if (currentCartTotalAmount) {
         currentCartTotalAmount.textContent = `₹${total.toFixed(2)}`;
     }

@@ -567,6 +567,9 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            // Clear any potential cached pricing data
+            console.log('Initializing payment page - no shipping or tax charges will be applied');
+            
             // Load cart items from localStorage
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const orderItems = document.getElementById('order-items');
@@ -603,6 +606,14 @@
                 
                 // Calculate total (no tax or shipping charges)
                 const total = subtotal;
+                
+                // Debug: Log the calculation
+                console.log('Order calculation:', {
+                    subtotal: subtotal,
+                    total: total,
+                    shipping: 0,
+                    tax: 0
+                });
                 
                 // Update order summary
                 orderTotal.textContent = `₹${total.toFixed(2)}`;
