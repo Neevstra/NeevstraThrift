@@ -22,11 +22,204 @@
             min-width: 300px;
         }
         
-        .product-detail-image img {
-            width: 100%;
-            height: auto;
+        /* Image Gallery Styles */
+        .image-gallery {
+            position: relative;
+        }
+        
+        .main-image-container {
+            position: relative;
+            margin-bottom: 15px;
+            overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: zoom-in;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Gallery Navigation */
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .gallery-nav:hover {
+            background: rgba(0,0,0,0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .gallery-nav.prev {
+            left: 10px;
+        }
+        
+        .gallery-nav.next {
+            right: 10px;
+        }
+        
+        /* Thumbnail Gallery */
+        .thumbnail-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 5px 0;
+            scrollbar-width: thin;
+        }
+        
+        .thumbnail-gallery::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .thumbnail-gallery::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .thumbnail-gallery::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 2px;
+        }
+        
+        .thumbnail {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .thumbnail.active {
+            border-color: var(--primary-color, #d3caab);
+            transform: scale(1.05);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .thumbnail:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Image Counter */
+        .image-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Zoom Modal */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: zoom-out;
+        }
+        
+        .zoom-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .zoom-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .zoom-close:hover {
+            opacity: 0.7;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .gallery-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .main-image-container {
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Touch/Swipe Indicators */
+        .swipe-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            animation: fadeInOut 3s ease-in-out;
+            pointer-events: none;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
         
         .product-detail-info {
@@ -357,7 +550,22 @@
     <!-- Product Detail Section -->
     <div class="product-detail-container">
         <div class="product-detail-image">
-            <img id="product-image" src="" alt="Product Image">
+            <div class="image-gallery">
+                <div class="main-image-container" id="main-image-container">
+                    <img id="main-image" class="main-image" src="" alt="Product Image">
+                    <button class="gallery-nav prev" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="gallery-nav next" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="image-counter" id="image-counter">1 / 1</div>
+                    <div class="swipe-indicator" id="swipe-indicator">Swipe for more images</div>
+                </div>
+                <div class="thumbnail-gallery" id="thumbnail-gallery">
+                    <!-- Thumbnails will be generated here -->
+                </div>
+            </div>
         </div>
         <div class="product-detail-info">
             <h1 id="product-title" class="product-title"></h1>
@@ -419,6 +627,12 @@
                 <!-- Similar products will be loaded here -->
             </div>
         </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    <div class="zoom-modal" id="zoom-modal">
+        <span class="zoom-close" id="zoom-close">&times;</span>
+        <img id="zoom-image" src="" alt="Zoomed Product Image">
     </div>
 
     <!-- Footer -->
@@ -565,6 +779,175 @@
             });
         }
         
+        // Image Gallery Variables
+        let currentImageIndex = 0;
+        let productImages = [];
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        // Initialize Image Gallery
+        function initializeImageGallery(product) {
+            // Use images array if available, otherwise fallback to single image
+            productImages = product.images && product.images.length > 0 ? product.images : [product.image];
+            currentImageIndex = 0;
+            
+            // Set main image
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = productImages[0];
+            mainImage.alt = product.name;
+            
+            // Update counter
+            updateImageCounter();
+            
+            // Generate thumbnails
+            generateThumbnails();
+            
+            // Show/hide navigation buttons
+            updateNavigationVisibility();
+            
+            // Show swipe indicator if multiple images
+            if (productImages.length > 1) {
+                setTimeout(() => {
+                    const swipeIndicator = document.getElementById('swipe-indicator');
+                    if (swipeIndicator) {
+                        swipeIndicator.style.display = 'block';
+                        setTimeout(() => {
+                            swipeIndicator.style.display = 'none';
+                        }, 3000);
+                    }
+                }, 1000);
+            }
+        }
+        
+        // Generate thumbnail gallery
+        function generateThumbnails() {
+            const thumbnailGallery = document.getElementById('thumbnail-gallery');
+            thumbnailGallery.innerHTML = '';
+            
+            if (productImages.length <= 1) {
+                thumbnailGallery.style.display = 'none';
+                return;
+            }
+            
+            thumbnailGallery.style.display = 'flex';
+            
+            productImages.forEach((imageSrc, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                thumbnail.innerHTML = `<img src="${imageSrc}" alt="Product image ${index + 1}">`;
+                
+                thumbnail.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateMainImage();
+                    updateThumbnailActive();
+                    updateImageCounter();
+                });
+                
+                thumbnailGallery.appendChild(thumbnail);
+            });
+        }
+        
+        // Update main image
+        function updateMainImage() {
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = productImages[currentImageIndex];
+            updateNavigationVisibility();
+        }
+        
+        // Update thumbnail active state
+        function updateThumbnailActive() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentImageIndex);
+            });
+        }
+        
+        // Update image counter
+        function updateImageCounter() {
+            const counter = document.getElementById('image-counter');
+            counter.textContent = `${currentImageIndex + 1} / ${productImages.length}`;
+        }
+        
+        // Update navigation button visibility
+        function updateNavigationVisibility() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (productImages.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            }
+            
+            prevBtn.style.display = currentImageIndex > 0 ? 'flex' : 'none';
+            nextBtn.style.display = currentImageIndex < productImages.length - 1 ? 'flex' : 'none';
+        }
+        
+        // Navigate to previous image
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateMainImage();
+                updateThumbnailActive();
+                updateImageCounter();
+            }
+        }
+        
+        // Navigate to next image
+        function nextImage() {
+            if (currentImageIndex < productImages.length - 1) {
+                currentImageIndex++;
+                updateMainImage();
+                updateThumbnailActive();
+                updateImageCounter();
+            }
+        }
+        
+        // Handle touch events for swipe
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+        
+        function handleTouchMove(e) {
+            touchEndX = e.touches[0].clientX;
+        }
+        
+        function handleTouchEnd() {
+            if (!touchStartX || !touchEndX) return;
+            
+            const difference = touchStartX - touchEndX;
+            const threshold = 50; // Minimum swipe distance
+            
+            if (Math.abs(difference) > threshold) {
+                if (difference > 0) {
+                    // Swipe left - next image
+                    nextImage();
+                } else {
+                    // Swipe right - previous image
+                    previousImage();
+                }
+            }
+            
+            touchStartX = 0;
+            touchEndX = 0;
+        }
+        
+        // Zoom functionality
+        function openZoom() {
+            const zoomModal = document.getElementById('zoom-modal');
+            const zoomImage = document.getElementById('zoom-image');
+            
+            zoomImage.src = productImages[currentImageIndex];
+            zoomModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeZoom() {
+            const zoomModal = document.getElementById('zoom-modal');
+            zoomModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
         // Wait for DOM to be ready before loading product details
         document.addEventListener('DOMContentLoaded', function() {
             // Get product ID from URL
@@ -575,9 +958,10 @@
             const product = products.find(p => p.id === productId) || products[0];
             currentProduct = product;
             
+            // Initialize image gallery
+            initializeImageGallery(product);
+            
             // Populate product details
-            document.getElementById('product-image').src = product.image;
-            document.getElementById('product-image').alt = product.name;
             document.getElementById('product-title').textContent = product.name;
             document.getElementById('product-description').textContent = product.description;
             document.getElementById('product-price').textContent = product.price;
@@ -605,6 +989,38 @@
             
             // Load related products with improved algorithm
             loadRelatedProducts(product, productId);
+            
+            // Add event listeners for gallery navigation
+            document.getElementById('prev-btn').addEventListener('click', previousImage);
+            document.getElementById('next-btn').addEventListener('click', nextImage);
+            
+            // Add touch event listeners for swipe
+            const mainImageContainer = document.getElementById('main-image-container');
+            mainImageContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+            mainImageContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
+            mainImageContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+            
+            // Add click event for zoom
+            document.getElementById('main-image').addEventListener('click', openZoom);
+            
+            // Add zoom modal event listeners
+            document.getElementById('zoom-close').addEventListener('click', closeZoom);
+            document.getElementById('zoom-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeZoom();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    previousImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                } else if (e.key === 'Escape') {
+                    closeZoom();
+                }
+            });
         });
         
         // Function to handle the back button

@@ -1473,3 +1473,103 @@ nav.scrolled {
         font-size: 1rem;
     }
 }
+
+/* Image Gallery and Zoom Enhancements */
+.image-gallery {
+    user-select: none;
+}
+
+.main-image-container {
+    background: #f8f9fa;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-image {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.gallery-nav {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.main-image-container:hover .gallery-nav {
+    opacity: 1;
+}
+
+.thumbnail-gallery {
+    margin-top: 15px;
+}
+
+.thumbnail {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thumbnail img {
+    border-radius: 4px;
+}
+
+/* Zoom Modal Enhancements */
+.zoom-modal {
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.zoom-modal img {
+    animation: zoomIn 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Loading States */
+.main-image, .thumbnail img {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+.main-image[src], .thumbnail img[src] {
+    background: none;
+    animation: none;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Smooth Transitions */
+.main-image, .thumbnail img, .gallery-nav {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus States for Accessibility */
+.gallery-nav:focus,
+.thumbnail:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* High DPI Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .main-image, .thumbnail img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
