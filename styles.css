@@ -1,6 +1,7 @@
 /* Global Styles */
 :root {
-    --primary-color: rgb(211, 202, 171); /* Logo beige/tan */
+    --primary-color: rgb(211, 202, 171); /* Logo beige/tan - BACKGROUND COLOR */
+    --primary-text-color: #000000; /* Black text color */
     --secondary-color: #fffcf4; /* Cream background */
     --accent-color: #000000; /* Black for accents */
     --text-color: #333333; /* Slightly softer black for text */
@@ -689,11 +690,11 @@ footer {
     }
 }
 
-/* Additional Animation Classes */
+/* Additional Animation Classes - Subtle Fade Effect */
 .product-card, .about-image, .about-text, .contact-info, .contact-form {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    opacity: 0.3;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .product-card.animate, .about-image.animate, .about-text.animate, .contact-info.animate, .contact-form.animate {
@@ -702,19 +703,19 @@ footer {
 }
 
 .about-image {
-    transition-delay: 0.2s;
+    transition-delay: 0.1s;
 }
 
 .about-text {
-    transition-delay: 0.4s;
+    transition-delay: 0.15s;
 }
 
 .contact-info {
-    transition-delay: 0.2s;
+    transition-delay: 0.1s;
 }
 
 .contact-form {
-    transition-delay: 0.4s;
+    transition-delay: 0.2s;
 }
 
 /* Cart Section */

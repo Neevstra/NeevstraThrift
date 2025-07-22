@@ -497,25 +497,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Add additional animation classes on scroll
+// Add additional animation classes on scroll - Optimized and Less Aggressive
+let scrollTimeout;
 window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    
-    // Add class to nav when scrolled
-    const nav = document.querySelector('nav');
-    if (scrollPosition > 100) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
+    // Throttle scroll events to reduce frequency
+    if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
     }
     
-    // Animate elements when they come into view
-    document.querySelectorAll('.product-card, .about-image, .about-text, .contact-info, .contact-form').forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+    scrollTimeout = setTimeout(() => {
+        const scrollPosition = window.scrollY;
         
-        if (elementPosition < windowHeight - 100) {
-            element.classList.add('animate');
+        // Add class to nav when scrolled
+        const nav = document.querySelector('nav');
+        if (scrollPosition > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
         }
-    });
+        
+        // Animate elements when they come into view - More generous trigger area
+        document.querySelectorAll('.product-card, .about-image, .about-text, .contact-info, .contact-form').forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            // Trigger animation earlier (when element is 80% visible instead of almost fully visible)
+            if (elementPosition < windowHeight - 50) {
+                element.classList.add('animate');
+            }
+        });
+    }, 10); // Small delay to throttle
 });

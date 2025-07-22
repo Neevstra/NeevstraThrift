@@ -115,7 +115,7 @@
         }
         
         .thumbnail.active {
-            border-color: var(--primary-color, #d3caab);
+            border-color: var(--primary-color);
             transform: scale(1.05);
         }
         
@@ -482,7 +482,7 @@
             border: none;
             font-size: 1rem;
             font-weight: 500;
-            color: var(--primary-color, #463f3a);
+            color: var(--primary-text-color, #000000);
             cursor: pointer;
             padding: 8px 15px;
             border-radius: 4px;
@@ -500,7 +500,7 @@
         .product-nav-title {
             font-size: 1.2rem;
             font-weight: 500;
-            color: var(--primary-color, #463f3a);
+            color: var(--primary-text-color, #000000);
             max-width: 60%;
             white-space: nowrap;
             overflow: hidden;
@@ -512,7 +512,7 @@
     <!-- Back Button Navigation - Updated -->
     <div class="back-nav">
         <button class="back-button" onclick="goBack()">
-            <i class="fas fa-arrow-left"></i> Back to Shopping
+            <i class="fas fa-arrow-left"></i>
         </button>
         <div class="product-nav-title" id="product-nav-title"></div>
         <div class="cart-icon" id="cart-icon">
