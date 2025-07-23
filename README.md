@@ -109,7 +109,7 @@ NeevstraThrift/
 ├── 📄 product-detail.html     # Individual product pages
 ├── 📄 payment.html            # Checkout and payment
 ├── 📄 about-us.html           # Company information
-├── 📄 contact-us.html         # Contact form
+├── 📄 index.html#contact      # Contact form (integrated in homepage)
 ├── 📄 sustainability.html     # Sustainability page
 ├── 📄 faq.html               # FAQ page
 ├── 📄 my-orders.html         # Order tracking
