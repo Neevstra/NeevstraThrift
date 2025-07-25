@@ -65,9 +65,9 @@ const PRODUCTS_DATA = [
         description: "Comfortable GAP trousers with modern fit and classic styling. Made from premium cotton fabric for all-day comfort. Perfect for casual and semi-formal occasions with timeless design.",
         price: "₹699.00",
         priceValue: 699,
-        image: "https://i.postimg.cc/R91Tv4JY/loosar.png",
+        image: "https://i.postimg.cc/sxX2phWY/loosar.png",
         images: [
-            "https://i.postimg.cc/R91Tv4JY/loosar.png",
+            "https://i.postimg.cc/sxX2phWY/loosar.png",
             "https://i.postimg.cc/bwqXGhjP/1000093731.avif",
             "https://i.postimg.cc/MpfBjh0s/1000093733.avif"
         ],
