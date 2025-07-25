@@ -68,8 +68,8 @@ const PRODUCTS_DATA = [
         image: "https://i.postimg.cc/R91Tv4JY/loosar.png",
         images: [
             "https://i.postimg.cc/R91Tv4JY/loosar.png",
-            "https://i.postimg.cc/R91Tv4JY/loosar.png",
-            "https://i.postimg.cc/R91Tv4JY/loosar.png"
+            "https://i.postimg.cc/bwqXGhjP/1000093731.avif",
+            "https://i.postimg.cc/MpfBjh0s/1000093733.avif"
         ],
         material: "Cotton",
         era: "2022",
