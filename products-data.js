@@ -109,7 +109,7 @@ const PRODUCTS_DATA = [
         ],
         material: "Genuine Leather",
         era: "Timeless Classic",
-        inStock: true,
+        inStock: false,
         category: "accessories",
         tags: ["wallet", "leather", "handcrafted", "accessories", "vintage"]
     },
@@ -127,7 +127,7 @@ const PRODUCTS_DATA = [
         ],
         material: "100% Pure Silk",
         era: "1950s Inspired",
-        inStock: true,
+        inStock: false,
         category: "accessories",
         tags: ["scarf", "silk", "vintage", "luxury", "accessories"]
     },

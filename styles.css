@@ -206,6 +206,57 @@ nav {
     z-index: 1000;
 }
 
+/* Marquee Styles */
+.marquee-container {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: fixed;
+    top: 80px; /* Adjust based on nav height */
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+}
+
+.marquee-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Responsive marquee */
+@media (max-width: 768px) {
+    .marquee-container {
+        top: 70px; /* Adjust for smaller nav on mobile */
+        padding: 6px 0;
+    }
+    
+    .marquee-text {
+        font-size: 0.8rem;
+    }
+    
+    .hero {
+        margin-top: 100px; /* Adjust for mobile */
+    }
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -289,6 +340,7 @@ nav {
     text-align: center;
     color: white;
     position: relative;
+    margin-top: 120px; /* Account for nav + marquee */
 }
 
 .hero::after {
@@ -365,6 +417,7 @@ nav {
 .product-image {
     height: 250px;
     overflow: hidden;
+    position: relative;
 }
 
 .product-image img {
@@ -376,6 +429,39 @@ nav {
 
 .product-card:hover .product-image img {
     transform: scale(1.05);
+}
+
+/* New Badge Styles */
+.new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
 }
 
 .product-info {
