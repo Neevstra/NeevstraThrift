@@ -214,10 +214,11 @@ nav {
     overflow: hidden;
     white-space: nowrap;
     position: fixed;
-    top: 80px; /* Adjust based on nav height */
+    top: 98px; /* Nav height: 60px logo + 38px padding (1.2rem * 2) */
     width: 100%;
     z-index: 999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .marquee-content {
@@ -244,7 +245,7 @@ nav {
 /* Responsive marquee */
 @media (max-width: 768px) {
     .marquee-container {
-        top: 70px; /* Adjust for smaller nav on mobile */
+        top: 90px; /* Adjust for mobile nav height */
         padding: 6px 0;
     }
     
@@ -253,7 +254,22 @@ nav {
     }
     
     .hero {
-        margin-top: 100px; /* Adjust for mobile */
+        margin-top: 120px; /* Adjust for mobile: nav + marquee + spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-container {
+        top: 85px; /* Smaller screens */
+        padding: 5px 0;
+    }
+    
+    .marquee-text {
+        font-size: 0.75rem;
+    }
+    
+    .hero {
+        margin-top: 110px; /* Adjust for very small screens */
     }
 }
 
@@ -340,7 +356,7 @@ nav {
     text-align: center;
     color: white;
     position: relative;
-    margin-top: 120px; /* Account for nav + marquee */
+    margin-top: 140px; /* Account for nav (98px) + marquee (24px) + spacing */
 }
 
 .hero::after {
