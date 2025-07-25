@@ -25,58 +25,57 @@ const PRODUCTS_DATA = [
     },
     {
         id: 2,
-        name: "Retro Sunglasses",
-        description: "Timeless design with UV protection. These vintage-inspired sunglasses combine classic styling with modern UV protection technology. The durable frame and premium lenses ensure both style and functionality.",
-        price: "₹1,999.00",
-        priceValue: 1999,
-        image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        name: "Acid Washed Bell Bottom",
+        description: "Trendy acid washed bell bottom jeans with a vintage-inspired flare. These stylish jeans feature a unique acid wash finish and classic bell bottom silhouette that's perfect for making a fashion statement. Comfortable fit with a retro vibe.",
+        price: "₹699.00",
+        priceValue: 699,
+        image: "https://i.ibb.co/21TXTYgF/girly-jeans.webp",
         images: [
-            "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.ibb.co/21TXTYgF/girly-jeans.webp",
+            "https://i.ibb.co/21TXTYgF/girly-jeans.webp",
+            "https://i.ibb.co/21TXTYgF/girly-jeans.webp"
         ],
-        material: "Acetate Frame, Glass Lenses",
-        era: "1970s Inspired",
+        material: "Cotton Denim",
+        era: "2019",
         inStock: true,
-        category: "accessories",
-        tags: ["vintage", "sunglasses", "retro", "fashion", "accessories"]
+        category: "clothing",
+        tags: ["jeans", "bell bottom", "acid wash", "vintage", "fashion", "denim"]
     },
     {
         id: 3,
-        name: "Leather Messenger Bag",
-        description: "Handcrafted vintage leather with modern functionality. This messenger bag features premium aged leather, multiple compartments including a padded laptop sleeve, and adjustable straps for comfort.",
-        price: "₹4,999.00",
-        priceValue: 4999,
-        image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "Diesel Sweatshirt",
+        description: "Stylish Diesel sweatshirt with premium quality fabric and modern design. Features comfortable fit and iconic Diesel branding. Perfect for casual wear and layering.",
+        price: "₹849.00",
+        priceValue: 849,
+        image: "https://i.ibb.co/BKT6z0gs/diesel.webp",
         images: [
-            "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://buffalojackson.com/cdn/shop/products/roosevelt-leather-satchel-messenger-bag-lifesty_e_900x.jpg?v=1722954891"
+            "https://i.ibb.co/BKT6z0gs/diesel.webp",
+            "https://i.ibb.co/BKT6z0gs/diesel.webp",
+            "https://i.ibb.co/BKT6z0gs/diesel.webp"
         ],
-        material: "Genuine Leather, Brass Hardware",
-        era: "Vintage Inspired",
+        material: "Cotton Blend",
+        era: "2020",
         inStock: true,
-        category: "bags",
-        tags: ["leather", "bag", "messenger", "vintage", "handcrafted"]
+        category: "clothing",
+        tags: ["sweatshirt", "diesel", "casual", "modern", "branded"]
     },
     {
         id: 4,
-        name: "Floral Vintage Dress",
-        description: "70s inspired pattern with modern cut. This beautiful floral dress features a timeless pattern with an updated silhouette. The lightweight fabric is perfect for warm weather, while the versatile design can be dressed up or down.",
-        price: "₹2,799.00",
-        priceValue: 2799,
-        image: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "GAP Trousers",
+        description: "Comfortable GAP trousers with modern fit and classic styling. Made from premium cotton fabric for all-day comfort. Perfect for casual and semi-formal occasions with timeless design.",
+        price: "₹699.00",
+        priceValue: 699,
+        image: "https://i.postimg.cc/R91Tv4JY/loosar.png",
         images: [
-            "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/R91Tv4JY/loosar.png",
+            "https://i.postimg.cc/R91Tv4JY/loosar.png",
+            "https://i.postimg.cc/R91Tv4JY/loosar.png"
         ],
-        material: "Viscose Blend",
-        era: "1970s Inspired",
+        material: "Cotton",
+        era: "2022",
         inStock: true,
         category: "clothing",
-        tags: ["dress", "floral", "vintage", "70s", "fashion"]
+        tags: ["trousers", "gap", "casual", "modern", "branded", "cotton"]
     },
     {
         id: 5,
