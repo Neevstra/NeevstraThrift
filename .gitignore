@@ -1,0 +1,19 @@
+# Environment variables - DO NOT COMMIT
+.env
+.env.local
+.env.production
+
+# Sensitive configuration files
+contact-email-config.js
+*-config.js
+!email-config-template.js
+
+# VS Code settings (optional)
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
