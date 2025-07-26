@@ -223,7 +223,7 @@ nav {
 
 .marquee-content {
     display: inline-block;
-    animation: marquee 30s linear infinite;
+    animation: marquee 25s linear infinite; /* Slower speed for smooth continuous scrolling */
 }
 
 .marquee-text {
@@ -245,7 +245,7 @@ nav {
 /* Responsive marquee */
 @media (max-width: 768px) {
     .marquee-container {
-        top: 90px; /* Adjust for mobile nav height */
+        top: 80px; /* Reduced from 90px to fix navbar interference */
         padding: 6px 0;
     }
     
@@ -254,13 +254,18 @@ nav {
     }
     
     .hero {
-        margin-top: 120px; /* Adjust for mobile: nav + marquee + spacing */
+        margin-top: 110px; /* Reduced from 120px to account for new marquee position */
+    }
+    
+    /* Fix section tabs positioning for mobile */
+    .section-tabs {
+        padding: 110px 20px 0; /* Reduced from 120px */
     }
 }
 
 @media (max-width: 480px) {
     .marquee-container {
-        top: 85px; /* Smaller screens */
+        top: 75px; /* Reduced from 85px for smaller screens */
         padding: 5px 0;
     }
     
@@ -269,7 +274,12 @@ nav {
     }
     
     .hero {
-        margin-top: 110px; /* Adjust for very small screens */
+        margin-top: 105px; /* Reduced from 110px for very small screens */
+    }
+    
+    /* Fix section tabs positioning for very small screens */
+    .section-tabs {
+        padding: 105px 10px 0; /* Reduced padding */
     }
 }
 
@@ -1029,7 +1039,7 @@ footer {
     background-color: white;
     padding: 2rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    z-index: 1001; /* Higher than marquee to ensure proper layering */
 }
 
 .nav-links.active a {
@@ -1530,6 +1540,7 @@ nav.scrolled {
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        padding: 110px 20px 0; /* Ensure proper spacing from navbar and marquee */
     }
     
     .tab-btn {
@@ -1556,11 +1567,22 @@ nav.scrolled {
     .filter-group select {
         width: 100%;
     }
+    
+    /* Ensure product grid displays properly on tablets */
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 2rem;
+        padding: 0 15px;
+    }
+    
+    .product-image {
+        height: 220px;
+    }
 }
 
 @media (max-width: 480px) {
     .section-tabs {
-        padding: 0 10px;
+        padding: 105px 10px 0; /* Ensure proper spacing for very small screens */
     }
     
     .tab-btn {
@@ -1574,6 +1596,38 @@ nav.scrolled {
     
     .catalog-title p {
         font-size: 1rem;
+    }
+    
+    /* Ensure product grid displays properly on mobile */
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        padding: 0 10px;
+    }
+    
+    .product-card {
+        margin-bottom: 1rem;
+    }
+    
+    .product-image {
+        height: 200px;
+    }
+    
+    /* Ensure sections are visible on mobile */
+    .product-section {
+        min-height: auto;
+        padding: 20px 10px;
+    }
+    
+    .product-section.active {
+        display: block !important;
+    }
+    
+    /* Fix section title spacing on mobile */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        padding-top: 1rem;
     }
 }
 

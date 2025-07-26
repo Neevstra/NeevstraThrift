@@ -451,6 +451,7 @@
                         <div class="payment-error" id="payment-error">
                             <i class="fas fa-exclamation-triangle"></i>
                             <span id="error-message"></span>
+                            <button class="btn-small" id="retry-payment" style="margin-top: 10px; display: none;">Retry Payment</button>
                         </div>
                     </div>
                 </div>
@@ -664,6 +665,17 @@
                     country: document.getElementById('country').value
                 };
                 
+                // Show loading state
+                const loadingDiv = document.getElementById('payment-loading');
+                const errorDiv = document.getElementById('payment-error');
+                if (loadingDiv) {
+                    loadingDiv.style.display = 'block';
+                    loadingDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Initializing payment...';
+                }
+                if (errorDiv) {
+                    errorDiv.style.display = 'none';
+                }
+                
                 // Generate order ID
                 const orderId = 'NEV' + new Date().getFullYear() + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
                 
@@ -693,8 +705,28 @@
                     },
                     "modal": {
                         "ondismiss": function() {
-                            // Payment cancelled - stay on page
+                            // Payment cancelled - hide loading and show message
                             console.log('Payment cancelled by user');
+                            const loadingDiv = document.getElementById('payment-loading');
+                            if (loadingDiv) {
+                                loadingDiv.style.display = 'none';
+                            }
+                            
+                            const errorDiv = document.getElementById('payment-error');
+                            const errorMessageSpan = document.getElementById('error-message');
+                            const retryButton = document.getElementById('retry-payment');
+                            
+                            if (errorDiv && errorMessageSpan) {
+                                errorMessageSpan.textContent = 'Payment was cancelled. You can retry the payment.';
+                                errorDiv.style.display = 'block';
+                                retryButton.style.display = 'inline-block';
+                                
+                                // Add retry functionality
+                                retryButton.onclick = function() {
+                                    errorDiv.style.display = 'none';
+                                    document.getElementById('place-order-btn').click();
+                                };
+                            }
                         }
                     }
                 };
@@ -705,6 +737,14 @@
                 rzp.on('payment.failed', function (response) {
                     onPaymentFailure(response.error);
                 });
+                
+                // Hide loading when modal opens
+                setTimeout(() => {
+                    const loadingDiv = document.getElementById('payment-loading');
+                    if (loadingDiv) {
+                        loadingDiv.style.display = 'none';
+                    }
+                }, 1000);
                 
                 // Open Razorpay checkout
                 rzp.open();
@@ -788,32 +828,54 @@
                     localStorage.setItem('lastOrder', JSON.stringify(order));
                 }
                 
-                // Hide loading message
+                // Show success message before redirect
                 if (loadingDiv) {
-                    loadingDiv.style.display = 'none';
+                    loadingDiv.style.display = 'block';
+                    loadingDiv.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> Payment successful! Redirecting to receipt...';
+                    loadingDiv.style.backgroundColor = '#d4edda';
+                    loadingDiv.style.borderColor = '#c3e6cb';
+                    loadingDiv.style.color = '#155724';
                 }
                 
                 // Clear cart and backup after saving order
                 localStorage.setItem('cart', JSON.stringify([]));
                 localStorage.removeItem('checkoutCart');
                 
-                // Redirect to receipt page
-                window.location.href = 'receipt.html';
+                // Redirect to receipt page after showing success message
+                setTimeout(() => {
+                    window.location.href = 'receipt.html';
+                }, 2000);
             }
             
             // Function to handle payment failure
             function onPaymentFailure(error) {
                 console.error('Payment failed:', error);
                 
+                // Hide loading message
+                const loadingDiv = document.getElementById('payment-loading');
+                if (loadingDiv) {
+                    loadingDiv.style.display = 'none';
+                }
+                
                 // Show error message
                 const errorDiv = document.getElementById('payment-error');
                 const errorMessageSpan = document.getElementById('error-message');
+                const retryButton = document.getElementById('retry-payment');
                 
                 errorMessageSpan.textContent = `Payment failed: ${error.description}. Please try again.`;
                 errorDiv.style.display = 'block';
+                retryButton.style.display = 'inline-block';
                 
                 // Scroll to error message
                 errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Add retry functionality
+                retryButton.onclick = function() {
+                    // Hide error message
+                    errorDiv.style.display = 'none';
+                    // Trigger payment again
+                    document.getElementById('place-order-btn').click();
+                };
                 
                 // Don't clear cart - user can retry
                 // Don't create order - payment failed
