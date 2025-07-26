@@ -9,6 +9,43 @@ if (menuToggle && navLinks) {
     });
 }
 
+// Mobile Marquee Scroll Behavior
+let lastScrollTop = 0;
+let scrollTimeout;
+
+function handleScroll() {
+    // Only apply on mobile devices
+    if (window.innerWidth <= 768) {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+            // Scrolling down
+            document.body.classList.add('scrolling-down');
+        } else {
+            // Scrolling up
+            document.body.classList.remove('scrolling-down');
+        }
+        
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        
+        // Clear timeout and set new one
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('scrolling-down');
+        }, 1000); // Show marquee again after 1 second of no scrolling
+    }
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', handleScroll, { passive: true });
+
+// Handle window resize to reset behavior
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        document.body.classList.remove('scrolling-down');
+    }
+});
+
 // Cart Functionality
 const cartIcon = document.getElementById('cart-icon');
 const cartContainer = document.getElementById('cart-container');
