@@ -247,7 +247,6 @@ nav {
     .marquee-container {
         top: 80px; /* Reduced from 90px to fix navbar interference */
         padding: 6px 0;
-        transition: transform 0.3s ease;
     }
     
     .marquee-text {
@@ -261,11 +260,6 @@ nav {
     /* Fix section tabs positioning for mobile */
     .section-tabs {
         padding: 110px 20px 0; /* Reduced from 120px */
-    }
-    
-    /* Hide marquee when scrolling down on mobile */
-    body.scrolling-down .marquee-container {
-        transform: translateY(-100%);
     }
 }
 
