@@ -74,7 +74,7 @@ const PRODUCTS_DATA = [
         era: "2022",
         inStock: true,
         category: "clothing",
-        tags: ["trousers", "gap", "casual", "modern", "branded", "cotton"]
+        tags: ["trousers", "gap", "casual", "modern", "branded", "cotton", "available"]
     },
     {
         id: 5,
@@ -92,7 +92,7 @@ const PRODUCTS_DATA = [
         era: "2020",
         inStock: true,
         category: "clothing",
-        tags: ["shirt", "wrangler", "cotton", "casual", "branded", "new"]
+        tags: ["shirt", "wrangler", "cotton", "casual", "branded", "new", "available"]
     },
     {
         id: 6,
@@ -110,7 +110,7 @@ const PRODUCTS_DATA = [
         era: "2018",
         inStock: true,
         category: "clothing",
-        tags: ["jeans", "bell bottoms", "y2k", "denim", "trendy", "new"]
+        tags: ["jeans", "bell bottoms", "y2k", "denim", "trendy", "new", "available"]
     },
     {
         id: 7,
@@ -127,7 +127,7 @@ const PRODUCTS_DATA = [
         era: "2018",
         inStock: true,
         category: "clothing",
-        tags: ["shirt", "louis phillippe", "cotton", "formal", "branded", "new"]
+        tags: ["shirt", "louis phillippe", "cotton", "formal", "branded", "new", "available"]
     },
     {
         id: 8,
