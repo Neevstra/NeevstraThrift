@@ -9,12 +9,11 @@ const PRODUCTS_DATA = [
         description: "Classic 90s style with modern comfort. This vintage denim jacket features authentic distressing, a comfortable fit, and timeless style that pairs well with any outfit. Perfect for layering in any season. A perfect vintage camera for photography enthusiasts and collectors alike.",
         price: "₹2,099.00",
         priceValue: 2099,
-        image: "https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752731144/lwmft8wheslz3ugqyrhm.jpg",
+        image: "https://i.postimg.cc/XqjJsxsm/cam-3.avif",
         images: [
-            "https://res.cloudinary.com/dtjjgiitl/image/upload/q_auto:good,f_auto,fl_progressive/v1752731144/lwmft8wheslz3ugqyrhm.jpg",
-            "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            "https://i.postimg.cc/XqjJsxsm/cam-3.avif",
+            "https://i.postimg.cc/QtLSKKfH/cam1.png",
+            "https://i.postimg.cc/nVNVjFJN/cam-2.avif",
             "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         ],
         material: "Metal & Plastic Body with Glass Lens",
@@ -79,39 +78,39 @@ const PRODUCTS_DATA = [
     },
     {
         id: 5,
-        name: "Vintage Wool Coat",
-        description: "Premium wool blend with classic tailoring. This elegant coat features a timeless design with modern comfort. The high-quality wool blend provides warmth while maintaining a sophisticated silhouette. Perfect for formal occasions or everyday elegance.",
-        price: "₹5,999.00",
-        priceValue: 5999,
-        image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "Wrangler Shirt",
+        description: "Classic Wrangler shirt with authentic styling and comfortable fit. This timeless piece features quality cotton construction and iconic Wrangler design elements. Perfect for casual wear with a vintage-inspired look.",
+        price: "₹499.00",
+        priceValue: 499,
+        image: "https://i.postimg.cc/63jrL70r/wrngler.avif",
         images: [
-            "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/63jrL70r/wrngler.avif",
+            "https://i.postimg.cc/KzwNhkMZ/wrngler2.avif",
+            "https://i.postimg.cc/QCZTqp7W/wrngler3.avif"
         ],
-        material: "Premium Wool Blend",
-        era: "1960s Inspired",
-        inStock: false, // Example of sold out item
+        material: "Cotton",
+        era: "2020",
+        inStock: true,
         category: "clothing",
-        tags: ["coat", "wool", "vintage", "formal", "winter"]
+        tags: ["shirt", "wrangler", "cotton", "casual", "branded", "new"]
     },
     {
         id: 6,
-        name: "Handcrafted Leather Wallet",
-        description: "Genuine leather with artisanal stitching. This handcrafted wallet features premium leather construction with meticulous attention to detail. Multiple card slots and compartments provide functionality while maintaining a slim profile.",
-        price: "₹1,499.00",
-        priceValue: 1499,
-        image: "https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "ONLY Y2K Inspired Bell Bottoms",
+        description: "Trendy Y2K inspired bell bottom jeans with a modern twist. These stylish bell bottoms feature authentic Y2K styling with a comfortable fit and quality denim construction. Perfect for creating that nostalgic early 2000s look.",
+        price: "₹699.00",
+        priceValue: 699,
+        image: "https://i.postimg.cc/SRVcNnX2/jesn1.avif",
         images: [
-            "https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1627123424574-724758594e93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/SRVcNnX2/jesn1.avif",
+            "https://i.postimg.cc/J44bY5gb/jesn2.avif",
+            "https://i.postimg.cc/TwzrHzz1/wrngler3.avif"
         ],
-        material: "Genuine Leather",
-        era: "Timeless Classic",
-        inStock: false,
-        category: "accessories",
-        tags: ["wallet", "leather", "handcrafted", "accessories", "vintage"]
+        material: "Jean",
+        era: "2018",
+        inStock: true,
+        category: "clothing",
+        tags: ["jeans", "bell bottoms", "y2k", "denim", "trendy", "new"]
     },
     {
         id: 7,
