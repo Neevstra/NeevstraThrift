@@ -114,39 +114,37 @@ const PRODUCTS_DATA = [
     },
     {
         id: 7,
-        name: "Vintage Silk Scarf",
-        description: "Pure silk with hand-rolled edges. This luxurious scarf features beautiful patterns and colors that complement any outfit. The pure silk material provides a soft, elegant drape while the hand-rolled edges showcase traditional craftsmanship.",
-        price: "₹1,299.00",
-        priceValue: 1299,
-        image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "Louis Phillippe Shirt",
+        description: "Classic Louis Phillippe shirt with premium quality fabric and elegant design. Features comfortable fit and sophisticated styling. Perfect for formal and semi-formal occasions with timeless appeal.",
+        price: "₹499.00",
+        priceValue: 499,
+        image: "https://i.postimg.cc/kMFh0w5G/lp1.jpg",
         images: [
-            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/kMFh0w5G/lp1.jpg",
+            "https://i.postimg.cc/CxZ7x4wj/lp2.jpg"
         ],
-        material: "100% Pure Silk",
-        era: "1950s Inspired",
-        inStock: false,
-        category: "accessories",
-        tags: ["scarf", "silk", "vintage", "luxury", "accessories"]
+        material: "Cotton",
+        era: "2018",
+        inStock: true,
+        category: "clothing",
+        tags: ["shirt", "louis phillippe", "cotton", "formal", "branded", "new"]
     },
     {
         id: 8,
-        name: "Vintage Leather Boots",
-        description: "Handcrafted with premium leather. These vintage-style boots combine classic design with modern comfort. The premium leather construction ensures durability while the timeless design makes them perfect for any occasion.",
-        price: "₹4,299.00",
-        priceValue: 4299,
-        image: "https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "Adidas Track Pant",
+        description: "Comfortable Adidas track pants with modern fit and quality construction. Features the iconic Adidas branding and comfortable cotton material. Perfect for sports, casual wear, and everyday comfort.",
+        price: "₹549.00",
+        priceValue: 549,
+        image: "https://i.postimg.cc/G3VH1PS0/ad1.jpg",
         images: [
-            "https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/G3VH1PS0/ad1.jpg",
+            "https://i.postimg.cc/NMVfBYD8/ad2.jpg"
         ],
-        material: "Premium Leather",
-        era: "1940s Inspired",
-        inStock: false, // Another example of sold out item
-        category: "footwear",
-        tags: ["boots", "leather", "vintage", "footwear", "handcrafted"]
+        material: "Cotton",
+        era: "2018",
+        inStock: true,
+        category: "clothing",
+        tags: ["track pants", "adidas", "cotton", "sports", "casual", "branded", "new"]
     },
     {
         id: 9,
