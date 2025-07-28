@@ -378,13 +378,39 @@ nav {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid var(--border-color);
+    position: relative;
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Sunshine glaze hover effect */
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 215, 0, 0.2),
+        rgba(255, 223, 0, 0.4),
+        rgba(255, 215, 0, 0.2),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.product-card:hover::before {
+    left: 100%;
 }
 
 .product-link {
@@ -403,11 +429,12 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    filter: brightness(1.1) contrast(1.05);
 }
 
 /* New Badge Styles */
@@ -445,6 +472,10 @@ nav {
 
 .product-info {
     padding: 1.5rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 1));
+    backdrop-filter: blur(10px);
 }
 
 .product-info h3 {
@@ -471,12 +502,64 @@ nav {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
 }
 
 .product-buttons .btn-small {
     flex: 1;
     min-width: 100px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, var(--accent-color), #333333);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Glossy shine effect for buttons */
+.product-buttons .btn-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.product-buttons .btn-small:hover::before {
+    left: 100%;
+}
+
+.product-buttons .btn-small:hover {
+    background: linear-gradient(145deg, #c69c6d, #d4af37);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Ensure button text stays above the shine effect */
+.product-buttons .btn-small span,
+.product-buttons .btn-small {
+    position: relative;
+    z-index: 2;
 }
 
 .view-more {

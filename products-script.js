@@ -1,8 +1,14 @@
+// Store original product order
+let originalProductOrder = [];
+
 // Products page functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Get URL parameters to determine which section to show
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section') || 'catalog';
+    
+    // Store original product order for featured sorting
+    storeOriginalOrder();
     
     // Show the appropriate section on page load
     showSection(section);
@@ -10,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize filters
     initializeFilters();
 });
+
+// Store the original order of products
+function storeOriginalOrder() {
+    const productCards = document.querySelectorAll('#catalog-section .product-card');
+    originalProductOrder = Array.from(productCards);
+}
 
 // Function to show/hide sections
 function showSection(sectionName) {
@@ -84,33 +96,36 @@ function initializeFilters() {
 
 // Filter products by category
 function filterProducts() {
-    const categoryFilter = document.getElementById('category-filter');
-    const selectedCategory = categoryFilter.value;
-    const productCards = document.querySelectorAll('#catalog-section .product-card');
-    
-    productCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        
-        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+    applyFiltersAndSort();
 }
 
 // Sort products
 function sortProducts() {
+    applyFiltersAndSort();
+}
+
+// Combined function to apply both filters and sorting
+function applyFiltersAndSort() {
+    const categoryFilter = document.getElementById('category-filter');
     const sortFilter = document.getElementById('sort-filter');
-    const selectedSort = sortFilter.value;
+    const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+    const selectedSort = sortFilter ? sortFilter.value : 'featured';
+    
     const productGrid = document.querySelector('#catalog-section .product-grid');
-    const productCards = Array.from(document.querySelectorAll('#catalog-section .product-card'));
     
+    // Always work with the original product order to ensure consistency
+    let workingCards = [...originalProductOrder];
+    
+    // First, reset all cards to be visible for sorting
+    workingCards.forEach(card => {
+        card.style.display = 'block';
+    });
+    
+    // Sort the cards
     let sortedCards;
-    
     switch (selectedSort) {
         case 'price-low':
-            sortedCards = productCards.sort((a, b) => {
+            sortedCards = workingCards.sort((a, b) => {
                 const priceA = parseInt(a.querySelector('.price').textContent.replace(/[₹,]/g, ''));
                 const priceB = parseInt(b.querySelector('.price').textContent.replace(/[₹,]/g, ''));
                 return priceA - priceB;
@@ -118,7 +133,7 @@ function sortProducts() {
             break;
             
         case 'price-high':
-            sortedCards = productCards.sort((a, b) => {
+            sortedCards = workingCards.sort((a, b) => {
                 const priceA = parseInt(a.querySelector('.price').textContent.replace(/[₹,]/g, ''));
                 const priceB = parseInt(b.querySelector('.price').textContent.replace(/[₹,]/g, ''));
                 return priceB - priceA;
@@ -127,22 +142,30 @@ function sortProducts() {
             
         case 'newest':
             // For demo purposes, reverse the order to simulate newest first
-            sortedCards = productCards.reverse();
+            sortedCards = [...workingCards].reverse();
             break;
             
         default: // featured
-            // Reset to original order
-            sortedCards = productCards.sort((a, b) => {
-                const idA = parseInt(a.querySelector('.add-to-cart-btn').getAttribute('data-id'));
-                const idB = parseInt(b.querySelector('.add-to-cart-btn').getAttribute('data-id'));
-                return idA - idB;
-            });
+            // Reset to original order using stored reference
+            sortedCards = [...originalProductOrder];
     }
     
     // Clear the grid and re-append sorted cards
     productGrid.innerHTML = '';
     sortedCards.forEach(card => {
         productGrid.appendChild(card);
+    });
+    
+    // Apply category filter after sorting
+    const updatedProductCards = document.querySelectorAll('#catalog-section .product-card');
+    updatedProductCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        
+        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
     });
 }
 
