@@ -148,22 +148,57 @@ const PRODUCTS_DATA = [
     },
     {
         id: 9,
-        name: "Vintage Watch",
-        description: "Restored mechanical timepiece with leather strap. This beautiful vintage watch has been carefully restored to working condition. The mechanical movement and classic design make it a perfect accessory for any vintage enthusiast.",
-        price: "₹6,999.00",
-        priceValue: 6999,
-        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        name: "CLEF DE SOY JEANS",
+        description: "Stylish CLEF DE SOY jeans with premium denim construction and contemporary fit. These trendy jeans feature quality craftsmanship and modern styling that's perfect for casual wear. Comfortable fit with excellent durability and timeless appeal.",
+        price: "₹749.00",
+        priceValue: 749,
+        image: "https://i.postimg.cc/L8pDwkCk/soya1.jpg",
         images: [
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "https://i.postimg.cc/L8pDwkCk/soya1.jpg",
+            "https://i.postimg.cc/jjqXdxrL/soya2.jpg",
+            "https://i.postimg.cc/fLJfm8ys/soya3.jpg"
         ],
-        material: "Stainless Steel, Leather Strap",
-        era: "1960s",
-        inStock: false,
-        category: "accessories",
-        tags: ["watch", "vintage", "mechanical", "timepiece", "accessories"]
+        material: "Jeans",
+        era: "2020",
+        inStock: true,
+        category: "clothing",
+        tags: ["jeans", "clef de soy", "denim", "casual", "modern", "branded"]
+    },
+    {
+        id: 10,
+        name: "SUPERDRY Formal Pant",
+        description: "Premium SUPERDRY formal pants with sophisticated styling and comfortable fit. These elegant formal pants feature quality fabric construction and modern tailoring. Perfect for office wear, formal occasions, and professional settings with contemporary design.",
+        price: "₹749.00",
+        priceValue: 749,
+        image: "https://i.postimg.cc/KY9dmpCh/dry1.jpg",
+        images: [
+            "https://i.postimg.cc/KY9dmpCh/dry1.jpg",
+            "https://i.postimg.cc/fT41W9qy/dry2.jpg",
+            "https://i.postimg.cc/ZKr2W5Xc/dry3.jpg"
+        ],
+        material: "Cloth",
+        era: "2022",
+        inStock: true,
+        category: "clothing",
+        tags: ["formal pants", "superdry", "formal", "office wear", "branded", "professional"]
+    },
+    {
+        id: 11,
+        name: "JACKRON Jeans",
+        description: "Classic JACKRON jeans with authentic denim styling and comfortable fit. These quality jeans feature durable construction and timeless design that's perfect for everyday wear. Versatile styling with excellent comfort and long-lasting durability.",
+        price: "₹699.00",
+        priceValue: 699,
+        image: "https://i.postimg.cc/tJ9PDDC7/jack1.jpg",
+        images: [
+            "https://i.postimg.cc/tJ9PDDC7/jack1.jpg",
+            "https://i.postimg.cc/tJr1kjMm/jack2.jpg",
+            "https://i.postimg.cc/8kwrNRzB/jack3.jpg"
+        ],
+        material: "Jean",
+        era: "2020",
+        inStock: true,
+        category: "clothing",
+        tags: ["jeans", "jackron", "denim", "casual", "everyday", "branded"]
     }
 ];
 
