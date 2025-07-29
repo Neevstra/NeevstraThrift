@@ -142,6 +142,11 @@ img {
     color: white;
 }
 
+.stock-badge.available {
+    background-color: #28a745;
+    color: white;
+}
+
 /* Cart Unique Item Styles */
 .unique-item-label {
     font-size: 0.9rem;

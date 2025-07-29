@@ -69,11 +69,11 @@ function updateProductStockStatus() {
                 if (productCard) {
                     productCard.classList.remove('sold-out');
                     
-                    // Add available badge if it doesn't exist
+                    // Update or add available badge
                     let stockBadge = productCard.querySelector('.stock-badge');
                     if (!stockBadge) {
                         stockBadge = document.createElement('div');
-                        stockBadge.className = 'stock-badge in-stock';
+                        stockBadge.className = 'stock-badge available';
                         stockBadge.textContent = 'Available';
                         
                         // Find the product image container
@@ -82,6 +82,10 @@ function updateProductStockStatus() {
                             imageContainer.style.position = 'relative';
                             imageContainer.appendChild(stockBadge);
                         }
+                    } else {
+                        // Update existing badge to available
+                        stockBadge.className = 'stock-badge available';
+                        stockBadge.textContent = 'Available';
                     }
                 }
                 
