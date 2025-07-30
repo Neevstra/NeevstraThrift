@@ -168,9 +168,16 @@ The project is configured for automatic deployment to GitHub Pages:
 ## 🔧 Customization
 
 ### Adding Products
-1. Update product data in `products-script.js`
-2. Add product images to the repository
-3. Update product categories and filters
+1. **Edit product data** in `products-data.js`
+2. **Add new products** to the `PRODUCTS_DATA` array
+3. **Set category** to 'clothing', 'accessories', 'bags', or 'shoes'
+4. **Upload product images** and update image URLs
+
+#### Adding Bags and Shoes
+The website includes empty category messages for bags and shoes until you add products:
+- When users select "Bags" or "Shoes" category, they see a "No products yet" message
+- Once you add products with `category: "bags"` or `category: "shoes"`, they will automatically appear
+- Follow the examples in `products-data.js` for the correct format
 
 ### Styling Changes
 1. Modify CSS custom properties in `styles.css`

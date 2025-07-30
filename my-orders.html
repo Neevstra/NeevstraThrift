@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View your order history and track your purchases from Neevstra thrift store. Check order status and download receipts.">
+    <meta name="keywords" content="order history, my orders, order tracking, purchase history, Neevstra orders">
+    <meta name="author" content="Neevstra">
+    <link rel="icon" type="image/png" href="NEEVSTRA.png">
     <title>My Orders - Neevstra</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,13 +27,13 @@
             <a href="my-orders.html" class="active">My Orders</a>
             <a href="about-us.html">About Us</a>
             <a href="index.html#contact">Contact</a>
-            <div class="cart-icon" id="cart-icon">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count">0</span>
+            <div class="cart-icon" id="cart-icon" role="button" aria-label="Shopping cart" tabindex="0">
+                <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                <span class="cart-count" aria-label="Items in cart">0</span>
             </div>
         </div>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
+        <div class="menu-toggle" role="button" aria-label="Toggle navigation menu" tabindex="0">
+            <i class="fas fa-bars" aria-hidden="true"></i>
         </div>
     </nav>
     

@@ -219,3 +219,54 @@ function getStockStatus(inStock) {
 function getStockClass(inStock) {
     return inStock ? 'in-stock' : 'sold-out';
 }
+
+// Helper function to get products by category
+function getProductsByCategory(category) {
+    return PRODUCTS_DATA.filter(product => product.category === category);
+}
+
+// Helper function to check if category has products
+function categoryHasProducts(category) {
+    return getProductsByCategory(category).length > 0;
+}
+
+/* 
+ADMIN GUIDE: How to add Bags and Shoes products
+
+When you're ready to add bags or shoes, simply add new objects to the PRODUCTS_DATA array above.
+Use the next available ID number and set category to 'bags' or 'shoes'.
+
+Example for adding a bag:
+{
+    id: 12, // Next available ID
+    name: "Vintage Leather Handbag",
+    description: "Beautiful vintage leather handbag with classic design...",
+    price: "₹899.00",
+    priceValue: 899,
+    image: "your-image-url-here",
+    images: ["image1-url", "image2-url", "image3-url"],
+    material: "Leather",
+    era: "1990s",
+    inStock: true,
+    category: "bags", // Important: set to 'bags'
+    tags: ["handbag", "leather", "vintage", "accessories"]
+},
+
+Example for adding shoes:
+{
+    id: 13, // Next available ID
+    name: "Vintage Nike Sneakers",
+    description: "Classic vintage Nike sneakers in excellent condition...",
+    price: "₹1299.00",
+    priceValue: 1299,
+    image: "your-image-url-here",
+    images: ["image1-url", "image2-url", "image3-url"],
+    material: "Canvas & Rubber",
+    era: "1980s",
+    inStock: true,
+    category: "shoes", // Important: set to 'shoes'
+    tags: ["sneakers", "nike", "vintage", "footwear"]
+}
+
+The empty category message will automatically disappear once you add products with category 'bags' or 'shoes'.
+*/

@@ -3,9 +3,19 @@ const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (menuToggle && navLinks) {
+    // Click event
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         menuToggle.classList.toggle('active');
+    });
+    
+    // Keyboard navigation support
+    menuToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
     });
 }
 
@@ -114,6 +124,39 @@ function initializePage() {
     
     // Refresh cart
     refreshCart();
+    
+    // Set up image error handling
+    setupImageErrorHandling();
+}
+
+// Handle broken images
+function setupImageErrorHandling() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn('Failed to load image:', this.src);
+            // Replace with a placeholder or hide the image
+            this.style.display = 'none';
+            
+            // Add a placeholder div if it's a product image
+            if (this.closest('.product-image')) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.innerHTML = '<i class="fas fa-image"></i><p>Image not available</p>';
+                placeholder.style.cssText = `
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 250px;
+                    background-color: #f8f9fa;
+                    color: #6c757d;
+                    border: 1px dashed #dee2e6;
+                `;
+                this.parentNode.appendChild(placeholder);
+            }
+        });
+    });
 }
 
 // Initialize when DOM is loaded
@@ -131,6 +174,7 @@ function setupCartEventListeners() {
     
     // Open cart
     if (cartIcon && cartContainer && cartOverlay && !cartIcon.hasAttribute('data-listener-added')) {
+        // Click event
         cartIcon.addEventListener('click', () => {
             console.log('Cart icon clicked - opening cart');
             refreshCart(); // Refresh cart from localStorage before showing
@@ -139,8 +183,21 @@ function setupCartEventListeners() {
             document.body.style.overflow = 'hidden';
             console.log('Cart should now be visible');
         });
+        
+        // Keyboard navigation support
+        cartIcon.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                console.log('Cart icon keyboard activated - opening cart');
+                refreshCart();
+                cartContainer.classList.add('active');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+        
         cartIcon.setAttribute('data-listener-added', 'true');
-        console.log('Cart icon event listener added successfully');
+        console.log('Cart icon event listeners added successfully');
     } else {
         console.log('Cart setup failed:', {
             cartIcon: !!cartIcon,
@@ -265,32 +322,51 @@ document.addEventListener('click', (e) => {
 
 // Add to cart function for unique items
 function addToCart(id, name, price, image) {
-    // Refresh cart from localStorage first
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // For unique items, we don't increase quantity, just add once
-    cart.push({
-        id,
-        name,
-        price,
-        image,
-        quantity: 1 // Always 1 for unique items
-    });
-    
-    // Save to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Update cart UI
-    updateCart();
-    
-    // Show "Go to Cart" notification
-    if (goToCartNotification) {
-        goToCartNotification.classList.add('show');
+    try {
+        // Validate input parameters
+        if (!id || !name || !price || !image) {
+            console.error('Invalid product data:', { id, name, price, image });
+            alert('Error: Invalid product data. Please try again.');
+            return;
+        }
         
-        // Hide notification after 5 seconds
-        setTimeout(() => {
-            goToCartNotification.classList.remove('show');
-        }, 5000);
+        // Refresh cart from localStorage first
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // For unique items, we don't increase quantity, just add once
+        cart.push({
+            id: String(id),
+            name: String(name),
+            price: Number(price),
+            image: String(image),
+            quantity: 1 // Always 1 for unique items
+        });
+        
+        // Save to localStorage with error handling
+        try {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        } catch (storageError) {
+            console.error('Failed to save cart to localStorage:', storageError);
+            alert('Error: Unable to save item to cart. Your storage may be full.');
+            return;
+        }
+        
+        // Update cart UI
+        updateCart();
+        
+        // Show "Go to Cart" notification
+        const goToCartNotification = document.getElementById('go-to-cart-notification');
+        if (goToCartNotification) {
+            goToCartNotification.classList.add('show');
+            
+            // Hide notification after 5 seconds
+            setTimeout(() => {
+                goToCartNotification.classList.remove('show');
+            }, 5000);
+        }
+    } catch (error) {
+        console.error('Error adding item to cart:', error);
+        alert('Error: Unable to add item to cart. Please try again.');
     }
 }
 

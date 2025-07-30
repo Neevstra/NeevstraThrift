@@ -158,15 +158,80 @@ function applyFiltersAndSort() {
     
     // Apply category filter after sorting
     const updatedProductCards = document.querySelectorAll('#catalog-section .product-card');
+    let visibleProducts = 0;
+    
     updatedProductCards.forEach(card => {
         const cardCategory = card.getAttribute('data-category');
         
         if (selectedCategory === 'all' || cardCategory === selectedCategory) {
             card.style.display = 'block';
+            visibleProducts++;
         } else {
             card.style.display = 'none';
         }
     });
+    
+    // Show/hide empty category message
+    showEmptyCategoryMessage(selectedCategory, visibleProducts);
+}
+
+// Show empty category message when no products are found
+function showEmptyCategoryMessage(category, visibleProducts) {
+    const productGrid = document.querySelector('#catalog-section .product-grid');
+    let emptyMessage = document.getElementById('empty-category-message');
+    
+    if (visibleProducts === 0 && category !== 'all') {
+        // Create empty message if it doesn't exist
+        if (!emptyMessage) {
+            emptyMessage = document.createElement('div');
+            emptyMessage.id = 'empty-category-message';
+            emptyMessage.className = 'empty-category-message';
+            productGrid.appendChild(emptyMessage);
+        }
+        
+        // Set message content based on category
+        const categoryMessages = {
+            'bags': {
+                icon: 'fas fa-shopping-bag',
+                title: 'No Bags Yet',
+                message: 'We\'re currently curating our collection of vintage and pre-loved bags. Check back soon for unique finds!',
+                suggestion: 'In the meantime, explore our clothing and accessories collection.'
+            },
+            'shoes': {
+                icon: 'fas fa-shoe-prints',
+                title: 'No Shoes Yet',
+                message: 'We\'re working on adding stylish vintage and pre-loved shoes to our collection. Stay tuned!',
+                suggestion: 'Browse our other categories for amazing thrift finds.'
+            },
+            'default': {
+                icon: 'fas fa-search',
+                title: 'No Products Found',
+                message: 'We don\'t have any products in this category yet.',
+                suggestion: 'Try browsing other categories or check back later.'
+            }
+        };
+        
+        const messageData = categoryMessages[category] || categoryMessages['default'];
+        
+        emptyMessage.innerHTML = `
+            <div class="empty-category-content">
+                <i class="${messageData.icon}"></i>
+                <h3>${messageData.title}</h3>
+                <p>${messageData.message}</p>
+                <p class="suggestion">${messageData.suggestion}</p>
+                <button class="btn-small" onclick="document.getElementById('category-filter').value='all'; filterProducts();">
+                    View All Products
+                </button>
+            </div>
+        `;
+        
+        emptyMessage.style.display = 'block';
+    } else {
+        // Hide empty message if products are visible
+        if (emptyMessage) {
+            emptyMessage.style.display = 'none';
+        }
+    }
 }
 
 // Handle browser back/forward buttons
