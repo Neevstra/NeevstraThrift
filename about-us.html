@@ -159,7 +159,6 @@
     </style>
 </head>
 <body>
-    <!-- Back Button Navigation -->
     <div class="back-nav">
         <button class="back-button" onclick="goBack()">
             <i class="fas fa-arrow-left"></i> Back
@@ -170,8 +169,6 @@
             <span class="cart-count">0</span>
         </div>
     </div>
-    
-    <!-- Page Content -->
     <div class="page-container">
         <div class="page-header">
             <h1>About Neevstra</h1>
@@ -221,7 +218,6 @@
         </div>
     </div>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
@@ -276,7 +272,6 @@
         </div>
     </footer>
     
-    <!-- Cart Container -->
     <div class="cart-overlay" id="cart-overlay"></div>
     <div class="cart-container" id="cart-container">
         <div class="cart-header">
@@ -284,7 +279,6 @@
             <button id="close-cart"><i class="fas fa-times"></i></button>
         </div>
         <div id="cart-items" class="cart-items">
-            <!-- Cart items will be added here dynamically -->
         </div>
         <div id="empty-cart" class="empty-cart">
             <p>Your cart is empty</p>
@@ -312,20 +306,17 @@
             window.history.back();
         }
         
-        // Initialize cart count
         document.addEventListener('DOMContentLoaded', function() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCount = document.querySelector('.cart-count');
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
 
-            // Cart functionality
             const cartIcon = document.getElementById('cart-icon');
             const cartContainer = document.getElementById('cart-container');
             const cartOverlay = document.getElementById('cart-overlay');
             const closeCart = document.getElementById('close-cart');
 
-            // Open cart
             cartIcon.addEventListener('click', () => {
                 updateCart();
                 cartContainer.classList.add('active');
@@ -333,7 +324,6 @@
                 document.body.style.overflow = 'hidden';
             });
 
-            // Close cart
             closeCart.addEventListener('click', () => {
                 cartContainer.classList.remove('active');
                 cartOverlay.classList.remove('active');
@@ -346,7 +336,6 @@
                 document.body.style.overflow = '';
             });
 
-            // Start shopping button
             const startShopping = document.getElementById('start-shopping');
             if (startShopping) {
                 startShopping.addEventListener('click', () => {
@@ -357,8 +346,6 @@
                 });
             }
         });
-
-        // Update cart UI
         function updateCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartItems = document.getElementById('cart-items');

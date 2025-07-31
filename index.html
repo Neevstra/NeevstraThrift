@@ -22,10 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Skip to main content for screen readers -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <!-- Navigation -->
     <nav>
         <div class="logo">
             <img src="NEEVSTRA.png" alt="Neevstra Logo" class="logo-img">
@@ -59,7 +56,6 @@
             </div>
         </div>
         <div class="cart-items" id="cart-items">
-            <!-- Cart items will be dynamically added here -->
         </div>
         <div class="empty-cart" id="empty-cart">
             <i class="fas fa-shopping-cart"></i>
@@ -77,7 +73,6 @@
 
 
 
-    <!-- Hero Section -->
     <main id="main-content">
     <section id="home" class="hero">
         <div class="hero-content">
@@ -86,8 +81,6 @@
             <a href="#products" class="btn pop-in">Explore Collection</a>
         </div>
     </section>
-
-    <!-- Products Section -->
     <section id="products" class="products">
         <h2 class="section-title">Our Collection</h2>
         <div class="product-grid">
@@ -217,7 +210,6 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
     <section id="about" class="about">
         <h2 class="section-title">About Us</h2>
         <div class="about-content">
@@ -236,8 +228,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <h2 class="section-title">Contact Us</h2>
         <div class="contact-container">
@@ -342,7 +332,6 @@
         </div>
     </footer>
 
-    <!-- Go to Cart Notification -->
     <div id="go-to-cart-notification" class="go-to-cart-notification">
         <p>Item added to cart!</p>
         <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
@@ -350,24 +339,19 @@
 
     <script src="products-data.js"></script>
     <script src="script.js"></script>
-    
-    <!-- EmailJS Scripts for Home Page Contact Form -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="contact-email-config.js"></script>
     
     <script>
-        // Home page contact form submission with EmailJS
         document.getElementById('homeContactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const submitBtn = document.querySelector('.home-submit-btn');
             const originalText = submitBtn.textContent;
             
-            // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Get form data
             const formData = {
                 name: document.getElementById('home-name').value,
                 email: document.getElementById('home-email').value,
@@ -375,7 +359,6 @@
                 message: document.getElementById('home-message').value
             };
             
-            // Enhanced form validation
             if (!formData.name.trim()) {
                 alert('Please enter your name.');
                 submitBtn.textContent = originalText;
@@ -390,7 +373,6 @@
                 return;
             }
             
-            // Email format validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(formData.email)) {
                 alert('Please enter a valid email address.');
@@ -421,7 +403,6 @@
             }
             
             try {
-                // Check if EmailJS is loaded and configured
                 if (typeof submitContactForm === 'function') {
                     const result = await submitContactForm(formData);
                     
@@ -432,7 +413,6 @@
                         throw new Error(result.error || 'Failed to send message');
                     }
                 } else {
-                    // Fallback if EmailJS is not configured
                     console.log('Home form submitted (EmailJS not configured):', formData);
                     alert('Thank you for your message! We will get back to you soon.\n\nNote: Email functionality is not yet configured.');
                     document.getElementById('homeContactForm').reset();
@@ -442,7 +422,6 @@
                 alert('Sorry, there was an error sending your message. Please try again or contact us directly at neevstraa@gmail.com');
             }
             
-            // Reset button
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         });

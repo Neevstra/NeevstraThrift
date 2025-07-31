@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="logo">
             <img src="NEEVSTRA.png" alt="Neevstra Logo" class="logo-img">
@@ -37,7 +36,6 @@
         </div>
     </nav>
     
-    <!-- Cart Section -->
     <div class="cart-overlay" id="cart-overlay"></div>
     <div class="cart-container" id="cart-container">
         <div class="cart-header">
@@ -47,7 +45,6 @@
             </div>
         </div>
         <div class="cart-items" id="cart-items">
-            <!-- Cart items will be dynamically added here -->
         </div>
         <div class="empty-cart" id="empty-cart">
             <i class="fas fa-shopping-cart"></i>
@@ -63,7 +60,6 @@
         </div>
     </div>
 
-    <!-- My Orders Section -->
     <div class="page-container">
         <div class="back-button" onclick="window.history.back()">
             <i class="fas fa-arrow-left"></i> Back
@@ -72,7 +68,6 @@
         <h1 class="page-title">My Orders</h1>
         
         <div class="orders-container" id="orders-container">
-            <!-- Orders will be added here after successful purchase -->
             <div class="empty-orders" id="empty-orders">
                 <i class="fas fa-shopping-bag"></i>
                 <h3>No orders yet</h3>
@@ -82,7 +77,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
@@ -129,7 +123,6 @@
         </div>
     </footer>
 
-    <!-- Cart Container -->
     <div id="go-to-cart-notification" class="go-to-cart-notification">
         <p>Item added to cart!</p>
         <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
@@ -137,22 +130,17 @@
 
     <script src="script.js"></script>
     <script>
-        // Load orders from localStorage
         document.addEventListener('DOMContentLoaded', function() {
             const ordersContainer = document.getElementById('orders-container');
             const emptyOrders = document.getElementById('empty-orders');
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             
-            // Check if there are any orders
             if (orders.length === 0) {
                 emptyOrders.style.display = 'block';
                 return;
             }
             
-            // Hide empty orders message
             emptyOrders.style.display = 'none';
-            
-            // Display orders
             orders.forEach(order => {
                 const orderCard = document.createElement('div');
                 orderCard.className = 'order-card';

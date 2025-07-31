@@ -1,15 +1,12 @@
-// Mobile Navigation Toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (menuToggle && navLinks) {
-    // Click event
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         menuToggle.classList.toggle('active');
     });
     
-    // Keyboard navigation support
     menuToggle.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -19,7 +16,6 @@ if (menuToggle && navLinks) {
     });
 }
 
-// Cart Functionality
 const cartIcon = document.getElementById('cart-icon');
 const cartContainer = document.getElementById('cart-container');
 const cartOverlay = document.getElementById('cart-overlay');
@@ -34,12 +30,9 @@ const startShopping = document.getElementById('start-shopping');
 const goToCartNotification = document.getElementById('go-to-cart-notification');
 const goToCartBtn = document.getElementById('go-to-cart-btn');
 
-// Cart array to store items
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Function to update product cards with stock status
 function updateProductStockStatus() {
-    // Get all add to cart buttons
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     
     addToCartButtons.forEach(button => {
@@ -50,18 +43,15 @@ function updateProductStockStatus() {
             const productCard = button.closest('.product-card') || button.closest('.product');
             
             if (!product.inStock) {
-                // Mark product as sold out
                 if (productCard) {
                     productCard.classList.add('sold-out');
                     
-                    // Add sold out badge if it doesn't exist
                     let stockBadge = productCard.querySelector('.stock-badge');
                     if (!stockBadge) {
                         stockBadge = document.createElement('div');
                         stockBadge.className = 'stock-badge sold-out';
                         stockBadge.textContent = 'Sold Out';
                         
-                        // Find the product image container
                         const imageContainer = productCard.querySelector('.product-image') || productCard.querySelector('img').parentElement;
                         if (imageContainer) {
                             imageContainer.style.position = 'relative';
@@ -70,36 +60,30 @@ function updateProductStockStatus() {
                     }
                 }
                 
-                // Update button
                 button.classList.add('sold-out');
                 button.textContent = 'Sold Out';
                 button.disabled = true;
             } else {
-                // Mark product as available
                 if (productCard) {
                     productCard.classList.remove('sold-out');
                     
-                    // Update or add available badge
                     let stockBadge = productCard.querySelector('.stock-badge');
                     if (!stockBadge) {
                         stockBadge = document.createElement('div');
                         stockBadge.className = 'stock-badge available';
                         stockBadge.textContent = 'Available';
                         
-                        // Find the product image container
                         const imageContainer = productCard.querySelector('.product-image') || productCard.querySelector('img').parentElement;
                         if (imageContainer) {
                             imageContainer.style.position = 'relative';
                             imageContainer.appendChild(stockBadge);
                         }
                     } else {
-                        // Update existing badge to available
                         stockBadge.className = 'stock-badge available';
                         stockBadge.textContent = 'Available';
                     }
                 }
                 
-                // Update button
                 button.classList.remove('sold-out');
                 button.textContent = 'Add to Cart';
                 button.disabled = false;
@@ -108,37 +92,25 @@ function updateProductStockStatus() {
     });
 }
 
-// Function to refresh cart from localStorage (for cross-page synchronization)
 function refreshCart() {
     cart = JSON.parse(localStorage.getItem('cart')) || [];
     updateCart();
 }
 
-// Initialize page functionality
 function initializePage() {
-    // Update product stock status
     updateProductStockStatus();
-    
-    // Setup cart event listeners
     setupCartEventListeners();
-    
-    // Refresh cart
     refreshCart();
-    
-    // Set up image error handling
     setupImageErrorHandling();
 }
 
-// Handle broken images
 function setupImageErrorHandling() {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('error', function() {
             console.warn('Failed to load image:', this.src);
-            // Replace with a placeholder or hide the image
             this.style.display = 'none';
             
-            // Add a placeholder div if it's a product image
             if (this.closest('.product-image')) {
                 const placeholder = document.createElement('div');
                 placeholder.className = 'image-placeholder';
@@ -159,10 +131,8 @@ function setupImageErrorHandling() {
     });
 }
 
-// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePage);
 
-// Function to set up cart event listeners
 function setupCartEventListeners() {
     const cartIcon = document.getElementById('cart-icon');
     const cartContainer = document.getElementById('cart-container');
@@ -172,19 +142,16 @@ function setupCartEventListeners() {
     const goToCartBtn = document.getElementById('go-to-cart-btn');
     const goToCartNotification = document.getElementById('go-to-cart-notification');
     
-    // Open cart
     if (cartIcon && cartContainer && cartOverlay && !cartIcon.hasAttribute('data-listener-added')) {
-        // Click event
         cartIcon.addEventListener('click', () => {
             console.log('Cart icon clicked - opening cart');
-            refreshCart(); // Refresh cart from localStorage before showing
+            refreshCart();
             cartContainer.classList.add('active');
             cartOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             console.log('Cart should now be visible');
         });
         
-        // Keyboard navigation support
         cartIcon.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -207,7 +174,6 @@ function setupCartEventListeners() {
         });
     }
     
-    // Close cart
     if (closeCart && cartContainer && cartOverlay && !closeCart.hasAttribute('data-listener-added')) {
         closeCart.addEventListener('click', () => {
             cartContainer.classList.remove('active');
@@ -226,7 +192,6 @@ function setupCartEventListeners() {
         cartOverlay.setAttribute('data-listener-added', 'true');
     }
     
-    // Start shopping button
     if (startShopping && !startShopping.hasAttribute('data-listener-added')) {
         startShopping.addEventListener('click', () => {
             cartContainer.classList.remove('active');
@@ -236,10 +201,9 @@ function setupCartEventListeners() {
         startShopping.setAttribute('data-listener-added', 'true');
     }
     
-    // Go to cart button
     if (goToCartBtn && !goToCartBtn.hasAttribute('data-listener-added')) {
         goToCartBtn.addEventListener('click', () => {
-            refreshCart(); // Refresh cart from localStorage before showing
+            refreshCart();
             cartContainer.classList.add('active');
             cartOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -251,7 +215,6 @@ function setupCartEventListeners() {
     }
 }
 
-// Set up cart event listeners immediately if DOM is ready, otherwise wait
 if (document.readyState === 'loading') {
     console.log('DOM still loading, waiting for DOMContentLoaded');
     document.addEventListener('DOMContentLoaded', () => {
@@ -263,27 +226,17 @@ if (document.readyState === 'loading') {
     setupCartEventListeners();
 }
 
-
-
-// Buy Now button
 const buyNowBtn = document.getElementById('buy-now-btn');
 if (buyNowBtn) {
     buyNowBtn.addEventListener('click', () => {
-        // Check if cart is empty
         if (cart.length === 0) {
             alert('Your cart is empty. Please add items to your cart before checking out.');
             return;
         }
-        
-        // Redirect to payment page
         window.location.href = 'payment.html';
     });
 }
 
-// Note: Modal payment functionality has been removed.
-// All checkout processes now use the payment.html page for a consistent experience.
-
-// Add to cart with stock checking
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart-btn')) {
         const button = e.target;
@@ -292,13 +245,11 @@ document.addEventListener('click', (e) => {
         const price = parseFloat(button.dataset.price);
         const image = button.dataset.image;
         
-        // Check if product is in stock
         if (!isProductInStock(id)) {
             alert('Sorry, this item is currently sold out.');
             return;
         }
         
-        // Check if item is already in cart (unique items can only be added once)
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const existingItem = cart.find(item => item.id === id);
         
@@ -309,7 +260,6 @@ document.addEventListener('click', (e) => {
         
         addToCart(id, name, price, image);
         
-        // Animation effect
         button.innerHTML = 'Added!';
         button.style.backgroundColor = '#4CAF50';
         
@@ -320,29 +270,24 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Add to cart function for unique items
 function addToCart(id, name, price, image) {
     try {
-        // Validate input parameters
         if (!id || !name || !price || !image) {
             console.error('Invalid product data:', { id, name, price, image });
             alert('Error: Invalid product data. Please try again.');
             return;
         }
         
-        // Refresh cart from localStorage first
         cart = JSON.parse(localStorage.getItem('cart')) || [];
         
-        // For unique items, we don't increase quantity, just add once
         cart.push({
             id: String(id),
             name: String(name),
             price: Number(price),
             image: String(image),
-            quantity: 1 // Always 1 for unique items
+            quantity: 1
         });
         
-        // Save to localStorage with error handling
         try {
             localStorage.setItem('cart', JSON.stringify(cart));
         } catch (storageError) {
@@ -351,15 +296,12 @@ function addToCart(id, name, price, image) {
             return;
         }
         
-        // Update cart UI
         updateCart();
         
-        // Show "Go to Cart" notification
         const goToCartNotification = document.getElementById('go-to-cart-notification');
         if (goToCartNotification) {
             goToCartNotification.classList.add('show');
             
-            // Hide notification after 5 seconds
             setTimeout(() => {
                 goToCartNotification.classList.remove('show');
             }, 5000);
@@ -370,23 +312,18 @@ function addToCart(id, name, price, image) {
     }
 }
 
-// Update cart UI
 function updateCart() {
-    // Get fresh references to cart elements (in case they weren't available during initial load)
     const currentCartItems = document.getElementById('cart-items');
     const currentEmptyCart = document.getElementById('empty-cart');
     const currentCartTotal = document.getElementById('cart-total');
     const currentCartCount = document.querySelector('.cart-count');
     
-    // Only update if essential cart elements exist
     if (!currentCartItems || !currentEmptyCart || !currentCartTotal || !currentCartCount) {
         return;
     }
     
-    // Clear cart items
     currentCartItems.innerHTML = '';
     
-    // Check if cart is empty
     if (cart.length === 0) {
         currentEmptyCart.style.display = 'block';
         currentCartTotal.style.display = 'none';
@@ -394,22 +331,18 @@ function updateCart() {
         return;
     }
     
-    // Hide empty cart message, show total
     currentEmptyCart.style.display = 'none';
     currentCartTotal.style.display = 'block';
     
-    // Update cart count
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
     currentCartCount.textContent = totalItems;
     
-    // Calculate subtotal
     const subtotal = cart.reduce((total, item) => {
         const itemPrice = parseFloat(item.price) || 0;
         const itemTotal = itemPrice * item.quantity;
         return total + itemTotal;
     }, 0);
     
-    // Get fresh references for optional elements
     const currentCartSubtotal = document.getElementById('cart-subtotal');
     const currentCartTotalAmount = document.getElementById('cart-total-amount');
     
@@ -417,10 +350,8 @@ function updateCart() {
         currentCartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
     }
     
-    // Calculate total (no shipping or tax)
     const total = subtotal;
     
-    // Debug: Log the calculation
     console.log('Cart calculation:', {
         subtotal: subtotal,
         total: total,
@@ -432,7 +363,6 @@ function updateCart() {
         currentCartTotalAmount.textContent = `₹${total.toFixed(2)}`;
     }
     
-    // Add items to cart
     cart.forEach(item => {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
@@ -454,8 +384,6 @@ function updateCart() {
         currentCartItems.appendChild(cartItem);
     });
     
-    // Add event listeners for remove buttons only (no quantity controls for unique items)
-    
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', () => {
             removeItem(button.dataset.id);
@@ -463,11 +391,7 @@ function updateCart() {
     });
 }
 
-// Note: Quantity functions removed - each thrift item is unique (qty always 1)
-
-// Remove item
 function removeItem(id) {
-    // Refresh cart from localStorage first
     cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart = cart.filter(item => item.id !== id);
     
@@ -475,7 +399,6 @@ function removeItem(id) {
     updateCart();
 }
 
-// Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -485,11 +408,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop - 80, // Adjust for fixed header
+                top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
             
-            // Close mobile menu if open
             if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
@@ -498,7 +420,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll animations
 const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -514,12 +435,9 @@ const observer = new IntersectionObserver((entries, observer) => {
     });
 }, observerOptions);
 
-// Observe elements with animation classes
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize cart
     updateCart();
     
-    // Update cart count on page load
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCount = document.querySelector('.cart-count');
     if (cartCount) {
@@ -527,60 +445,47 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCount.textContent = totalItems;
     }
     
-    // Product cards animation
     document.querySelectorAll('.product-card').forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
         observer.observe(card);
     });
     
-    // About section animation
     const aboutImage = document.querySelector('.about-image');
     const aboutText = document.querySelector('.about-text');
     
     if (aboutImage) observer.observe(aboutImage);
     if (aboutText) observer.observe(aboutText);
     
-    // Contact section animation
     const contactInfo = document.querySelector('.contact-info');
     const contactForm = document.querySelector('.contact-form');
     
     if (contactInfo) observer.observe(contactInfo);
     if (contactForm) observer.observe(contactForm);
     
-    // Form submission handling
     const contactFormElement = document.querySelector('.contact-form form');
     if (contactFormElement) {
         contactFormElement.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            // Simple validation
             if (!name || !email || !message) {
                 alert('Please fill in all required fields.');
                 return;
             }
             
-            // In a real application, you would send this data to a server
             console.log('Form submitted:', { name, email, subject, message });
-            
-            // Show success message
             alert('Thank you for your message! We will get back to you soon.');
-            
-            // Reset form
             this.reset();
         });
     }
 });
 
-// Add scroll effect for navigation only
 let scrollTimeout;
 window.addEventListener('scroll', () => {
-    // Throttle scroll events to reduce frequency
     if (scrollTimeout) {
         clearTimeout(scrollTimeout);
     }
@@ -588,12 +493,11 @@ window.addEventListener('scroll', () => {
     scrollTimeout = setTimeout(() => {
         const scrollPosition = window.scrollY;
         
-        // Add class to nav when scrolled
         const nav = document.querySelector('nav');
         if (scrollPosition > 100) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
-    }, 10); // Small delay to throttle
+    }, 10);
 });
