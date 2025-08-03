@@ -297,23 +297,17 @@
             
             try {
                 const formData = new FormData(this);
-                const templateParams = {
-                    from_name: formData.get('name'),
-                    from_email: formData.get('email'),
+                const formDataObj = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
                     subject: formData.get('subject'),
-                    message: formData.get('message'),
-                    to_email: 'neevstra1o1@gmail.com'
+                    message: formData.get('message')
                 };
                 
-                // Send email using EmailJS
-                const result = await emailjs.send(
-                    window.EMAIL_CONFIG.serviceId,
-                    window.EMAIL_CONFIG.templateId,
-                    templateParams,
-                    window.EMAIL_CONFIG.publicKey
-                );
+                // Use the existing submitContactForm function which has correct parameter mapping
+                const result = await submitContactForm(formDataObj);
                 
-                if (result.status === 200) {
+                if (result.success) {
                     // Show success message
                     submitBtn.textContent = 'Message Sent!';
                     submitBtn.style.backgroundColor = '#27ae60';
@@ -328,7 +322,7 @@
                         submitBtn.disabled = false;
                     }, 3000);
                 } else {
-                    throw new Error('Failed to send message');
+                    throw new Error(result.error || 'Failed to send message');
                 }
                 
             } catch (error) {
