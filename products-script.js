@@ -4,14 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section') || 'catalog';
     
-    storeOriginalOrder();
-    showSection(section);
-    initializeFilters();
+    // Wait for dynamic products to load before storing order
+    setTimeout(() => {
+        storeOriginalOrder();
+        showSection(section);
+        initializeFilters();
+    }, 500);
 });
 
 function storeOriginalOrder() {
     const productCards = document.querySelectorAll('#catalog-section .product-card');
     originalProductOrder = Array.from(productCards);
+    console.log(`📋 Stored ${originalProductOrder.length} products for filtering`);
 }
 
 function showSection(sectionName) {

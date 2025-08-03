@@ -3,22 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Neevstra - Sustainable fashion and vintage clothing. Discover unique pre-loved items with timeless style. Shop eco-friendly thrift fashion in Hyderabad.">
-    <meta name="keywords" content="thrift store, sustainable fashion, vintage clothing, pre-loved items, eco-friendly fashion, Hyderabad, second-hand clothes">
+    <meta name="description" content="Neevstra - Sustainable fashion and vintage clothing. Discover unique thrift finds, pre-loved items, and eco-friendly fashion choices. Shop conscious, live sustainably.">
+    <meta name="keywords" content="sustainable fashion, thrift store, vintage clothing, pre-loved items, eco-friendly fashion, second-hand clothes, conscious shopping, Neevstra">
     <meta name="author" content="Neevstra">
-    <meta property="og:title" content="Neevstra - Minimalist Thrift Store">
-    <meta property="og:description" content="Sustainable fashion and vintage clothing. Discover unique pre-loved items with timeless style.">
-    <meta property="og:image" content="https://i.postimg.cc/XqjJsxsm/cam-3.avif">
-    <meta property="og:url" content="https://neevstra.github.io">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Neevstra - Sustainable Fashion & Vintage Clothing">
+    <meta property="og:description" content="Discover unique thrift finds and sustainable fashion at Neevstra. Shop pre-loved items and vintage clothing for conscious, eco-friendly style.">
+    <meta property="og:image" content="https://neevstra.com/NEEVSTRA.png">
+    <meta property="og:url" content="https://neevstra.com">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Neevstra - Minimalist Thrift Store">
-    <meta name="twitter:description" content="Sustainable fashion and vintage clothing. Discover unique pre-loved items with timeless style.">
-    <meta name="twitter:image" content="https://i.postimg.cc/XqjJsxsm/cam-3.avif">
+    <meta name="twitter:title" content="Neevstra - Sustainable Fashion & Vintage Clothing">
+    <meta name="twitter:description" content="Discover unique thrift finds and sustainable fashion at Neevstra. Shop pre-loved items and vintage clothing for conscious, eco-friendly style.">
+    <meta name="twitter:image" content="https://neevstra.com/NEEVSTRA.png">
     <title>Neevstra - Minimalist Thrift Store</title>
     <link rel="icon" type="image/png" href="NEEVSTRA.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Temporary fix to make products visible */
+        .product-card {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        
+        .product-grid {
+            display: grid !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        #products {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -28,7 +51,7 @@
             <h1 onclick="window.location.href='index.html'">Neevstra</h1>
         </div>
         <div class="nav-links">
-            <a href="#home" class="active">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="products.html?section=catalog">Products</a>
             <a href="products.html?section=new-arrivals">New Arrivals</a>
             <a href="products.html?section=best-sellers">Best Sellers</a>
@@ -58,7 +81,6 @@
         </div>
         <div class="empty-cart" id="empty-cart">
             <i class="fas fa-shopping-cart"></i>
-            <p>Your cart is empty</p>
             <a href="products.html?section=catalog" class="btn-small" id="start-shopping">Start Shopping</a>
         </div>
         <div class="cart-total" id="cart-total" style="display: none;">
@@ -70,8 +92,6 @@
         </div>
     </div>
 
-
-
     <main id="main-content">
     <section id="home" class="hero">
         <div class="hero-content">
@@ -80,129 +100,11 @@
             <a href="#products" class="btn pop-in">Explore Collection</a>
         </div>
     </section>
+    
     <section id="products" class="products">
         <h2 class="section-title">Our Collection</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/XqjJsxsm/cam-3.avif" alt="Vintage Camera" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Vintage Camera</h3>
-                    <p>Classic 90s style with modern comfort. Perfect vintage camera for photography enthusiasts.</p>
-                    <span class="price">₹2,099.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=1" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Camera" data-price="2099" data-image="https://i.postimg.cc/XqjJsxsm/cam-3.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/21TXTYgF/girly-jeans.webp" alt="Acid Washed Bell Bottom" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Acid Washed Bell Bottom</h3>
-                    <p>Trendy acid washed bell bottom jeans with a vintage-inspired flare</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=2" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="2" data-name="Acid Washed Bell Bottom" data-price="699" data-image="https://i.ibb.co/21TXTYgF/girly-jeans.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/BKT6z0gs/diesel.webp" alt="Diesel Sweatshirt" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Diesel Sweatshirt</h3>
-                    <p>Stylish Diesel sweatshirt with premium quality fabric and modern design</p>
-                    <span class="price">₹849.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=3" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="3" data-name="Diesel Sweatshirt" data-price="849" data-image="https://i.ibb.co/BKT6z0gs/diesel.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/sxX2phWY/loosar.png" alt="GAP Trousers" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>GAP Trousers</h3>
-                    <p>Comfortable GAP trousers with modern fit and classic styling</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=4" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="4" data-name="GAP Trousers" data-price="699" data-image="https://i.postimg.cc/sxX2phWY/loosar.png">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/63jrL70r/wrngler.avif" alt="Wrangler Shirt" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Wrangler Shirt</h3>
-                    <p>Classic Wrangler shirt with authentic styling and comfortable fit</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=5" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="5" data-name="Wrangler Shirt" data-price="499" data-image="https://i.postimg.cc/63jrL70r/wrngler.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/SRVcNnX2/jesn1.avif" alt="ONLY Y2K Inspired Bell Bottoms" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>ONLY Y2K Inspired Bell Bottoms</h3>
-                    <p>Trendy Y2K inspired bell bottom jeans with a modern twist</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=6" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="6" data-name="ONLY Y2K Inspired Bell Bottoms" data-price="699" data-image="https://i.postimg.cc/SRVcNnX2/jesn1.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/kMFh0w5G/lp1.jpg" alt="Louis Phillippe Shirt" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Louis Phillippe Shirt</h3>
-                    <p>Classic Louis Phillippe shirt with premium quality fabric and elegant design</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=7" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="7" data-name="Louis Phillippe Shirt" data-price="499" data-image="https://i.postimg.cc/kMFh0w5G/lp1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/G3VH1PS0/ad1.jpg" alt="Adidas Track Pant" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Adidas Track Pant</h3>
-                    <p>Comfortable Adidas track pants with modern fit and quality construction</p>
-                    <span class="price">₹549.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=8" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="8" data-name="Adidas Track Pant" data-price="549" data-image="https://i.postimg.cc/G3VH1PS0/ad1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+        <div class="product-grid" id="featured">
+            <!-- Products will be loaded dynamically from PRODUCTS_DATA -->
         </div>
         <div class="view-more">
             <a href="products.html?section=catalog" class="btn">View All Products</a>
@@ -212,48 +114,81 @@
     <section id="about" class="about">
         <h2 class="section-title">About Us</h2>
         <div class="about-content">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Neevstra Store" loading="lazy" decoding="async">
-            </div>
             <div class="about-text">
-                <h3>Our Story</h3>
-                <p>Neevstra was born from a passion for sustainable fashion and a desire to give pre-loved items a second life. Founded in 2025, our curated thrift store focuses on quality, uniqueness, and environmental responsibility.</p>
+                <h3>Sustainable Fashion for a Better Tomorrow</h3>
+                <p>At Neevstra, we believe that fashion should be both stylish and sustainable. Our carefully curated collection of pre-loved and vintage items offers unique pieces that tell a story while reducing environmental impact.</p>
+                <p>Founded with a passion for sustainable living, we're committed to giving quality clothing a second life. Every item in our collection is hand-picked for its quality, style, and timeless appeal.</p>
+                <p>Join us in our mission to make fashion more sustainable, one piece at a time.</p>
                 
-                <h3>Our Mission</h3>
-                <p>We believe in reducing waste and promoting conscious consumption. Each item in our collection is carefully selected for its quality, style, and character - giving you access to sustainable fashion without compromising on aesthetics.</p>
+                <div class="about-cta">
+                    <a href="about-us.html" class="about-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Learn More About Us
+                    </a>
+                </div>
                 
-                <h3>Our Process</h3>
-                <p>Every item at Neevstra goes through a meticulous selection, cleaning, and quality check process. We ensure that each piece meets our standards of excellence before it reaches our shelves and eventually, your wardrobe.</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Unique Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2024</span>
+                        <span class="stat-label">Founded</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Sustainable</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vintage clothing store interior with curated fashion pieces" loading="lazy">
             </div>
         </div>
     </section>
+    
     <section id="contact" class="contact">
         <h2 class="section-title">Contact Us</h2>
         <div class="contact-container">
             <div class="contact-info">
+                <h3>Get In Touch</h3>
                 <div class="info-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <p> Hyderabad, Telangana 500010</p>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Hyderabad, Telangana 500054</p>
+                    </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-phone"></i>
-                    <p>+91 9392042152</p>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+91 9392042152</p>
+                    </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-envelope"></i>
-                    <p>neevstra1o1@gmail.com</p>
+                    <div>
+                        <h4>Email</h4>
+                        <p>neevstra1o1@gmail.com</p>
+                    </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-clock"></i>
-                    <p>Mon-Sat: 10am - 7pm<br>Sunday: 12pm - 5pm</p>
+                    <div>
+                        <h4>Hours</h4>
+                        <p>Monday to Saturday: 10AM-7PM<br>Sunday: 12PM-5PM</p>
+                    </div>
                 </div>
                 <div class="social-links">
-                    <a href="https://www.instagram.com/neevstra/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="https://www.instagram.com/neevstra/?utm_source=ig_web_button_share_sheet" target="_blank" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Follow us on Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Follow us on Pinterest"><i class="fab fa-pinterest"></i></a>
                 </div>
             </div>
             <div class="contact-form">
+                <h3>Send Us a Message</h3>
                 <form id="homeContactForm">
                     <div class="form-group">
                         <label for="home-name">Name</label>
@@ -289,54 +224,62 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="NEEVSTRA.png" alt="Neevstra Logo" class="footer-logo-img">
+                <div class="footer-brand-text">Neevstra</div>
+                <div class="footer-tagline">Sustainable Fashion. Timeless Style.</div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
             </div>
             <div class="footer-links">
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Shop</h3>
-                        <div class="footer-section-content">
-                            <a href="products.html?section=catalog">All Products</a>
-                            <a href="products.html?section=new-arrivals">New Arrivals</a>
-                            <a href="products.html?section=best-sellers">Best Sellers</a>
-                            <a href="#">Sale</a>
-                        </div>
+                    <h3>Shop</h3>
+                    <div class="footer-section-content">
+                        <a href="products.html?section=catalog">All Products</a>
+                        <a href="products.html?section=new-arrivals">New Arrivals</a>
+                        <a href="products.html?section=best-sellers">Best Sellers</a>
+                        <a href="my-orders.html">My Orders</a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Information</h3>
-                        <div class="footer-section-content">
-                            <a href="about-us.html">About Us</a>
-                            <a href="sustainability.html">Sustainability</a>
-                            <a href="#">Our Process</a>
-                            <a href="#">Blog</a>
-                        </div>
+                    <h3>Company</h3>
+                    <div class="footer-section-content">
+                        <a href="about-us.html">About Us</a>
+                        <a href="sustainability.html">Sustainability</a>
+                        <a href="index.html#contact">Contact Us</a>
+                        <a href="faq.html">FAQ</a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Customer Service</h3>
-                        <div class="footer-section-content">
-                            <a href="#contact">Contact Us</a>
-                            <a href="shipping-returns.html">Shipping & Returns</a>
-                            <a href="faq.html">FAQ</a>
-                            <a href="privacy-policy.html">Privacy Policy</a>
-                        </div>
+                    <h3>Support</h3>
+                    <div class="footer-section-content">
+                        <a href="shipping-returns.html">Shipping & Returns</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="payment.html">Payment Options</a>
+                        <a href="index.html#contact">Help Center</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Neevstra. All rights reserved.</p>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Neevstra. All rights reserved.</p>
+            </div>
+            <div class="footer-credits">
+                <p>Crafted with ❤️ for sustainable fashion</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Go to Cart Notification -->
     <div id="go-to-cart-notification" class="go-to-cart-notification">
-        <p>Item added to cart!</p>
         <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
     </div>
 
     <script src="products-data.js"></script>
+    <script src="emergency-fix.js"></script>
     <script src="script.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="contact-email-config.js"></script>
@@ -345,84 +288,69 @@
         document.getElementById('homeContactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const submitBtn = document.querySelector('.home-submit-btn');
+            const submitBtn = this.querySelector('.home-submit-btn');
             const originalText = submitBtn.textContent;
             
+            // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            const formData = {
-                name: document.getElementById('home-name').value,
-                email: document.getElementById('home-email').value,
-                subject: document.getElementById('home-subject').value,
-                message: document.getElementById('home-message').value
-            };
-            
-            if (!formData.name.trim()) {
-                alert('Please enter your name.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            if (!formData.email.trim()) {
-                alert('Please enter your email address.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.email)) {
-                alert('Please enter a valid email address.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            if (!formData.subject) {
-                alert('Please select a subject for your message.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            if (!formData.message.trim()) {
-                alert('Please enter your message.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            if (formData.message.trim().length < 10) {
-                alert('Please enter a message with at least 10 characters.');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
             try {
-                if (typeof submitContactForm === 'function') {
-                    const result = await submitContactForm(formData);
+                const formData = new FormData(this);
+                const templateParams = {
+                    from_name: formData.get('name'),
+                    from_email: formData.get('email'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message'),
+                    to_email: 'neevstra1o1@gmail.com'
+                };
+                
+                // Send email using EmailJS
+                const result = await emailjs.send(
+                    window.EMAIL_CONFIG.serviceId,
+                    window.EMAIL_CONFIG.templateId,
+                    templateParams,
+                    window.EMAIL_CONFIG.publicKey
+                );
+                
+                if (result.status === 200) {
+                    // Show success message
+                    submitBtn.textContent = 'Message Sent!';
+                    submitBtn.style.backgroundColor = '#27ae60';
                     
-                    if (result.success) {
-                        alert(`Thank you! Your message has been sent successfully.\nReference ID: ${result.referenceId}\n\nWe'll get back to you within 24 hours.`);
-                        document.getElementById('homeContactForm').reset();
-                    } else {
-                        throw new Error(result.error || 'Failed to send message');
-                    }
+                    // Reset form
+                    this.reset();
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.backgroundColor = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
                 } else {
-                    console.log('Home form submitted (EmailJS not configured):', formData);
-                    alert('Thank you for your message! We will get back to you soon.\n\nNote: Email functionality is not yet configured.');
-                    document.getElementById('homeContactForm').reset();
+                    throw new Error('Failed to send message');
                 }
+                
             } catch (error) {
-                console.error('Home contact form error:', error);
-                alert('Sorry, there was an error sending your message. Please try again or contact us directly at neevstraa@gmail.com');
+                console.error('Error sending message:', error);
+                
+                // Show error message
+                submitBtn.textContent = 'Error - Try Again';
+                submitBtn.style.backgroundColor = '#e74c3c';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.disabled = false;
+                }, 3000);
             }
             
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+            // Ensure button is reset even if something goes wrong
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 10000);
         });
     </script>
     </main>

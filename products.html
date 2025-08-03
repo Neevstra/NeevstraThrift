@@ -10,7 +10,76 @@
     <title>Products - Neevstra</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <style>
+        /* Temporary fix to make products visible */
+        .product-card {
+            display: block;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        
+        .product-grid {
+            display: grid !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .product-section {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .product-section:not(.active) {
+            display: none !important;
+        }
+        
+        .product-section.active {
+            display: block !important;
+        }
+        
+        /* Fix desktop layout */
+        .catalog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .catalog-filters {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            min-width: 150px;
+        }
+        
+        /* Ensure product grid is full width */
+        .product-grid {
+            width: 100%;
+            max-width: none;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -28,9 +97,7 @@
             <a href="index.html#contact">Contact</a>
             <div class="cart-icon" id="cart-icon">
                 <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count">0</span>
-            </div>
-        </div>
+                <span class="cart-count">0</span></div>
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
@@ -48,7 +115,6 @@
         </div>
         <div class="empty-cart" id="empty-cart">
             <i class="fas fa-shopping-cart"></i>
-            <p>Your cart is empty</p>
             <a href="#" onclick="showSection('catalog')" class="btn-small" id="start-shopping">Start Shopping</a>
         </div>
         <div class="cart-total" id="cart-total" style="display: none;">
@@ -76,7 +142,6 @@
         <div class="catalog-header">
             <div class="catalog-title">
                 <h1>Complete Product Catalog</h1>
-                <p>Browse our entire collection of sustainable fashion and accessories</p>
             </div>
             <div class="catalog-filters">
                 <div class="filter-group">
@@ -84,9 +149,7 @@
                     <select id="category-filter">
                         <option value="all">All Categories</option>
                         <option value="clothing">Clothing</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="bags">Bags</option>
-                        <option value="shoes">Shoes</option>
+                        <option value="electronics">Electronics</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -102,181 +165,7 @@
         </div>
         
         <div class="product-grid">
-            <div class="product-card" data-category="accessories">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/XqjJsxsm/cam-3.avif" alt="Vintage Camera" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Vintage Camera</h3>
-                    <p>Classic 90s style with modern comfort. Perfect vintage camera for photography enthusiasts.</p>
-                    <span class="price">₹2,099.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=1" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Camera" data-price="2099" data-image="https://i.postimg.cc/XqjJsxsm/cam-3.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/21TXTYgF/girly-jeans.webp" alt="Acid Washed Bell Bottom" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Acid Washed Bell Bottom</h3>
-                    <p>Trendy acid washed bell bottom jeans with a vintage-inspired flare</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=2" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="2" data-name="Acid Washed Bell Bottom" data-price="699" data-image="https://i.ibb.co/21TXTYgF/girly-jeans.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/BKT6z0gs/diesel.webp" alt="Diesel Sweatshirt" loading="lazy" decoding="async">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Diesel Sweatshirt</h3>
-                    <p>Stylish Diesel sweatshirt with premium quality fabric and modern design</p>
-                    <span class="price">₹849.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=3" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="3" data-name="Diesel Sweatshirt" data-price="849" data-image="https://i.ibb.co/BKT6z0gs/diesel.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/sxX2phWY/loosar.png" alt="GAP Trousers">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>GAP Trousers</h3>
-                    <p>Comfortable GAP trousers with modern fit and classic styling</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=4" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="4" data-name="GAP Trousers" data-price="699" data-image="https://i.postimg.cc/sxX2phWY/loosar.png">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/63jrL70r/wrngler.avif" alt="Wrangler Shirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Wrangler Shirt</h3>
-                    <p>Classic Wrangler shirt with authentic styling and comfortable fit</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=5" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="5" data-name="Wrangler Shirt" data-price="499" data-image="https://i.postimg.cc/63jrL70r/wrngler.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/SRVcNnX2/jesn1.avif" alt="ONLY Y2K Inspired Bell Bottoms">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>ONLY Y2K Inspired Bell Bottoms</h3>
-                    <p>Trendy Y2K inspired bell bottom jeans with a modern twist</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=6" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="6" data-name="ONLY Y2K Inspired Bell Bottoms" data-price="699" data-image="https://i.postimg.cc/SRVcNnX2/jesn1.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/kMFh0w5G/lp1.jpg" alt="Louis Phillippe Shirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Louis Phillippe Shirt</h3>
-                    <p>Classic Louis Phillippe shirt with premium quality fabric and elegant design</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=7" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="7" data-name="Louis Phillippe Shirt" data-price="499" data-image="https://i.postimg.cc/kMFh0w5G/lp1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/G3VH1PS0/ad1.jpg" alt="Adidas Track Pant">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Adidas Track Pant</h3>
-                    <p>Comfortable Adidas track pants with modern fit and quality construction</p>
-                    <span class="price">₹549.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=8" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="8" data-name="Adidas Track Pant" data-price="549" data-image="https://i.postimg.cc/G3VH1PS0/ad1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/L8pDwkCk/soya1.jpg" alt="CLEF DE SOY JEANS">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>CLEF DE SOY JEANS</h3>
-                    <p>Stylish CLEF DE SOY jeans with premium denim construction and contemporary fit</p>
-                    <span class="price">₹749.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=9" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="9" data-name="CLEF DE SOY JEANS" data-price="749" data-image="https://i.postimg.cc/L8pDwkCk/soya1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/KY9dmpCh/dry1.jpg" alt="SUPERDRY Formal Pant">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>SUPERDRY Formal Pant</h3>
-                    <p>Premium SUPERDRY formal pants with sophisticated styling and comfortable fit</p>
-                    <span class="price">₹749.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=10" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="10" data-name="SUPERDRY Formal Pant" data-price="749" data-image="https://i.postimg.cc/KY9dmpCh/dry1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" data-category="clothing">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/tJ9PDDC7/jack1.jpg" alt="JACKRON Jeans">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>JACKRON Jeans</h3>
-                    <p>Classic JACKRON jeans with authentic denim styling and comfortable fit</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=11" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="11" data-name="JACKRON Jeans" data-price="699" data-image="https://i.postimg.cc/tJ9PDDC7/jack1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Products will be loaded dynamically from PRODUCTS_DATA -->
         </div>
     </section>
 
@@ -286,127 +175,7 @@
         <p class="section-description" style="text-align: center; margin-bottom: 40px;">Discover our latest additions to the collection. Fresh finds with vintage charm.</p>
         
         <div class="product-grid">
-            <!-- NEW ARRIVALS - Recently Updated Products -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/21TXTYgF/girly-jeans.webp" alt="Acid Washed Bell Bottom">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Acid Washed Bell Bottom</h3>
-                    <p>Trendy acid washed bell bottom jeans with a vintage-inspired flare</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=2" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="2" data-name="Acid Washed Bell Bottom" data-price="699" data-image="https://i.ibb.co/21TXTYgF/girly-jeans.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.ibb.co/BKT6z0gs/diesel.webp" alt="Diesel Sweatshirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Diesel Sweatshirt</h3>
-                    <p>Stylish Diesel sweatshirt with premium quality fabric and modern design</p>
-                    <span class="price">₹849.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=3" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="3" data-name="Diesel Sweatshirt" data-price="849" data-image="https://i.ibb.co/BKT6z0gs/diesel.webp">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/sxX2phWY/loosar.png" alt="GAP Trousers">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>GAP Trousers</h3>
-                    <p>Comfortable GAP trousers with modern fit and classic styling</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=4" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="4" data-name="GAP Trousers" data-price="699" data-image="https://i.postimg.cc/sxX2phWY/loosar.png">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/XqjJsxsm/cam-3.avif" alt="Vintage Camera">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Vintage Camera</h3>
-                    <p>Classic 90s style with modern comfort. Perfect vintage camera for photography enthusiasts.</p>
-                    <span class="price">₹2,099.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=1" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Camera" data-price="2099" data-image="https://i.postimg.cc/XqjJsxsm/cam-3.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/63jrL70r/wrngler.avif" alt="Wrangler Shirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Wrangler Shirt</h3>
-                    <p>Classic Wrangler shirt with authentic styling and comfortable fit</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=5" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="5" data-name="Wrangler Shirt" data-price="499" data-image="https://i.postimg.cc/63jrL70r/wrngler.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/SRVcNnX2/jesn1.avif" alt="ONLY Y2K Inspired Bell Bottoms">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>ONLY Y2K Inspired Bell Bottoms</h3>
-                    <p>Trendy Y2K inspired bell bottom jeans with a modern twist</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=6" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="6" data-name="ONLY Y2K Inspired Bell Bottoms" data-price="699" data-image="https://i.postimg.cc/SRVcNnX2/jesn1.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/kMFh0w5G/lp1.jpg" alt="Louis Phillippe Shirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Louis Phillippe Shirt</h3>
-                    <p>Classic Louis Phillippe shirt with premium quality fabric and elegant design</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=7" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="7" data-name="Louis Phillippe Shirt" data-price="499" data-image="https://i.postimg.cc/kMFh0w5G/lp1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/G3VH1PS0/ad1.jpg" alt="Adidas Track Pant">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Adidas Track Pant</h3>
-                    <p>Comfortable Adidas track pants with modern fit and quality construction</p>
-                    <span class="price">₹549.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=8" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="8" data-name="Adidas Track Pant" data-price="549" data-image="https://i.postimg.cc/G3VH1PS0/ad1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Products will be loaded dynamically from PRODUCTS_DATA -->
         </div>
     </section>
 
@@ -416,96 +185,7 @@
         <p class="section-description" style="text-align: center; margin-bottom: 40px;">Our most popular items loved by our community. Timeless pieces that stand out.</p>
         
         <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/XqjJsxsm/cam-3.avif" alt="Vintage Camera">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Vintage Camera</h3>
-                    <p>Classic 90s style with modern comfort. Perfect vintage camera for photography enthusiasts.</p>
-                    <span class="price">₹2,099.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=1" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="1" data-name="Vintage Camera" data-price="2099" data-image="https://i.postimg.cc/XqjJsxsm/cam-3.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/63jrL70r/wrngler.avif" alt="Wrangler Shirt">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>Wrangler Shirt</h3>
-                    <p>Classic Wrangler shirt with authentic styling and comfortable fit</p>
-                    <span class="price">₹499.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=5" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="5" data-name="Wrangler Shirt" data-price="499" data-image="https://i.postimg.cc/63jrL70r/wrngler.avif">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/L8pDwkCk/soya1.jpg" alt="CLEF DE SOY JEANS">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>CLEF DE SOY JEANS</h3>
-                    <p>Stylish CLEF DE SOY jeans with premium denim construction and contemporary fit</p>
-                    <span class="price">₹749.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=9" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="9" data-name="CLEF DE SOY JEANS" data-price="749" data-image="https://i.postimg.cc/L8pDwkCk/soya1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/KY9dmpCh/dry1.jpg" alt="SUPERDRY Formal Pant">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>SUPERDRY Formal Pant</h3>
-                    <p>Premium SUPERDRY formal pants with sophisticated styling and comfortable fit</p>
-                    <span class="price">₹749.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=10" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="10" data-name="SUPERDRY Formal Pant" data-price="749" data-image="https://i.postimg.cc/KY9dmpCh/dry1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/tJ9PDDC7/jack1.jpg" alt="JACKRON Jeans">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>JACKRON Jeans</h3>
-                    <p>Classic JACKRON jeans with authentic denim styling and comfortable fit</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=11" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="11" data-name="JACKRON Jeans" data-price="699" data-image="https://i.postimg.cc/tJ9PDDC7/jack1.jpg">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://i.postimg.cc/sxX2phWY/loosar.png" alt="GAP Trousers">
-                    <div class="stock-badge available">Available</div>
-                </div>
-                <div class="product-info">
-                    <h3>GAP Trousers</h3>
-                    <p>Comfortable GAP trousers with modern fit and classic styling</p>
-                    <span class="price">₹699.00</span>
-                    <div class="product-buttons">
-                        <a href="product-detail.html?id=4" class="btn-small">View Details</a>
-                        <button class="btn-small add-to-cart-btn" data-id="4" data-name="GAP Trousers" data-price="699" data-image="https://i.postimg.cc/sxX2phWY/loosar.png">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Products will be loaded dynamically from PRODUCTS_DATA -->
         </div>
     </section>
 
@@ -514,55 +194,62 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="NEEVSTRA.png" alt="Neevstra Logo" class="footer-logo-img">
+                <div class="footer-brand-text">Neevstra</div>
+                <div class="footer-tagline">Sustainable Fashion. Timeless Style.</div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
             </div>
             <div class="footer-links">
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Shop</h3>
-                        <div class="footer-section-content">
-                            <a href="#" onclick="showSection('catalog')">All Products</a>
-                            <a href="#" onclick="showSection('new-arrivals')">New Arrivals</a>
-                            <a href="#" onclick="showSection('best-sellers')">Best Sellers</a>
-                            <a href="#">Sale</a>
-                        </div>
+                    <h3>Shop</h3>
+                    <div class="footer-section-content">
+                        <a href="products.html?section=catalog">All Products</a>
+                        <a href="products.html?section=new-arrivals">New Arrivals</a>
+                        <a href="products.html?section=best-sellers">Best Sellers</a>
+                        <a href="my-orders.html">My Orders</a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Information</h3>
-                        <div class="footer-section-content">
-                            <a href="about-us.html">About Us</a>
-                            <a href="sustainability.html">Sustainability</a>
-                            <a href="#">Our Process</a>
-                            <a href="#">Blog</a>
-                        </div>
+                    <h3>Company</h3>
+                    <div class="footer-section-content">
+                        <a href="about-us.html">About Us</a>
+                        <a href="sustainability.html">Sustainability</a>
+                        <a href="index.html#contact">Contact Us</a>
+                        <a href="faq.html">FAQ</a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <div class="footer-section">
-                        <h3>Customer Service</h3>
-                        <div class="footer-section-content">
-                            <a href="index.html#contact">Contact Us</a>
-                            <a href="shipping-returns.html">Shipping & Returns</a>
-                            <a href="faq.html">FAQ</a>
-                            <a href="privacy-policy.html">Privacy Policy</a>
-                        </div>
+                    <h3>Support</h3>
+                    <div class="footer-section-content">
+                        <a href="shipping-returns.html">Shipping & Returns</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="payment.html">Payment Options</a>
+                        <a href="index.html#contact">Help Center</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Neevstra. All rights reserved.</p>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Neevstra. All rights reserved.</p>
+            </div>
+            <div class="footer-credits">
+                <p>Crafted with ❤️ for sustainable fashion</p>
+            </div>
         </div>
     </footer>
 
     <!-- Go to Cart Notification -->
     <div id="go-to-cart-notification" class="go-to-cart-notification">
-        <p>Item added to cart!</p>
         <button id="go-to-cart-btn" class="btn-small">Go to Cart</button>
     </div>
 
     <script src="products-data.js"></script>
+    <script src="emergency-fix.js"></script>
     <script src="script.js"></script>
     <script src="products-script.js"></script>
 </body>

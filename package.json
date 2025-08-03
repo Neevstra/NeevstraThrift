@@ -1,0 +1,22 @@
+{
+  "name": "neevstra-thrift-product-manager",
+  "version": "1.0.0",
+  "description": "Product management system for Neevstra Thrift Store",
+  "main": "product-manager.js",
+  "scripts": {
+    "start": "node product-manager.js",
+    "add": "node product-manager.js add",
+    "update": "node product-manager.js update",
+    "delete": "node product-manager.js delete",
+    "list": "node product-manager.js list",
+    "find": "node product-manager.js find"
+  },
+  "keywords": ["thrift", "ecommerce", "product-management"],
+  "author": "Neevstra Thrift",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "readline-sync": "^1.4.10"
+  }
+}
