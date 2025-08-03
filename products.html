@@ -252,5 +252,26 @@
     <script src="emergency-fix.js"></script>
     <script src="script.js"></script>
     <script src="products-script.js"></script>
+    
+    <script>
+        // Navbar scroll effect
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = window.scrollY;
+                
+                const nav = document.querySelector('nav');
+                if (scrollPosition > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }, 10);
+        });
+    </script>
 </body>
 </html>

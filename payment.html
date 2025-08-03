@@ -912,6 +912,25 @@
                 // Don't redirect - stay on checkout page
             }
         });
+        
+        // Navbar scroll effect
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = window.scrollY;
+                
+                const nav = document.querySelector('nav');
+                if (scrollPosition > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }, 10);
+        });
     </script>
 </body>
 </html>
