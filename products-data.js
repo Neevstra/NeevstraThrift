@@ -87,7 +87,7 @@ const PRODUCTS_DATA = [
         ],
         "material": "Cotton",
         "era": "2022",
-        "inStock": true,
+        "inStock": false,
         "category": "clothing",
         "tags": [
             "trousers",
@@ -240,7 +240,7 @@ const PRODUCTS_DATA = [
         ],
         "material": "Cloth",
         "era": "2022",
-        "inStock": true,
+        "inStock": false,
         "category": "clothing",
         "tags": [
             "formal pants",
