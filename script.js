@@ -272,9 +272,18 @@ document.addEventListener('click', (e) => {
 
 function addToCart(id, name, price, image) {
     try {
-        if (!id || !name || !price || !image) {
+        // Validate inputs
+        if (!id || !name || !image) {
             console.error('Invalid product data:', { id, name, price, image });
             alert('Error: Invalid product data. Please try again.');
+            return;
+        }
+        
+        // Ensure price is a valid number
+        const numericPrice = parseFloat(price);
+        if (isNaN(numericPrice)) {
+            console.error('Invalid price value:', price);
+            alert('Error: Invalid product price. Please try again.');
             return;
         }
         
@@ -283,7 +292,7 @@ function addToCart(id, name, price, image) {
         cart.push({
             id: String(id),
             name: String(name),
-            price: Number(price),
+            price: numericPrice,
             image: String(image),
             quantity: 1
         });
@@ -364,6 +373,14 @@ function updateCart() {
     }
     
     cart.forEach(item => {
+        // Ensure item price is a valid number
+        const itemPrice = parseFloat(item.price);
+        if (isNaN(itemPrice)) {
+            console.error('Invalid price for item in cart:', item);
+            // Skip items with invalid prices
+            return;
+        }
+        
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
@@ -372,7 +389,7 @@ function updateCart() {
             </div>
             <div class="cart-item-details">
                 <h4 class="cart-item-title">${item.name}</h4>
-                <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                <div class="cart-item-price">₹${itemPrice.toFixed(2)}</div>
                 <div class="cart-item-quantity">
                     <span class="unique-item-label">Unique Item - Qty: 1</span>
                     <div class="remove-item" data-id="${item.id}">
@@ -438,7 +455,7 @@ const observer = new IntersectionObserver((entries, observer) => {
 document.addEventListener('DOMContentLoaded', () => {
     updateCart();
     
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCount = document.querySelector('.cart-count');
     if (cartCount) {
         const totalItems = cart.reduce((total, item) => total + item.quantity, 0);

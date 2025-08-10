@@ -65,10 +65,10 @@ function createEmergencyProductCard(product) {
                 <span class="price">${product.price}</span>
                 <div class="product-buttons">
                     <a href="product-detail.html?id=${product.id}" class="btn-small">View Details</a>
-                    <button class="btn-small add-to-cart-btn" 
-                            data-id="${product.id}" 
-                            data-name="${product.name}" 
-                            data-price="${product.priceValue}" 
+                    <button class="btn-small add-to-cart-btn"
+                            data-id="${product.id}"
+                            data-name="${product.name}"
+                            data-price="${typeof product.priceValue !== 'undefined' ? product.priceValue : (parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0)}"
                             data-image="${product.image}"
                             ${buttonDisabled}>${buttonText}</button>
                 </div>

@@ -63,7 +63,7 @@ const PRODUCTS_DATA = [
         ],
         "material": "Cotton Blend",
         "era": "2020",
-        "inStock": true,
+        "inStock": false,
         "category": "clothing",
         "tags": [
             "sweatshirt",
