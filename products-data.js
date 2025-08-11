@@ -139,7 +139,7 @@ const PRODUCTS_DATA = [
         ],
         "material": "Jean",
         "era": "2018",
-        "inStock": true,
+        "inStock": false,
         "category": "clothing",
         "tags": [
             "jeans",
@@ -271,6 +271,126 @@ const PRODUCTS_DATA = [
             "jeans",
             "jackron",
             "denim",
+            "casual",
+            "everyday",
+            "branded"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Ralph Lauren Track Pants",
+        "description": "Experience a blend of classic style and modern comfort with Ralph Lauren track pants. Crafted from premium, soft fabric, these track pants offer a relaxed fit that’s perfect for both casual wear and athletic activities. Featuring the iconic Ralph Lauren logo embroidered or printed subtly, they add a touch of timeless elegance to your sporty look. Designed with an elastic waistband and adjustable drawstring, they ensure a personalized fit, while ribbed cuffs provide a streamlined silhouette. Whether you’re hitting the gym, running errands, or lounging at home, Ralph Lauren track pants deliver effortless style and lasting comfort.",
+        "price": "₹699.00",
+        "priceValue": 699,
+        "image": "https://i.postimg.cc/XYzpcnPn/IMG-20250809-135446-1.avif",
+        "images": [
+            "https://i.postimg.cc/XYzpcnPn/IMG-20250809-135446-1.avif",
+            "https://i.postimg.cc/dVYKbpTG/IMG-20250809-153022-1.avif",
+            "https://i.postimg.cc/dVYKbpTG/IMG-20250809-153022-1.avif"
+        ],
+        "material": "Cotton Blend",
+        "era": "2019",
+        "inStock": true,
+        "category": "clothing",
+        "tags": [
+            "tracks",
+            "cotton blend",
+            "casual",
+            "everyday",
+            "branded"
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Flying Machine Jeans",
+        "description": "Step into effortless style with Flying Machine jeans, designed for the modern, youthful wardrobe. Known for their comfortable fit and durable denim, these jeans combine classic craftsmanship with contemporary trends. Whether you prefer a slim, regular, or relaxed cut, Flying Machine jeans offer versatile options that suit any occasion—from casual outings to weekend adventures. Crafted with quality stitching and attention to detail, they provide lasting wear and a flattering silhouette. Perfect for those who want stylish, affordable denim that never goes out of fashion.",
+        "price": "₹899.00",
+        "priceValue": 899,
+        "image": "https://i.postimg.cc/4y0xv58B/IMG-20250809-131710-1.avif",
+        "images": [
+            "https://i.postimg.cc/4y0xv58B/IMG-20250809-131710-1.avif",
+            "https://i.postimg.cc/pLHps0W6/IMG-20250809-131718-1.avif",
+            "https://i.postimg.cc/pLHps0W6/IMG-20250809-131718-1.avif"
+        ],
+        "material": "Jeans",
+        "era": "2018",
+        "inStock": true,
+        "category": "clothing",
+        "tags": [
+            "jeans",
+            "slimfit",
+            "casual",
+            "everyday",
+            "branded"
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Netplay Formal Pants",
+        "description": "Elevate your formal wardrobe with Netplay formal pants, tailored for a sharp and contemporary look. Crafted from high-quality, breathable fabric, these trousers offer all-day comfort without compromising on style. Designed with a modern slim or regular fit, they feature a flat front, clean lines, and minimal detailing—making them perfect for office wear, business meetings, or formal events. Pair them with a crisp shirt and blazer for a polished appearance. Netplay formal pants deliver sophistication, versatility, and value—ideal for today’s modern professional.",
+        "price": "₹699.00",
+        "priceValue": 699,
+        "image": "https://i.postimg.cc/5tzKf2d0/IMG-20250809-131933-1.avif",
+        "images": [
+            "https://i.postimg.cc/5tzKf2d0/IMG-20250809-131933-1.avif",
+            "https://i.postimg.cc/rmQ1kBms/IMG-20250809-132022-1.avif",
+            "https://i.postimg.cc/rmQ1kBms/IMG-20250809-132022-1.avif"
+        ],
+        "material": "Cotton",
+        "era": "2020",
+        "inStock": true,
+        "category": "clothing",
+        "tags": [
+            "cotton",
+            "relaxfit",
+            "casual",
+            "everyday",
+            "branded"
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Netplay Formal Pants",
+        "description": "Elevate your formal wardrobe with Netplay formal pants, tailored for a sharp and contemporary look. Crafted from high-quality, breathable fabric, these trousers offer all-day comfort without compromising on style. Designed with a modern slim or regular fit, they feature a flat front, clean lines, and minimal detailing—making them perfect for office wear, business meetings, or formal events. Pair them with a crisp shirt and blazer for a polished appearance. Netplay formal pants deliver sophistication, versatility, and value—ideal for today’s modern professional.",
+        "price": "₹699.00",
+        "priceValue": 699,
+        "image": "https://i.postimg.cc/1z0Tp3Wd/IMG-20250809-132512-1.avif",
+        "images": [
+            "https://i.postimg.cc/1z0Tp3Wd/IMG-20250809-132512-1.avif",
+            "https://i.postimg.cc/d0WfWxYR/IMG-20250809-132333-1.avif",
+            "https://i.postimg.cc/d0WfWxYR/IMG-20250809-132333-1.avif"
+        ],
+        "material": "Cotton",
+        "era": "2020",
+        "inStock": true,
+        "category": "clothing",
+        "tags": [
+            "cotton",
+            "relaxfit",
+            "casual",
+            "everyday",
+            "branded"
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Tapout Track Pant",
+        "description": "Push your limits in style with Tapout track pants, built for performance and comfort. Designed with athletes in mind, these track pants feature moisture-wicking fabric that keeps you dry during intense workouts or casual wear. With a modern athletic fit, elastic waistband, and adjustable drawstring, they ensure a secure and comfortable feel. Side pockets add functionality, while the bold Tapout branding brings an edge of attitude and confidence. Whether you're training, running, or just kicking back, Tapout track pants deliver the perfect mix of style, mobility, and durability.",
+        "price": "₹699.00",
+        "priceValue": 699,
+        "image": "https://i.postimg.cc/J07G10gC/IMG-20250809-133955-1.avif",
+        "images": [
+            "https://i.postimg.cc/J07G10gC/IMG-20250809-133955-1.avif",
+            "https://i.postimg.cc/sXT34cnb/IMG-20250809-134010-1.avif",
+            "https://i.postimg.cc/sXT34cnb/IMG-20250809-134010-1.avif"
+        ],
+        "material": "Cotton",
+        "era": "2020",
+        "inStock": true,
+        "category": "clothing",
+        "tags": [
+            "cotton",
+            "relaxfit",
             "casual",
             "everyday",
             "branded"
