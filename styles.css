@@ -808,7 +808,7 @@ nav:hover {
     background: 
         linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%),
         linear-gradient(45deg, rgba(211, 202, 171, 0.1) 0%, transparent 50%),
-        url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        url('https://i.postimg.cc/bw00NDVs/trashed-1756825261-file-0000000069a061fd80120d2f077c17ed.png') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -891,18 +891,6 @@ nav:hover {
     position: relative;
 }
 
-.hero-content h1::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #ffffff, transparent);
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
-}
 
 .hero-content p {
     font-size: 1.8rem;
