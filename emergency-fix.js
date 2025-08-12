@@ -54,7 +54,7 @@ function createEmergencyProductCard(product) {
         : product.description;
 
     return `
-        <div class="product-card" data-category="${product.category}">
+        <div class="product-card" data-category="${product.category}" data-id="${product.id}">
             <div class="product-image">
                 <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async">
                 <div class="stock-badge ${stockStatus}">${stockText}</div>
@@ -64,13 +64,17 @@ function createEmergencyProductCard(product) {
                 <p>${shortDescription}</p>
                 <span class="price">${product.price}</span>
                 <div class="product-buttons">
-                    <a href="product-detail.html?id=${product.id}" class="btn-small">View Details</a>
                     <button class="btn-small add-to-cart-btn"
                             data-id="${product.id}"
                             data-name="${product.name}"
                             data-price="${typeof product.priceValue !== 'undefined' ? product.priceValue : (parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0)}"
                             data-image="${product.image}"
                             ${buttonDisabled}>${buttonText}</button>
+                    <button class="btn-small buy-now-btn"
+                            data-id="${product.id}"
+                            data-name="${product.name}"
+                            data-price="${typeof product.priceValue !== 'undefined' ? product.priceValue : (parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0)}"
+                            data-image="${product.image}">Buy Now</button>
                 </div>
             </div>
         </div>

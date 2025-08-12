@@ -278,6 +278,59 @@ document.addEventListener('click', (e) => {
             button.style.backgroundColor = '';
         }, 1500);
     }
+    
+    // Handle Buy Now button clicks
+    if (e.target.classList.contains('buy-now-btn')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const button = e.target;
+        const id = button.dataset.id;
+        const name = button.dataset.name;
+        const price = parseFloat(button.dataset.price);
+        const image = button.dataset.image;
+        
+        // Add item to cart first
+        if (!isProductInStock(id)) {
+            alert('Sorry, this item is currently sold out.');
+            return;
+        }
+        
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (!existingItem) {
+            // Only add to cart if not already there
+            cart.push({
+                id: String(id),
+                name: String(name),
+                price: parseFloat(price),
+                image: String(image),
+                quantity: 1
+            });
+            
+            try {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            } catch (storageError) {
+                console.error('Failed to save cart to localStorage:', storageError);
+                alert('Error: Unable to save item to cart. Your storage may be full.');
+                return;
+            }
+        }
+        
+        // Redirect to payment page
+        window.location.href = 'payment.html';
+    }
+    
+    // Handle product card clicks for viewing details
+    if (e.target.closest('.product-card') && !e.target.classList.contains('add-to-cart-btn') && !e.target.classList.contains('buy-now-btn') && e.target.tagName !== 'BUTTON') {
+        const productCard = e.target.closest('.product-card');
+        const productId = productCard.dataset.id;
+        
+        if (productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
+        }
+    }
 });
 
 function addToCart(id, name, price, image) {
