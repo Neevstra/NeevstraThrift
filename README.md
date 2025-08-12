@@ -1,42 +1,43 @@
-# Neevstra - Sustainable Thrift Store 🌱
+# Neevstra - Sustainable Thrift Store
 
 ![Neevstra Logo](NEEVSTRA.png)
 
-## 📖 About
+## About
 
 **Neevstra** is a minimalist e-commerce website for a sustainable thrift store that promotes eco-friendly fashion by giving pre-loved clothing a second life. The platform focuses on curating high-quality vintage and second-hand items while maintaining a clean, modern aesthetic.
 
-### 🎯 Mission
+### Mission
 To promote sustainable fashion choices by connecting conscious shoppers with unique, quality pre-owned clothing that doesn't compromise on style or environmental responsibility.
 
-## ✨ Features
+## Features
 
-### 🛍️ E-commerce Functionality
+### E-commerce Functionality
 - **Product Catalog**: Browse through curated collections of vintage and thrift items
 - **Smart Cart System**: Persistent shopping cart using localStorage
 - **Order Management**: Complete checkout process with order tracking
 - **Payment Integration**: Razorpay payment gateway integration
 - **Email Notifications**: Automated order confirmations via EmailJS
+- **Product Management**: Command-line tool for adding, updating, and managing products
 
-### 📱 User Experience
+### User Experience
 - **Responsive Design**: Fully responsive across all devices
 - **Intuitive Navigation**: Clean, minimalist interface
 - **Product Filtering**: Filter by categories, price, and availability
 - **Mobile-First**: Optimized for mobile shopping experience
 
-### 📧 Email System
+### Email System
 - **Customer Confirmations**: Automated order confirmation emails
 - **Admin Notifications**: Real-time order alerts for store managers
 - **Professional Templates**: Branded email templates with order details
 
-### 📄 Content Pages
+### Content Pages
 - **About Us**: Company story and values
 - **Sustainability**: Environmental impact and initiatives
 - **FAQ**: Frequently asked questions
 - **Shipping & Returns**: Policy information
 - **Contact**: Customer support information
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend
 - **HTML5**: Semantic markup structure
@@ -44,6 +45,10 @@ To promote sustainable fashion choices by connecting conscious shoppers with uni
 - **JavaScript (ES6+)**: Interactive functionality and API integrations
 - **Font Awesome**: Icon library for UI elements
 - **Google Fonts**: Poppins font family for typography
+
+### Backend Tools
+- **Node.js**: Product management command-line tool
+- **npm**: Package management for dependencies
 
 ### External Services
 - **EmailJS**: Email service for order notifications
@@ -54,13 +59,14 @@ To promote sustainable fashion choices by connecting conscious shoppers with uni
 - **GitHub Actions**: Automated deployment pipeline
 - **VS Code**: Development environment configuration
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - A modern web browser
 - Internet connection for CDN resources
 - EmailJS account (for email functionality)
 - Razorpay account (for payment processing)
+- Node.js (for product management tool)
 
 ### Installation
 
@@ -70,7 +76,12 @@ To promote sustainable fashion choices by connecting conscious shoppers with uni
    cd NeevstraThrift
    ```
 
-2. **Serve locally**
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Serve locally**
    ```bash
    # Using Python
    python -m http.server 8000
@@ -82,12 +93,12 @@ To promote sustainable fashion choices by connecting conscious shoppers with uni
    php -S localhost:8000
    ```
 
-3. **Access the website**
+4. **Access the website**
    ```
    http://localhost:8000
    ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### EmailJS Setup
 1. Create an account at [EmailJS.com](https://www.emailjs.com/)
@@ -100,37 +111,45 @@ To promote sustainable fashion choices by connecting conscious shoppers with uni
 2. Get your API keys from the dashboard
 3. Update payment configuration in `payment.html`
 
-## 📁 Project Structure
+### Product Management Tool
+1. Use the command-line tool to manage products
+2. Run `npm start` for interactive mode
+3. Use specific commands like `npm run add` to add products
+
+## Project Structure
 
 ```
 NeevstraThrift/
-├── 📄 index.html              # Homepage
-├── 📄 products.html           # Product catalog
-├── 📄 product-detail.html     # Individual product pages
-├── 📄 payment.html            # Checkout and payment
-├── 📄 about-us.html           # Company information
-├── 📄 index.html#contact      # Contact form (integrated in homepage)
-├── 📄 sustainability.html     # Sustainability page
-├── 📄 faq.html               # FAQ page
-├── 📄 my-orders.html         # Order tracking
-├── 📄 privacy-policy.html    # Privacy policy
-├── 📄 shipping-returns.html  # Shipping information
-├── 📄 receipt.html           # Order confirmation
-├── 🎨 styles.css             # Main stylesheet
-├── ⚙️ script.js              # Core JavaScript functionality
-├── ⚙️ products-script.js     # Product-specific functionality
-├── 📧 Email Templates/
+├── index.html              # Homepage
+├── products.html           # Product catalog
+├── product-detail.html     # Individual product pages
+├── payment.html            # Checkout and payment
+├── about-us.html           # Company information
+├── index.html#contact      # Contact form (integrated in homepage)
+├── sustainability.html     # Sustainability page
+├── faq.html               # FAQ page
+├── my-orders.html         # Order tracking
+├── privacy-policy.html    # Privacy policy
+├── shipping-returns.html  # Shipping information
+├── receipt.html           # Order confirmation
+├── styles.css             # Main stylesheet
+├── script.js              # Core JavaScript functionality
+├── products-script.js     # Product-specific functionality
+├── products-data.js       # Product data (managed by product-manager.js)
+├── product-manager.js     # Product management tool
+├── package.json           # Node.js configuration
+├── Email Templates/
 │   ├── customer-email-template.html
 │   ├── admin-email-template.html
 │   ├── emailjs-setup-guide.md
 │   └── email-config-template.js
-├── 🚀 .github/workflows/
+├── .github/workflows/
 │   └── static.yml            # GitHub Actions deployment
-├── 🖼️ NEEVSTRA.png          # Brand logo
-└── 📋 LICENSE                # MIT License
+├── NEEVSTRA.png          # Brand logo
+└── LICENSE                # MIT License
 ```
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 ### Color Palette
 - **Primary**: Earthy, sustainable tones
@@ -147,7 +166,7 @@ NeevstraThrift/
 - **Minimalism**: Clean, uncluttered interfaces
 - **Sustainability**: Green design choices reflecting brand values
 
-## 🌐 Deployment
+## Deployment
 
 ### GitHub Pages (Recommended)
 The project is configured for automatic deployment to GitHub Pages:
@@ -165,15 +184,40 @@ The project is configured for automatic deployment to GitHub Pages:
 - **Vercel**: Git-based deployment
 - **Traditional Web Hosting**: Upload files via FTP
 
-## 🔧 Customization
+## Customization
 
-### Adding Products
-1. **Edit product data** in `products-data.js`
-2. **Add new products** to the `PRODUCTS_DATA` array
-3. **Set category** to 'clothing', 'accessories', 'bags', or 'shoes'
-4. **Upload product images** and update image URLs
+### Managing Products
+The website now includes a powerful product management tool:
 
-#### Adding Bags and Shoes
+1. **Interactive Mode**:
+   ```bash
+   npm start
+   ```
+
+2. **Command Line Operations**:
+   ```bash
+   # List all products
+   npm run list
+   
+   # Add a new product
+   npm run add
+   
+   # Update an existing product
+   npm run update [product-id]
+   
+   # Delete a product
+   npm run delete [product-id]
+   
+   # Find a specific product
+   npm run find [product-id]
+   ```
+
+3. **Product Data Structure**:
+   - Products are stored in `products-data.js`
+   - Changes are immediately reflected on the website
+   - No server restart required for static site
+
+### Adding Bags and Shoes
 The website includes empty category messages for bags and shoes until you add products:
 - When users select "Bags" or "Shoes" category, they see a "No products yet" message
 - Once you add products with `category: "bags"` or `category: "shoes"`, they will automatically appear
@@ -189,7 +233,7 @@ The website includes empty category messages for bags and shoes until you add pr
 2. Update EmailJS template configurations
 3. Test email functionality
 
-## 🤝 Contributing
+## Contributing
 
 1. **Fork the repository**
 2. **Create a feature branch**
@@ -206,17 +250,17 @@ The website includes empty category messages for bags and shoes until you add pr
    ```
 5. **Open a Pull Request**
 
-## 📞 Support
+## Support
 
 - **Documentation**: Check the [`emailjs-setup-guide.md`](emailjs-setup-guide.md)
 - **Issues**: Create an issue on GitHub
 - **Email**: Contact through the website's contact form
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🌟 Acknowledgments
+## Acknowledgments
 
 - **Font Awesome** for beautiful icons
 - **Google Fonts** for typography
@@ -224,7 +268,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Razorpay** for payment processing
 - **GitHub Pages** for hosting
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 - [ ] User authentication system
 - [ ] Wishlist functionality
@@ -237,6 +281,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with 💚 for sustainable fashion**
+**Made with care for sustainable fashion**
 
 *Neevstra - Where sustainability meets style*
