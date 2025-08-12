@@ -2390,14 +2390,23 @@ footer::after {
 }
 
 .empty-cart {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 2rem 0;
+    min-height: 200px;
+    text-align: center;
 }
 
 .empty-cart i {
     font-size: 3rem;
     color: var(--light-text);
     margin-bottom: 1rem;
+}
+
+.empty-cart .btn-small {
+    margin-top: 1rem;
 }
 
 .empty-cart p {
