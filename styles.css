@@ -2429,16 +2429,19 @@ footer::after {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: auto;
+    min-width: 200px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     z-index: 1001;
     animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 @keyframes slideDown {
@@ -2453,20 +2456,21 @@ footer::after {
 }
 
 .nav-links.active a {
-    margin: 0.8rem 0;
-    padding: 1rem 1.5rem;
-    border-radius: 15px;
+    margin: 0.5rem 0;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: right;
 }
 
 .nav-links.active a:hover {
     background: rgba(52, 152, 219, 0.2);
     border: 1px solid rgba(52, 152, 219, 0.3);
-    transform: translateX(10px);
+    transform: translateX(5px);
 }
 
 .menu-toggle.active i:before {

@@ -14,6 +14,16 @@ if (menuToggle && navLinks) {
             menuToggle.classList.toggle('active');
         }
     });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('active') &&
+            !navLinks.contains(e.target) &&
+            !menuToggle.contains(e.target)) {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+    });
 }
 
 const cartIcon = document.getElementById('cart-icon');
